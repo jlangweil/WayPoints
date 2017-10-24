@@ -8,22 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		189EB9DC1F95471D00BBDF90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EB9DB1F95471D00BBDF90 /* AppDelegate.swift */; };
-		189EB9DE1F95471D00BBDF90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EB9DD1F95471D00BBDF90 /* ViewController.swift */; };
 		189EB9E11F95471D00BBDF90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 189EB9DF1F95471D00BBDF90 /* Main.storyboard */; };
 		189EB9E41F95471D00BBDF90 /* WayPoints.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 189EB9E21F95471D00BBDF90 /* WayPoints.xcdatamodeld */; };
 		189EB9E61F95471D00BBDF90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 189EB9E51F95471D00BBDF90 /* Assets.xcassets */; };
 		189EB9E91F95471D00BBDF90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 189EB9E71F95471D00BBDF90 /* LaunchScreen.storyboard */; };
+		189EB9F21F954A9700BBDF90 /* AddWaypointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EB9F11F954A9700BBDF90 /* AddWaypointViewController.swift */; };
+		189EB9F41F954ACE00BBDF90 /* ListWaypointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EB9F31F954ACE00BBDF90 /* ListWaypointsViewController.swift */; };
+		18D7AF081F9945500087B9E6 /* MapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7AF071F9945500087B9E6 /* MapViewViewController.swift */; };
+		18D7AF0A1F9964C20087B9E6 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7AF091F9964C20087B9E6 /* Map.swift */; };
+		18D7AF0C1F9A6C1C0087B9E6 /* WayPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7AF0B1F9A6C1C0087B9E6 /* WayPointAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		189EB9D81F95471D00BBDF90 /* WayPoints.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WayPoints.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		189EB9DB1F95471D00BBDF90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		189EB9DD1F95471D00BBDF90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		189EB9E01F95471D00BBDF90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		189EB9E31F95471D00BBDF90 /* WayPoints.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WayPoints.xcdatamodel; sourceTree = "<group>"; };
 		189EB9E51F95471D00BBDF90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		189EB9E81F95471D00BBDF90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		189EB9EA1F95471D00BBDF90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		189EB9F11F954A9700BBDF90 /* AddWaypointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWaypointViewController.swift; sourceTree = "<group>"; };
+		189EB9F31F954ACE00BBDF90 /* ListWaypointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWaypointsViewController.swift; sourceTree = "<group>"; };
+		18D7AF071F9945500087B9E6 /* MapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewController.swift; sourceTree = "<group>"; };
+		18D7AF091F9964C20087B9E6 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		18D7AF0B1F9A6C1C0087B9E6 /* WayPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,27 @@
 		189EB9DA1F95471D00BBDF90 /* WayPoints */ = {
 			isa = PBXGroup;
 			children = (
-				189EB9DB1F95471D00BBDF90 /* AppDelegate.swift */,
-				189EB9DD1F95471D00BBDF90 /* ViewController.swift */,
+				189EB9F11F954A9700BBDF90 /* AddWaypointViewController.swift */,
+				189EB9F31F954ACE00BBDF90 /* ListWaypointsViewController.swift */,
+				18D7AF071F9945500087B9E6 /* MapViewViewController.swift */,
 				189EB9DF1F95471D00BBDF90 /* Main.storyboard */,
-				189EB9E51F95471D00BBDF90 /* Assets.xcassets */,
 				189EB9E71F95471D00BBDF90 /* LaunchScreen.storyboard */,
+				18D7AF091F9964C20087B9E6 /* Map.swift */,
+				18D7AF0B1F9A6C1C0087B9E6 /* WayPointAnnotation.swift */,
 				189EB9EA1F95471D00BBDF90 /* Info.plist */,
-				189EB9E21F95471D00BBDF90 /* WayPoints.xcdatamodeld */,
+				189EB9F01F954A4200BBDF90 /* Supporting Files */,
 			);
 			path = WayPoints;
+			sourceTree = "<group>";
+		};
+		189EB9F01F954A4200BBDF90 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				189EB9DB1F95471D00BBDF90 /* AppDelegate.swift */,
+				189EB9E51F95471D00BBDF90 /* Assets.xcassets */,
+				189EB9E21F95471D00BBDF90 /* WayPoints.xcdatamodeld */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +159,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				189EB9DE1F95471D00BBDF90 /* ViewController.swift in Sources */,
+				18D7AF081F9945500087B9E6 /* MapViewViewController.swift in Sources */,
+				189EB9F21F954A9700BBDF90 /* AddWaypointViewController.swift in Sources */,
+				18D7AF0C1F9A6C1C0087B9E6 /* WayPointAnnotation.swift in Sources */,
+				189EB9F41F954ACE00BBDF90 /* ListWaypointsViewController.swift in Sources */,
 				189EB9E41F95471D00BBDF90 /* WayPoints.xcdatamodeld in Sources */,
+				18D7AF0A1F9964C20087B9E6 /* Map.swift in Sources */,
 				189EB9DC1F95471D00BBDF90 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,7 +303,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8E4W5GT7U;
 				INFOPLIST_FILE = WayPoints/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jel.WayPoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -293,7 +319,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8E4W5GT7U;
 				INFOPLIST_FILE = WayPoints/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jel.WayPoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
