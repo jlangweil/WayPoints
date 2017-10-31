@@ -13,11 +13,12 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
-    var photo:UIImage! = nil
-    init(coordinate:CLLocationCoordinate2D,title:String?,subtitle:String?){
+    var photo:UIImage?
+    init(coordinate:CLLocationCoordinate2D,title:String?,subtitle:String?, photo:UIImage?){
         self.coordinate = coordinate
         self.title = title
         self.subtitle = subtitle
+        self.photo = photo
     }
 }
 
