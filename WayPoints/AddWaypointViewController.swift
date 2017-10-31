@@ -79,8 +79,8 @@ class AddWaypointViewController: UIViewController, UITextViewDelegate, CLLocatio
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //only one segue for now
-        //let testCoordinate = CLLocationCoordinate2D(latitude: 44.0, longitude: -73)
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Title", subtitle: waypointDescription.text, photo: imageView.image)
+        // TODO disable save button if GPS not working, allow to select own location/alt
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: waypointDescription.text, photo: imageView.image)
         let mapView = segue.destination as! MapViewViewController
         // add annotation to the array
         mapView.mapData.annotations.append(annotation)
