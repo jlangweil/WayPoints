@@ -17,6 +17,8 @@ class WayPointTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         print ("map items: \(map.annotations.count)")
+        tableView.estimatedRowHeight=104
+        tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         // be sure to reload if the model changes
@@ -35,9 +37,9 @@ class WayPointTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wayPointCell", for: indexPath)
-        let title = map.annotations[indexPath.row].title
+        let description = map.annotations[indexPath.row].subtitle
         if let wayPointCell = cell as? WayPointCustomTableCell {
-            wayPointCell.wayPointTableData = title  // replace this with a new datastructure for the whole waypoint
+            wayPointCell.wayPointTableData = description  // replace this with a new datastructure for the whole waypoint
         }
         return cell
     }

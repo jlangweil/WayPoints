@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -286,23 +287,55 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="wayPointCell" rowHeight="85" id="621-MA-531" customClass="WayPointCustomTableCell" customModule="WayPoints" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="85"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="wayPointCell" rowHeight="104" id="621-MA-531" customClass="WayPointCustomTableCell" customModule="WayPoints" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="104"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="621-MA-531" id="rkx-P9-IDq" customClass="WayPointCustomTableCell" customModule="WayPoints" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="84.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="621-MA-531" id="rkx-P9-IDq">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="103.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jit-s3-QzD">
-                                            <rect key="frame" x="8" y="8" width="42" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jit-s3-QzD">
+                                            <rect key="frame" x="111" y="5" width="223" height="18"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Sample description of a waypoint" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88S-vu-TdK">
+                                            <rect key="frame" x="110.5" y="24.5" width="223" height="71"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAM-XM-Oyq">
+                                            <rect key="frame" x="34" y="76" width="28" height="14.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7c2-PY-ihY">
+                                            <rect key="frame" x="5" y="5" width="85.5" height="64"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="7c2-PY-ihY" secondAttribute="height" multiplier="4:3" id="afm-Nj-DPx"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="jit-s3-QzD" firstAttribute="top" secondItem="7c2-PY-ihY" secondAttribute="top" id="6Cn-pd-zfs"/>
+                                        <constraint firstItem="jit-s3-QzD" firstAttribute="leading" secondItem="7c2-PY-ihY" secondAttribute="trailing" constant="20" id="7vO-Iq-lD1"/>
+                                        <constraint firstItem="7c2-PY-ihY" firstAttribute="width" secondItem="rkx-P9-IDq" secondAttribute="width" multiplier="0.25" id="FUQ-HE-FRR"/>
+                                        <constraint firstAttribute="trailing" secondItem="jit-s3-QzD" secondAttribute="trailing" constant="8" id="LTV-VE-fuO"/>
+                                        <constraint firstItem="AAM-XM-Oyq" firstAttribute="centerX" secondItem="7c2-PY-ihY" secondAttribute="centerX" id="N0V-u7-UdS"/>
+                                        <constraint firstItem="7c2-PY-ihY" firstAttribute="leading" secondItem="rkx-P9-IDq" secondAttribute="leading" constant="5" id="N3R-6x-tcs"/>
+                                        <constraint firstItem="88S-vu-TdK" firstAttribute="leading" secondItem="jit-s3-QzD" secondAttribute="leading" id="S43-ou-fER"/>
+                                        <constraint firstItem="88S-vu-TdK" firstAttribute="firstBaseline" secondItem="jit-s3-QzD" secondAttribute="baseline" constant="24" symbolType="layoutAnchor" id="SRY-cj-3dW"/>
+                                        <constraint firstAttribute="bottom" secondItem="88S-vu-TdK" secondAttribute="bottom" constant="8" id="T06-h2-ZaD"/>
+                                        <constraint firstItem="88S-vu-TdK" firstAttribute="width" secondItem="jit-s3-QzD" secondAttribute="width" id="XAN-eD-bEp"/>
+                                        <constraint firstItem="AAM-XM-Oyq" firstAttribute="firstBaseline" secondItem="7c2-PY-ihY" secondAttribute="baseline" constant="18.5" symbolType="layoutAnchor" id="Zte-mx-I46"/>
+                                        <constraint firstItem="7c2-PY-ihY" firstAttribute="top" secondItem="rkx-P9-IDq" secondAttribute="top" constant="5" id="kLO-M1-4g0"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="wayPointDescriptionLabel" destination="88S-vu-TdK" id="11J-BJ-Phc"/>
                                     <outlet property="wayPointTitleLabel" destination="jit-s3-QzD" id="sf3-vQ-HXI"/>
                                 </connections>
                             </tableViewCell>

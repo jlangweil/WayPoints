@@ -12,11 +12,12 @@ class WayPointCustomTableCell: UITableViewCell {
 
     
     @IBOutlet weak var wayPointTitleLabel: UILabel!
+    @IBOutlet weak var wayPointDescriptionLabel: UILabel!
     
     var wayPointTableData: String? { didSet {updateUI() } }
     
     private func updateUI() {
-        wayPointTitleLabel?.text = wayPointTableData // replace with bigger structure for the whole cell once designed
+        wayPointDescriptionLabel.text = wayPointTableData // replace with bigger structure for the whole cell once designed
     }
     
     override func awakeFromNib() {
