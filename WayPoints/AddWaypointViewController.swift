@@ -84,6 +84,7 @@ class AddWaypointViewController: UIViewController, UITextViewDelegate, CLLocatio
         let mapView = segue.destination as! MapViewViewController
         // add annotation to the array
         mapView.mapData.annotations.append(annotation)
+        // save to database
     }
     
     // MARK keyboard related items

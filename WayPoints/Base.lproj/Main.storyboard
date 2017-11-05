@@ -99,7 +99,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1217" y="-176"/>
+            <point key="canvasLocation" x="1294" y="-133"/>
         </scene>
         <!--Add Waypoint View Controller-->
         <scene sceneID="EYU-Gc-kMl">
@@ -142,7 +142,7 @@
                                 <rect key="frame" x="16" y="164" width="343" height="133.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                             </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cyT-zv-Qjl">
                                 <rect key="frame" x="130" y="305.5" width="225" height="297.5"/>
@@ -237,21 +237,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1948" y="-192.05397301349328"/>
-        </scene>
-        <!--List Waypoints View Controller-->
-        <scene sceneID="VHs-o1-nB1">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ffU-28-Wn4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="73k-WJ-nYc" customClass="ListWaypointsViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
-                    <button key="view" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hCr-cY-ncg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </button>
-                    <navigationItem key="navigationItem" id="bQp-Im-6gc"/>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="1217" y="558"/>
+            <point key="canvasLocation" x="2054" y="-133"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="YIN-aH-bi6">
@@ -284,12 +270,53 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="73k-WJ-nYc" kind="relationship" relationship="rootViewController" id="2dV-ft-wWq"/>
+                        <segue destination="FwB-oK-FV6" kind="relationship" relationship="rootViewController" id="luM-VS-8IQ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Iv-RY-uPC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="586.875" y="557.74647887323943"/>
+        </scene>
+        <!--Way Point Table View Controller-->
+        <scene sceneID="awy-Lr-xb2">
+            <objects>
+                <tableViewController id="FwB-oK-FV6" customClass="WayPointTableViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qxb-Cf-Onp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="wayPointCell" rowHeight="85" id="621-MA-531" customClass="WayPointCustomTableCell" customModule="WayPoints" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="85"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="621-MA-531" id="rkx-P9-IDq" customClass="WayPointCustomTableCell" customModule="WayPoints" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="84.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jit-s3-QzD">
+                                            <rect key="frame" x="8" y="8" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="wayPointTitleLabel" destination="jit-s3-QzD" id="sf3-vQ-HXI"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="FwB-oK-FV6" id="I0c-9D-xtA"/>
+                            <outlet property="delegate" destination="FwB-oK-FV6" id="5BX-SG-MMn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="cvM-93-K6A"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6w8-Kr-1i2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1324" y="557.27136431784118"/>
         </scene>
         <!--Map-->
         <scene sceneID="i1e-BY-msf">
