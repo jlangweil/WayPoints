@@ -21,6 +21,11 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // adjust fonts
+        
+        // set title
+        navigationItem.title = "WayPoints Map"
+        
         // set up some sample data for now, get from Model later
         let latitude = 40.0
         let longitude = -74.0
@@ -48,6 +53,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             annotationView?.canShowCallout = false
         }else{
             annotationView?.annotation = annotation
+            
         }
         annotationView?.image = UIImage(named: "waypointpin")
         // TODO: Make sure pin is transparent
@@ -70,9 +76,28 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         //let button = UIButton(frame: calloutView.starbucksPhone.frame)
         //button.addTarget(self, action: #selector(ViewController.callPhoneNumber(sender:)), for: .touchUpInside)
         //calloutView.addSubview(button)
+        
+        //test
+        let resizedWidth = mapView.frame.width * 0.9
+        calloutView.frame.size = CGSize(width: resizedWidth, height: resizedWidth/2.418)
+        
         calloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -calloutView.bounds.size.height*0.52)
         view.addSubview(calloutView)
+        /*let widthConstraint = NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: mapView, attribute: .width, multiplier: 0.25, constant: 0.0)
+        let heightConstraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: mapView, attribute: .height, multiplier: 0.40, constant: 0.0)
+        mapView.addConstraints([widthConstraint, heightConstraint])*/
+        
         mapView.setCenter((view.annotation?.coordinate)!, animated: true)
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if view.isKind(of: MKAnnotationView.self)
+        {
+            for subview in view.subviews
+            {
+                subview.removeFromSuperview()
+            }
+        }
     }
     
     /*

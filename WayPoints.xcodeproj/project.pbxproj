@@ -12,6 +12,7 @@
 		180500291FA901CF00644FF4 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180500281FA901CF00644FF4 /* AnnotationView.swift */; };
 		1805002B1FAF978100644FF4 /* WayPointTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805002A1FAF978100644FF4 /* WayPointTableViewController.swift */; };
 		1805002D1FAF9AFF00644FF4 /* WayPointCustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805002C1FAF9AFF00644FF4 /* WayPointCustomTableCell.swift */; };
+		1805002F1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805002E1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift */; };
 		189EB9DC1F95471D00BBDF90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EB9DB1F95471D00BBDF90 /* AppDelegate.swift */; };
 		189EB9E11F95471D00BBDF90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 189EB9DF1F95471D00BBDF90 /* Main.storyboard */; };
 		189EB9E41F95471D00BBDF90 /* WayPoints.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 189EB9E21F95471D00BBDF90 /* WayPoints.xcdatamodeld */; };
@@ -29,6 +30,7 @@
 		180500281FA901CF00644FF4 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		1805002A1FAF978100644FF4 /* WayPointTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointTableViewController.swift; sourceTree = "<group>"; };
 		1805002C1FAF9AFF00644FF4 /* WayPointCustomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointCustomTableCell.swift; sourceTree = "<group>"; };
+		1805002E1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointCustomTableCellData.swift; sourceTree = "<group>"; };
 		189EB9D81F95471D00BBDF90 /* WayPoints.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WayPoints.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		189EB9DB1F95471D00BBDF90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		189EB9E01F95471D00BBDF90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				18D7AF0B1F9A6C1C0087B9E6 /* WayPointAnnotation.swift */,
 				1805002A1FAF978100644FF4 /* WayPointTableViewController.swift */,
 				1805002C1FAF9AFF00644FF4 /* WayPointCustomTableCell.swift */,
+				1805002E1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift */,
 				189EB9EA1F95471D00BBDF90 /* Info.plist */,
 				189EB9F01F954A4200BBDF90 /* Supporting Files */,
 			);
@@ -172,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1805002F1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift in Sources */,
 				18D7AF081F9945500087B9E6 /* MapViewViewController.swift in Sources */,
 				180500291FA901CF00644FF4 /* AnnotationView.swift in Sources */,
 				189EB9F21F954A9700BBDF90 /* AddWaypointViewController.swift in Sources */,

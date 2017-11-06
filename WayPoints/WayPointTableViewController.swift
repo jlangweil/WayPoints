@@ -38,8 +38,12 @@ class WayPointTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wayPointCell", for: indexPath)
         let description = map.annotations[indexPath.row].subtitle
+        let userName = map.annotations[indexPath.row].title
+        let time = map.annotations[indexPath.row].time
+        let image = map.annotations[indexPath.row].photo
         if let wayPointCell = cell as? WayPointCustomTableCell {
-            wayPointCell.wayPointTableData = description  // replace this with a new datastructure for the whole waypoint
+            let cellData = WayPointCustomTableCellData(image: image, time: time, user: userName, description: description)
+            wayPointCell.wayPointTableData = cellData
         }
         return cell
     }

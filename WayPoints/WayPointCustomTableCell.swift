@@ -11,13 +11,18 @@ import UIKit
 class WayPointCustomTableCell: UITableViewCell {
 
     
+    @IBOutlet weak var wayPointImageView: UIImageView!
     @IBOutlet weak var wayPointTitleLabel: UILabel!
     @IBOutlet weak var wayPointDescriptionLabel: UILabel!
+    @IBOutlet weak var wayPointTimeLabel: UILabel!
     
-    var wayPointTableData: String? { didSet {updateUI() } }
+    var wayPointTableData: WayPointCustomTableCellData? { didSet {updateUI() } }
     
     private func updateUI() {
-        wayPointDescriptionLabel.text = wayPointTableData // replace with bigger structure for the whole cell once designed
+        wayPointDescriptionLabel.text = wayPointTableData?.description
+        wayPointImageView.image = wayPointTableData?.image
+        wayPointTimeLabel.text = wayPointTableData?.time
+        wayPointTitleLabel.text = wayPointTableData?.user
     }
     
     override func awakeFromNib() {
