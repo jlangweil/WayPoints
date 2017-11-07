@@ -68,6 +68,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             
         }
         annotationView?.image = UIImage(named: "waypointpin")
+       
         // TODO: Make sure pin is transparent
         return annotationView
     }
@@ -94,11 +95,16 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         calloutView.frame.size = CGSize(width: resizedWidth, height: resizedWidth/2.418)
         
         calloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -calloutView.bounds.size.height*0.52)
-        view.addSubview(calloutView)
-        /*let widthConstraint = NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: mapView, attribute: .width, multiplier: 0.25, constant: 0.0)
-        let heightConstraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: mapView, attribute: .height, multiplier: 0.40, constant: 0.0)
-        mapView.addConstraints([widthConstraint, heightConstraint])*/
         
+        // add gesture to callout
+        let handler = #selector(self.openImage(byReactingTo:))
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: handler)
+        tapRecognizer.numberOfTapsRequired=1
+        calloutView.wayPointImage.isUserInteractionEnabled=true
+        calloutView.wayPointImage.addGestureRecognizer(tapRecognizer)
+        
+        // add custom callout view to annotation and recenter map
+        view.addSubview(calloutView)
         mapView.setCenter((view.annotation?.coordinate)!, animated: true)
     }
     
@@ -110,6 +116,11 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                 subview.removeFromSuperview()
             }
         }
+    }
+    
+    @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
+    {
+        var i=0
     }
     
     // Used to get the city,state of the coordinate
