@@ -76,18 +76,22 @@ class AddWaypointViewController: UIViewController, UITextViewDelegate, CLLocatio
     
     // doSave action and pop up dialog and remain on page, or segue?
     // wait to enable button until have location? either from GPS or some UI element
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //only one segue for now
+    @IBAction func saveWayPoint(_ sender: Any) {
         if imageView.image == nil {
             imageView.image = UIImage(named: "default")
         }
         // TODO disable save button if GPS not working, allow to select own location/alt
         let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: waypointDescription.text, photo: imageView.image, time:"12:00PM")
-        let mapView = segue.destination as! MapViewViewController
+        let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
         // add annotation to the array
-        mapView.mapData.annotations.append(annotation)
-        // save to database
+        mapViewController.waypoints.append(annotation)
+        // update map
+        mapViewController.updateMap()
+        // TODO update tableview here as well
+        
+        
+        
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK keyboard related items

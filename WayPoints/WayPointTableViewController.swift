@@ -10,18 +10,28 @@ import UIKit
 
 class WayPointTableViewController: UITableViewController {
 
-    var map = Map()
+    //var map = Map()
+    var waypoints : [WayPointAnnotation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        print ("map items: \(map.annotations.count)")
+        //print ("map items: \(map.annotations.count)")
         tableView.estimatedRowHeight=104
         tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         // be sure to reload if the model changes
+        waypoints = getWayPointsFromMapView()
+        
+    }
+    
+    private func getWayPointsFromMapView() -> [WayPointAnnotation]{
+        let tabController = self.tabBarController
+        let navController = tabController?.viewControllers![0] as! UINavigationController
+        let mapVC = navController.topViewController as! MapViewViewController
+        return mapVC.waypoints
     }
 
 
@@ -32,15 +42,16 @@ class WayPointTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return map.annotations.count
+        //return map.annotations.count
+        return waypoints.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wayPointCell", for: indexPath)
-        let description = map.annotations[indexPath.row].subtitle
-        let userName = map.annotations[indexPath.row].title
-        let time = map.annotations[indexPath.row].time
-        let image = map.annotations[indexPath.row].photo
+        let description = waypoints[indexPath.row].subtitle
+        let userName = waypoints[indexPath.row].title
+        let time = waypoints[indexPath.row].time
+        let image = waypoints[indexPath.row].photo
         if let wayPointCell = cell as? WayPointCustomTableCell {
             let cellData = WayPointCustomTableCellData(image: image, time: time, user: userName, description: description)
             wayPointCell.wayPointTableData = cellData

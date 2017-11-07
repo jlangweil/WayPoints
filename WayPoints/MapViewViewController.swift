@@ -11,13 +11,16 @@ import MapKit
 
 class MapViewViewController: UIViewController, MKMapViewDelegate {
 
+    // The Model
+    var waypoints : [WayPointAnnotation] = []
+    
     var mapCenter : CLLocationCoordinate2D? {
         didSet {
             mapView.setCenter(mapCenter!, animated: true)
         }
     }
     
-    var mapData = Map()
+    //var mapData = Map()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +37,18 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         //let range = 1000.0
         mapCenter = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         // Do any additional setup after loading the view.
-        mapView.addAnnotations(mapData.annotations)
-        
+        //mapView.addAnnotations(mapData.annotations)
+        if waypoints.count == 0 {
+            populateTestData()
+        }
+        // here is where we will get the data from the database based on a filter
+        //mapView.addAnnotations(waypoints)
+        updateMap()
         // use the mapData object to populate the points in the map
+    }
+    
+    public func updateMap() {
+        mapView.addAnnotations(waypoints)
     }
 
     @IBOutlet weak var mapView: MKMapView!
@@ -100,14 +112,55 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Used to get the city,state of the coordinate
+    func getPlacemark(forLocation location: CLLocation, completionHandler: @escaping (CLPlacemark?, String?) -> ()) {
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(location, completionHandler: {
+            placemarks, error in
+            
+            if let err = error {
+                completionHandler(nil, err.localizedDescription)
+            } else if let placemarkArray = placemarks {
+                if let placemark = placemarkArray.first {
+                    completionHandler(placemark, nil)
+                } else {
+                    completionHandler(nil, "Placemark was nil")
+                }
+            } else {
+                completionHandler(nil, "Unknown error")
+            }
+        })
+        
     }
-    */
+   /* override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }*/
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       var test = 0
+    }*/
+    
+    private func populateTestData() {
+        waypoints.removeAll()
+        
+        // set up some test points
+        /*testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -70)
+        getPlacemark(forLocation: CLLocation(latitude: 30,longitude: -90)) { (placemark, error) in
+            
+            print("test: \( placemark?.administrativeArea)")
+        }*/
+        let testImage = UIImage(named: "default")
+        var testCoordinate : CLLocationCoordinate2D
+        testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -70)
+        var testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world1", subtitle: "This is another test", photo: testImage, time:"12:00PM")
+        waypoints.append(testWayPoint)
+        testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -100)
+        testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.  This one is a little bigger.  Lots of fog", photo: testImage, time:"12:00PM")
+        waypoints.append(testWayPoint)
+        testCoordinate = CLLocationCoordinate2D(latitude: 40.0, longitude: -110)
+        testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.", photo: testImage, time:"1:00PM")
+        waypoints.append(testWayPoint)
+    }
+  
 
 }
