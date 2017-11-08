@@ -66,6 +66,7 @@
                     <navigationItem key="navigationItem" id="Luw-4M-m5w"/>
                     <connections>
                         <outlet property="mapView" destination="PhB-jD-VYJ" id="v73-Hk-lD9"/>
+                        <segue destination="0u0-v0-4M7" kind="show" identifier="showPhoto" id="TIi-Ww-qUW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -191,7 +192,9 @@
                             <outletCollection property="gestureRecognizers" destination="ewx-iK-CP8" appends="YES" id="4XB-Aa-isZ"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="Fnb-QN-bMa"/>
+                    <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="Fnb-QN-bMa">
+                        <barButtonItem key="rightBarButtonItem" title="Save" style="plain" id="Pgw-Jz-ogT"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="addPhotoButton" destination="Mvd-rN-YsW" id="t4W-Kv-Jhs"/>
                         <outlet property="altitudeValue" destination="85G-iY-U56" id="B7Z-jt-eLC"/>
@@ -246,7 +249,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Iv-RY-uPC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="586.875" y="557.74647887323943"/>
+            <point key="canvasLocation" x="585" y="635"/>
         </scene>
         <!--Way Point Table View Controller-->
         <scene sceneID="awy-Lr-xb2">
@@ -324,7 +327,36 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6w8-Kr-1i2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1324" y="557.27136431784118"/>
+            <point key="canvasLocation" x="1294" y="635"/>
+        </scene>
+        <!--Way Point Photo View Controller-->
+        <scene sceneID="Laz-Rs-kcN">
+            <objects>
+                <viewController id="0u0-v0-4M7" customClass="WayPointPhotoViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OX7-3Y-136">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLx-Dn-Btj">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YLx-Dn-Btj" firstAttribute="leading" secondItem="LFS-y6-FEC" secondAttribute="leading" id="DTT-Gq-j30"/>
+                            <constraint firstItem="LFS-y6-FEC" firstAttribute="bottom" secondItem="YLx-Dn-Btj" secondAttribute="bottom" id="LgD-fe-IiI"/>
+                            <constraint firstItem="LFS-y6-FEC" firstAttribute="trailing" secondItem="YLx-Dn-Btj" secondAttribute="trailing" id="Tjf-O6-JJc"/>
+                            <constraint firstItem="YLx-Dn-Btj" firstAttribute="top" secondItem="LFS-y6-FEC" secondAttribute="top" id="TyC-qv-kqu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="LFS-y6-FEC"/>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="YLx-Dn-Btj" id="8rI-Dj-5cI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zkf-gB-2Ec" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2598" y="635"/>
         </scene>
         <!--Map-->
         <scene sceneID="i1e-BY-msf">

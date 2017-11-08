@@ -20,31 +20,29 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    //var mapData = Map()
+    fileprivate var callOutImage : UIImage?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "WayPoints Map"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // adjust fonts
-        
-        // set title
-        navigationItem.title = "WayPoints Map"
-        
+
         // set up some sample data for now, get from Model later
         let latitude = 40.0
         let longitude = -74.0
         self.mapView.delegate=self
-        // set up some sample annotations
-        //let range = 1000.0
+        
         mapCenter = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         // Do any additional setup after loading the view.
-        //mapView.addAnnotations(mapData.annotations)
         if waypoints.count == 0 {
             populateTestData()
         }
         // here is where we will get the data from the database based on a filter
-        //mapView.addAnnotations(waypoints)
         updateMap()
-        // use the mapData object to populate the points in the map
     }
     
     public func updateMap() {
@@ -67,7 +65,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             annotationView?.annotation = annotation
             
         }
-        annotationView?.image = UIImage(named: "waypointpin")
+        annotationView?.image = UIImage(named: "plane")
        
         // TODO: Make sure pin is transparent
         return annotationView
@@ -120,7 +118,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     
     @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
     {
-        var i=0
+        if let callOutImageView = tapRecognizer.view as? UIImageView {
+            callOutImage = callOutImageView.image
+            performSegue(withIdentifier: "showPhoto", sender: nil)
+        }
     }
     
     // Used to get the city,state of the coordinate
@@ -147,9 +148,11 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
    /* override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }*/
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       var test = 0
-    }*/
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let photoController = segue.destination as? WayPointPhotoViewController {
+            photoController.image = callOutImage
+        }
+    }
     
     private func populateTestData() {
         waypoints.removeAll()
@@ -172,6 +175,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.", photo: testImage, time:"1:00PM")
         waypoints.append(testWayPoint)
     }
+    
+   
   
 
 }
