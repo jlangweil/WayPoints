@@ -20,7 +20,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    fileprivate var callOutImage : UIImage?
+    //fileprivate var callOutImage : UIImage?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -119,8 +119,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
     {
         if let callOutImageView = tapRecognizer.view as? UIImageView {
-            callOutImage = callOutImageView.image
-            performSegue(withIdentifier: "showPhoto", sender: nil)
+            //callOutImage = callOutImageView.image
+            performSegue(withIdentifier: "showPhoto", sender: callOutImageView)
         }
     }
     
@@ -149,8 +149,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         super.viewWillDisappear(animated)
     }*/
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let photoController = segue.destination as? WayPointPhotoViewController {
-            photoController.image = callOutImage
+        // create object to pass in as sender and then pass to the destination.  for now just passing the image
+        if let photoController = segue.destination as? WayPointPhotoViewController,let customImageView = sender as? UIImageView {
+            photoController.image = customImageView.image
         }
     }
     
