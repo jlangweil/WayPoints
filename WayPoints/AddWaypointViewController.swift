@@ -108,7 +108,7 @@ class AddWaypointViewController: UIViewController, UITextViewDelegate, CLLocatio
     // MARK textView delegate methods
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
-        let numberOfChars = newText.characters.count
+        let numberOfChars = newText.count
         /*if(textView.text.characters.count > 20 && range.length == 0) {
             print("Please summarize in 20 characters or less")
             return false;
