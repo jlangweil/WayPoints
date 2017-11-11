@@ -308,8 +308,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JFp-1E-UvU">
-                                                    <rect key="frame" x="8" y="31.5" width="304" height="109.5"/>
+                                                    <rect key="frame" x="8" y="39.5" width="304" height="101.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -320,7 +321,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please describe flight/photo:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXi-bI-WCR">
-                                                    <rect key="frame" x="8" y="0.0" width="304" height="14.5"/>
+                                                    <rect key="frame" x="8" y="8" width="304" height="14.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -332,7 +333,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="JFp-1E-UvU" secondAttribute="bottom" constant="6.5" id="DTr-uj-jnC"/>
                                                 <constraint firstItem="xXi-bI-WCR" firstAttribute="leading" secondItem="Og2-Ia-JNP" secondAttribute="leading" constant="8" id="PIh-i8-y6N"/>
                                                 <constraint firstItem="JFp-1E-UvU" firstAttribute="leading" secondItem="xXi-bI-WCR" secondAttribute="leading" id="eGW-fJ-trT"/>
-                                                <constraint firstItem="xXi-bI-WCR" firstAttribute="top" secondItem="Og2-Ia-JNP" secondAttribute="top" id="fbY-1q-gXz"/>
+                                                <constraint firstItem="xXi-bI-WCR" firstAttribute="top" secondItem="Og2-Ia-JNP" secondAttribute="top" constant="8" id="fbY-1q-gXz"/>
                                                 <constraint firstItem="JFp-1E-UvU" firstAttribute="firstBaseline" secondItem="xXi-bI-WCR" secondAttribute="baseline" constant="20" symbolType="layoutAnchor" id="gDM-Gy-ags"/>
                                                 <constraint firstAttribute="trailing" secondItem="B3k-5a-4xu" secondAttribute="trailing" constant="8" id="ufm-YB-CYi"/>
                                                 <constraint firstAttribute="trailing" secondItem="xXi-bI-WCR" secondAttribute="trailing" constant="8" id="yxP-Tx-Bwq"/>
