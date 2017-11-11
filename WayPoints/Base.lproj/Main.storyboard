@@ -482,12 +482,25 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="46" id="SBN-eg-aaM">
-                                        <rect key="frame" x="0.0" y="676.5" width="320" height="46"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="91" id="SBN-eg-aaM">
+                                        <rect key="frame" x="0.0" y="676.5" width="320" height="91"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SBN-eg-aaM" id="vUO-my-kW0">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="45.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="90.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1ad-m8-gGx">
+                                                    <rect key="frame" x="110" y="8" width="100" height="75"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="4Yl-5b-EEW"/>
+                                                        <constraint firstAttribute="height" constant="75" id="zaf-dI-c2V"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1ad-m8-gGx" firstAttribute="centerX" secondItem="vUO-my-kW0" secondAttribute="centerX" id="JdB-aD-KtG"/>
+                                                <constraint firstItem="1ad-m8-gGx" firstAttribute="centerY" secondItem="vUO-my-kW0" secondAttribute="centerY" id="w0h-k8-yIC"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -508,6 +521,8 @@
                         <outlet property="cityStateLabel" destination="eyy-eH-9S7" id="dN6-Wo-rBC"/>
                         <outlet property="coordinatesLabel" destination="q6m-ck-Vj1" id="sZh-jd-e6t"/>
                         <outlet property="icingSelection" destination="jHO-CV-L5c" id="giN-98-DhH"/>
+                        <outlet property="imageView" destination="1ad-m8-gGx" id="3OW-05-jFV"/>
+                        <outlet property="imageViewCell" destination="SBN-eg-aaM" id="YVS-em-sxc"/>
                         <outlet property="precipitationSelection" destination="u5Q-q8-wSa" id="heR-rh-rhb"/>
                         <outlet property="turbulenceSelection" destination="9eC-xR-xd0" id="Hd6-kf-VpG"/>
                         <outlet property="urgentSwitch" destination="HAE-kt-p4S" id="cv8-EJ-eX4"/>
@@ -516,7 +531,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U6h-rs-UTW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2866.4000000000001" y="-193.85307346326837"/>
+            <point key="canvasLocation" x="2865" y="-195"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="YIN-aH-bi6">

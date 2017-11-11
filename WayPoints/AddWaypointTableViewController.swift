@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class AddWaypointTableViewController: UITableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
+class AddWaypointTableViewController: UITableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
 
     var locationIdentified: Bool = false
     var locationManager = CLLocationManager()
@@ -25,7 +25,25 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     @IBOutlet weak var turbulenceSelection: UISegmentedControl!
     @IBOutlet weak var icingSelection: UISegmentedControl!
     @IBOutlet weak var precipitationSelection: UISegmentedControl!
+    @IBOutlet weak var imageViewCell: UITableViewCell!
+    @IBOutlet weak var imageView: UIImageView!
+    
     @IBAction func addPhoto(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate=self
+        let alert = UIAlertController(title: "Choose source", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
+            action in
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
+            action in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
     @objc func dismissKeyboard() {
@@ -59,7 +77,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         self.wayPointDescription.delegate=self
         locationManager.delegate=self
         // get location
-        setupCoreLocation()
+        setupCoreLocation()  // NEED TO MOVE THIS TO A SEPARATE THREAD - It Is blocking button actions until done
         // Do any additional setup after loading the view.
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -154,8 +172,19 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         
     }
     
+    // MARK imagePicker delegate methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        imageView.image = image
+        //imageView.frame = CGRect(x: 0, y: 0, width: 400, height: 300)
+        //imageViewCell.sizeToFit()
+        dismiss(animated: true, completion: nil)
+    }
     
-    
+    //override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //return UITableViewAutomaticDimension
+        //return tableView.rowHeight
+    //}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
