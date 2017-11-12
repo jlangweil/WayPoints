@@ -54,8 +54,11 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let icing = Severity(rawValue: icingSelection.titleForSegment(at: icingSelection.selectedSegmentIndex)!)
         let precipitation = Precip(rawValue: precipitationSelection.titleForSegment(at: precipitationSelection.selectedSegmentIndex)!)
         let urgent = urgentSwitch.isOn
+        let utcTime = "\(Date().currentDate) \(Date().preciseGMTTime)Z"
+        
+        
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:"12:00PM", turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent)
         let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
         // add annotation to the array
         mapViewController.waypoints.append(annotation)
@@ -223,7 +226,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
     // MARK: - Table view data source
 /*
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -292,3 +296,39 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     */
 
 }
+
+extension Formatter {
+    // create static date formatters for your date representations
+    static let preciseLocalTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss.SSS"
+        return formatter
+    }()
+    static let preciseGMTTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+    static let USDate: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/YYYY"
+        return formatter
+    }()
+}
+extension Date {
+    // you can create a read-only computed property to return just the nanoseconds from your date time
+    var nanosecond: Int { return Calendar.current.component(.nanosecond,  from: self)   }
+    // the same for your local time
+    var preciseLocalTime: String {
+        return Formatter.preciseLocalTime.string(for: self) ?? ""
+    }
+    // or GMT time
+    var preciseGMTTime: String {
+        return Formatter.preciseGMTTime.string(for: self) ?? ""
+    }
+    var currentDate: String {
+        return Formatter.USDate.string(for: self) ?? ""
+    }
+}
+
