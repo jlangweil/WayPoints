@@ -52,6 +52,7 @@ class WayPointTableViewController: UITableViewController {
         let userName = waypoints[indexPath.row].title
         let time = waypoints[indexPath.row].time
         let image = waypoints[indexPath.row].photo
+        //let turbulence = waypoints[indexPath.row]
         if let wayPointCell = cell as? WayPointCustomTableCell {
             let cellData = WayPointCustomTableCellData(image: image, time: time, user: userName, description: description)
             wayPointCell.wayPointTableData = cellData

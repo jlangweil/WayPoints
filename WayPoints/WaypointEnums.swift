@@ -9,7 +9,7 @@
 import Foundation
 
 enum Precip:String{
-    case none = "NONE"
+    case none = "None"
     case rain = "RAIN"
     case snow = "SNOW"
     case mixed = "MIX"
@@ -17,7 +17,7 @@ enum Precip:String{
 }
 
 enum Severity:String {
-    case none = "NONE"
+    case none = "None"
     case light = "LGT"
     case moderate = "MOD"
     case severe = "SEV"

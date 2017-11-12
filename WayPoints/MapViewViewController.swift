@@ -65,7 +65,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             annotationView?.annotation = annotation
             
         }
-        annotationView?.image = UIImage(named: "plane")
+        //annotationView?.image = UIImage(named: "plane")
+        annotationView?.image = UIImage(named: "wayPointPinGreen")
        
         // TODO: Make sure pin is transparent
         return annotationView
@@ -78,17 +79,21 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         {
             return
         }
+        
         let wayPointAnnotation = view.annotation as! WayPointAnnotation
         let views = Bundle.main.loadNibNamed("CustomCalloutView", owner: nil, options: nil)
+        let turbulence = wayPointAnnotation.turbulence
+        let turbulenceImageName = getImageName(weather: "turbulence", severity: turbulence)
+        
+        
         let calloutView = views?[0] as! CustomCalloutView
         calloutView.wayPointUsername.text = wayPointAnnotation.title
         calloutView.wayPointDescription.text = wayPointAnnotation.subtitle
         calloutView.wayPointImage.image = wayPointAnnotation.photo
-        //let button = UIButton(frame: calloutView.starbucksPhone.frame)
-        //button.addTarget(self, action: #selector(ViewController.callPhoneNumber(sender:)), for: .touchUpInside)
-        //calloutView.addSubview(button)
+        if turbulenceImageName != nil {
+            calloutView.turbulanceImageView.image = UIImage(named: turbulenceImageName!)
+        }
         
-        //test
         let resizedWidth = mapView.frame.width * 0.9
         calloutView.frame.size = CGSize(width: resizedWidth, height: resizedWidth/2.418)
         
