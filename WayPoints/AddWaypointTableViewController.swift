@@ -50,8 +50,12 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         if imageView.image == nil {
             imageView.image = UIImage(named: "default")
         }
+        let turbulence = Severity(rawValue: turbulenceSelection.titleForSegment(at: turbulenceSelection.selectedSegmentIndex)!)
+        let icing = Severity(rawValue: icingSelection.titleForSegment(at: icingSelection.selectedSegmentIndex)!)
+        let precipitation = Precip(rawValue: precipitationSelection.titleForSegment(at: precipitationSelection.selectedSegmentIndex)!)
+        let urgent = urgentSwitch.isOn
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:"12:00PM")
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:"12:00PM", turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent)
         let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
         // add annotation to the array
         mapViewController.waypoints.append(annotation)
@@ -62,6 +66,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         navigationController?.popViewController(animated: true)
         
     }
+    
+    
     
     
     @objc func dismissKeyboard() {

@@ -81,7 +81,7 @@ class AddWaypointViewController: UIViewController, UITextViewDelegate, CLLocatio
             imageView.image = UIImage(named: "default")
         }
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: waypointDescription.text, photo: imageView.image, time:"12:00PM")
+       /* let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: waypointDescription.text, photo: imageView.image, time:"12:00PM")*/
         let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
         // add annotation to the array
         mapViewController.waypoints.append(annotation)

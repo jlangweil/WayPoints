@@ -166,14 +166,17 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }*/
         let testImage = UIImage(named: "default")
         var testCoordinate : CLLocationCoordinate2D
+        let precip: Precip = .rain
+        let icing: Severity = .none
+        let turbulence: Severity = .none
         testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -70)
-        var testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world1", subtitle: "This is another test", photo: testImage, time:"12:00PM")
+        var testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world1", subtitle: "This is another test", photo: testImage, time:"12:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false)
         waypoints.append(testWayPoint)
         testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -100)
-        testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.  This one is a little bigger.  Lots of fog", photo: testImage, time:"12:00PM")
+        testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.  This one is a little bigger.  Lots of fog", photo: testImage, time:"12:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false)
         waypoints.append(testWayPoint)
         testCoordinate = CLLocationCoordinate2D(latitude: 40.0, longitude: -110)
-        testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.", photo: testImage, time:"1:00PM")
+        testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.", photo: testImage, time:"1:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false)
         waypoints.append(testWayPoint)
     }
     
