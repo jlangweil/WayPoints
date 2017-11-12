@@ -46,6 +46,24 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         self.present(alert, animated: true)
     }
     
+    @IBAction func saveWayPoint(_ sender: Any) {
+        if imageView.image == nil {
+            imageView.image = UIImage(named: "default")
+        }
+        // TODO disable save button if GPS not working, allow to select own location/alt
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:"12:00PM")
+        let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
+        // add annotation to the array
+        mapViewController.waypoints.append(annotation)
+        // update map
+        mapViewController.updateMap()
+        // TODO update tableview here as well
+    
+        navigationController?.popViewController(animated: true)
+        
+    }
+    
+    
     @objc func dismissKeyboard() {
         wayPointDescription.resignFirstResponder()
     }
@@ -181,10 +199,19 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         dismiss(animated: true, completion: nil)
     }
     
-    //override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //return UITableViewAutomaticDimension
-        //return tableView.rowHeight
-    //}
+    // MARK textView delegate methods
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        let numberOfChars = newText.count
+        /*if(textView.text.characters.count > 20 && range.length == 0) {
+         print("Please summarize in 20 characters or less")
+         return false;
+         }*/
+        if numberOfChars < 281 {
+            charactersRemainingLabel .text = String(280-numberOfChars)
+        }
+        return numberOfChars < 281;
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

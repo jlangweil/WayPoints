@@ -513,7 +513,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Add New" id="eLB-tW-OW2">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="nGs-wO-pqx"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="nGs-wO-pqx">
+                            <connections>
+                                <action selector="saveWayPoint:" destination="Jwi-nC-SDG" id="5AY-mx-btw"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="altitudeLabel" destination="38Z-Gr-VER" id="a4i-Ru-IDI"/>
