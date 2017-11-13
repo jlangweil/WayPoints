@@ -66,7 +66,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             
         }
         //annotationView?.image = UIImage(named: "plane")
-        annotationView?.image = UIImage(named: "wayPointPinGreen")
+        annotationView?.image = UIImage(named: "wayPointPinDefaultSmall")
        
         // TODO: Make sure pin is transparent
         return annotationView
@@ -82,29 +82,42 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         
         let wayPointAnnotation = view.annotation as! WayPointAnnotation
         let views = Bundle.main.loadNibNamed("CustomCalloutView", owner: nil, options: nil)
-        let turbulence = wayPointAnnotation.turbulence
-        let turbulenceImageName = getImageName(weather: "turbulence", severity: turbulence)
-        
+        let turbulenceImageName = getImageName(weather: "turbulence", severity: wayPointAnnotation.turbulence)
+        let icingImageName = getImageName(weather: "icing", severity: wayPointAnnotation.icing)
+        let weatherImageName = getImageName(precip: wayPointAnnotation.precipitation)
         
         let calloutView = views?[0] as! CustomCalloutView
         calloutView.wayPointUsername.text = wayPointAnnotation.title
         calloutView.wayPointDescription.text = wayPointAnnotation.subtitle
+        calloutView.timeLabel.text = wayPointAnnotation.time
+        
+        // Set Callout Images
         calloutView.wayPointImage.image = wayPointAnnotation.photo
         if turbulenceImageName != nil {
             calloutView.turbulanceImageView.image = UIImage(named: turbulenceImageName!)
         }
+        if icingImageName != nil {
+            calloutView.icingImageView.image = UIImage(named: icingImageName!)
+        }
+        if weatherImageName != nil {
+            calloutView.wxImageView.image = UIImage(named: weatherImageName!)
+        }
         
+        // Resize callout relative to screen width
         let resizedWidth = mapView.frame.width * 0.9
         calloutView.frame.size = CGSize(width: resizedWidth, height: resizedWidth/2.418)
-        
         calloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -calloutView.bounds.size.height*0.52)
         
-        // add gesture to callout
+        // Add gesture to callout image
         let handler = #selector(self.openImage(byReactingTo:))
         let tapRecognizer = UITapGestureRecognizer(target: self, action: handler)
         tapRecognizer.numberOfTapsRequired=1
         calloutView.wayPointImage.isUserInteractionEnabled=true
         calloutView.wayPointImage.addGestureRecognizer(tapRecognizer)
+        
+        calloutView.layer.borderWidth=3
+        calloutView.layer.borderColor = UIColor.black.cgColor
+        
         
         // add custom callout view to annotation and recenter map
         view.addSubview(calloutView)

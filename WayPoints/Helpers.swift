@@ -23,13 +23,13 @@ func getImageName(weather:String, severity: Severity? ) -> String? {
   
 }
 
-func getImageName(weather:String, precip: Precip? ) -> String? {
+func getImageName(precip: Precip? ) -> String? {
     guard precip != nil else {
         print("precip is null")
         return nil
     }
     if precip! != .none && precip! != .unknown {
-        let fileName = "\(weather)-\(precip!)"
+        let fileName = "\(precip!)"
         return fileName
     }
     else {

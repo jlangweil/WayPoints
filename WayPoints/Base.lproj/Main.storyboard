@@ -27,14 +27,18 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wz3-Wy-W3B">
-                                <rect key="frame" x="270" y="385" width="42" height="30"/>
+                                <rect key="frame" x="254" y="371" width="58" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="2j3-ih-Lnb"/>
+                                    <constraint firstAttribute="width" constant="58" id="hRC-9K-Yro"/>
+                                </constraints>
                                 <state key="normal" title="Sat">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Liu-VQ-Fbd">
-                                <rect key="frame" x="220" y="385" width="42" height="30"/>
+                                <rect key="frame" x="254" y="317" width="58" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Street">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -44,12 +48,13 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PhB-jD-VYJ" secondAttribute="bottom" id="1OD-Zf-4Ko"/>
-                            <constraint firstItem="Wz3-Wy-W3B" firstAttribute="leading" secondItem="Liu-VQ-Fbd" secondAttribute="trailing" constant="8" id="58F-lo-SSF"/>
-                            <constraint firstItem="Liu-VQ-Fbd" firstAttribute="bottom" secondItem="Wz3-Wy-W3B" secondAttribute="bottom" id="Aie-yH-krE"/>
+                            <constraint firstItem="Wz3-Wy-W3B" firstAttribute="top" secondItem="Liu-VQ-Fbd" secondAttribute="bottom" constant="10" id="Bbf-Qg-eWm"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PhB-jD-VYJ" secondAttribute="trailing" id="FE1-Rh-NFK"/>
+                            <constraint firstItem="Liu-VQ-Fbd" firstAttribute="height" secondItem="Wz3-Wy-W3B" secondAttribute="height" id="Nbr-A0-bfJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wz3-Wy-W3B" secondAttribute="trailing" constant="8" id="ReB-PV-JFV"/>
+                            <constraint firstItem="Liu-VQ-Fbd" firstAttribute="width" secondItem="Wz3-Wy-W3B" secondAttribute="width" id="Sbk-nw-AuV"/>
                             <constraint firstItem="PhB-jD-VYJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Unx-7D-xHI"/>
-                            <constraint firstItem="Liu-VQ-Fbd" firstAttribute="width" secondItem="Wz3-Wy-W3B" secondAttribute="width" id="bMk-Sm-CrU"/>
+                            <constraint firstItem="Liu-VQ-Fbd" firstAttribute="trailing" secondItem="Wz3-Wy-W3B" secondAttribute="trailing" id="euh-wx-pRB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wz3-Wy-W3B" secondAttribute="bottom" constant="16" id="gGT-ZP-r5W"/>
                             <constraint firstItem="PhB-jD-VYJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uPX-Pz-ykr"/>
                         </constraints>

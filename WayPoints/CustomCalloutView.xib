@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,61 +22,81 @@
                         <constraint firstAttribute="width" secondItem="08t-aW-Ig0" secondAttribute="height" multiplier="4:3" id="cad-bu-kGX"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HF6-1M-H5a">
-                    <rect key="frame" x="228" y="44" width="163" height="20.5"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Text" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UR2-Mb-L0T">
-                    <rect key="frame" x="228" y="74.5" width="163" height="82.5"/>
+                    <rect key="frame" x="228" y="43.5" width="167" height="113.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <dataDetectorType key="dataDetectorTypes" flightNumber="YES"/>
                 </textView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9pe-uC-UqM">
-                    <rect key="frame" x="374" y="0.0" width="25" height="25"/>
+                    <rect key="frame" x="370" y="4" width="25" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="25" id="qbH-4W-b6m"/>
                         <constraint firstAttribute="height" constant="25" id="vce-lo-Ga1"/>
                     </constraints>
                 </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z80-2l-g21">
+                    <rect key="frame" x="345" y="4" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="W4r-7a-6Mw"/>
+                        <constraint firstAttribute="height" constant="25" id="z4Z-vF-lyC"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PNE-dT-CZS">
+                    <rect key="frame" x="324" y="4" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="4t8-No-Fc5"/>
+                        <constraint firstAttribute="height" constant="25" id="ofO-0T-QJl"/>
+                    </constraints>
+                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcz-Kz-RfC">
-                    <rect key="frame" x="228" y="0.0" width="163.5" height="13.5"/>
+                    <rect key="frame" x="228" y="4" width="88" height="13.5"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                     <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HF6-1M-H5a">
+                    <rect key="frame" x="228" y="20" width="88" height="13.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="9pe-uC-UqM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2XU-mQ-929"/>
+                <constraint firstItem="9pe-uC-UqM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="2XU-mQ-929"/>
+                <constraint firstItem="HF6-1M-H5a" firstAttribute="width" secondItem="Xcz-Kz-RfC" secondAttribute="width" id="42A-W1-N9l"/>
                 <constraint firstAttribute="bottom" secondItem="08t-aW-Ig0" secondAttribute="bottom" id="4S1-bP-Lit"/>
+                <constraint firstItem="Xcz-Kz-RfC" firstAttribute="leading" secondItem="08t-aW-Ig0" secondAttribute="trailing" constant="8" id="5WP-g9-OjC"/>
                 <constraint firstItem="08t-aW-Ig0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5oi-DJ-HES"/>
+                <constraint firstItem="PNE-dT-CZS" firstAttribute="leading" secondItem="Xcz-Kz-RfC" secondAttribute="trailing" constant="8" id="6GE-9H-iDD"/>
                 <constraint firstItem="HF6-1M-H5a" firstAttribute="leading" secondItem="08t-aW-Ig0" secondAttribute="trailing" constant="8" id="ARJ-Id-jiP"/>
+                <constraint firstItem="HF6-1M-H5a" firstAttribute="top" secondItem="Xcz-Kz-RfC" secondAttribute="bottom" constant="2.5" id="Btm-nv-NZC"/>
                 <constraint firstItem="08t-aW-Ig0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Hk2-xa-DYY"/>
-                <constraint firstItem="Xcz-Kz-RfC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="a4G-wS-Agh"/>
-                <constraint firstItem="Xcz-Kz-RfC" firstAttribute="leading" secondItem="08t-aW-Ig0" secondAttribute="trailing" constant="8" id="aYV-14-xfF"/>
-                <constraint firstItem="UR2-Mb-L0T" firstAttribute="trailing" secondItem="HF6-1M-H5a" secondAttribute="trailing" id="lUx-oz-0h3"/>
-                <constraint firstAttribute="trailing" secondItem="HF6-1M-H5a" secondAttribute="trailing" constant="8" id="leX-4G-HzN"/>
-                <constraint firstAttribute="trailing" secondItem="9pe-uC-UqM" secondAttribute="trailing" id="nCL-MM-I5O"/>
-                <constraint firstItem="UR2-Mb-L0T" firstAttribute="top" secondItem="HF6-1M-H5a" secondAttribute="bottom" constant="10" id="oVf-4q-G3Y"/>
-                <constraint firstItem="Xcz-Kz-RfC" firstAttribute="width" secondItem="UR2-Mb-L0T" secondAttribute="width" constant="0.29999999999999999" id="ppp-ot-3Kb"/>
-                <constraint firstItem="UR2-Mb-L0T" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.5" id="rVq-OZ-cko"/>
+                <constraint firstItem="Xcz-Kz-RfC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="LSx-ZQ-DJH"/>
+                <constraint firstItem="UR2-Mb-L0T" firstAttribute="leading" secondItem="08t-aW-Ig0" secondAttribute="trailing" constant="8" id="MVK-eJ-E51"/>
+                <constraint firstItem="z80-2l-g21" firstAttribute="leading" secondItem="PNE-dT-CZS" secondAttribute="trailing" constant="-4" id="NSx-8G-acs"/>
+                <constraint firstItem="PNE-dT-CZS" firstAttribute="top" secondItem="9pe-uC-UqM" secondAttribute="top" id="OIP-hZ-Q2q"/>
+                <constraint firstItem="z80-2l-g21" firstAttribute="top" secondItem="9pe-uC-UqM" secondAttribute="top" id="SEY-QM-okZ"/>
+                <constraint firstItem="UR2-Mb-L0T" firstAttribute="top" secondItem="HF6-1M-H5a" secondAttribute="bottom" constant="10" id="Wth-Aq-WlO"/>
+                <constraint firstItem="UR2-Mb-L0T" firstAttribute="trailing" secondItem="9pe-uC-UqM" secondAttribute="trailing" id="g6j-nz-nxn"/>
+                <constraint firstAttribute="trailing" secondItem="9pe-uC-UqM" secondAttribute="trailing" constant="4" id="nCL-MM-I5O"/>
+                <constraint firstItem="9pe-uC-UqM" firstAttribute="leading" secondItem="z80-2l-g21" secondAttribute="trailing" id="s8G-sk-ZzA"/>
                 <constraint firstAttribute="bottom" secondItem="UR2-Mb-L0T" secondAttribute="bottom" constant="8" id="t6N-Gf-dYW"/>
-                <constraint firstItem="UR2-Mb-L0T" firstAttribute="leading" secondItem="HF6-1M-H5a" secondAttribute="leading" id="zbA-MB-3U9"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="icingImageView" destination="z80-2l-g21" id="3VK-fA-c8t"/>
                 <outlet property="timeLabel" destination="Xcz-Kz-RfC" id="gdN-qe-eNl"/>
                 <outlet property="turbulanceImageView" destination="9pe-uC-UqM" id="Ho3-dB-k1T"/>
                 <outlet property="wayPointDescription" destination="UR2-Mb-L0T" id="gbh-Lw-Mpj"/>
                 <outlet property="wayPointImage" destination="08t-aW-Ig0" id="3Si-ZY-KRM"/>
                 <outlet property="wayPointUsername" destination="HF6-1M-H5a" id="70s-mN-euj"/>
+                <outlet property="wxImageView" destination="PNE-dT-CZS" id="DBe-Pw-9K7"/>
             </connections>
-            <point key="canvasLocation" x="523.5" y="267.5"/>
+            <point key="canvasLocation" x="503.5" y="267.5"/>
         </view>
     </objects>
 </document>
