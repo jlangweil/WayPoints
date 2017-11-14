@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 func getImageName(weather:String, severity: Severity? ) -> String? {
     guard severity != nil else {
@@ -37,3 +38,17 @@ func getImageName(precip: Precip? ) -> String? {
     }
     
 }
+
+func getCityState(for currentPlace:CLPlacemark?) -> String {
+    var returnString : String
+    if let currentCity = currentPlace?.locality, let currentState=currentPlace?.administrativeArea  {
+        returnString = "\(currentCity), \(currentState)"
+    }
+    else {
+        returnString = ""
+    }
+    return returnString
+}
+
+
+

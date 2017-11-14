@@ -20,6 +20,11 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var precipitation:Precip
     var urgent:Bool = false
     
+    var cityState:String?
+    var altitude:String?
+    
+    var uploaded:Bool = false
+    
     init(coordinate:CLLocationCoordinate2D,title:String?,subtitle:String?, photo:UIImage?, time:String?, turbulence:Severity, icing: Severity, precipitation: Precip, urgent: Bool){
         self.coordinate = coordinate
         self.title = title

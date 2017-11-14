@@ -481,48 +481,58 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="103.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jit-s3-QzD">
-                                            <rect key="frame" x="105.5" y="5" width="206.5" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jit-s3-QzD">
+                                            <rect key="frame" x="89.5" y="5" width="222.5" height="18"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Sample description of a waypoint" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88S-vu-TdK">
-                                            <rect key="frame" x="105" y="33" width="206.5" height="62.5"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAM-XM-Oyq">
-                                            <rect key="frame" x="31.5" y="72" width="28" height="16"/>
+                                            <rect key="frame" x="23.5" y="60" width="28" height="28"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7c2-PY-ihY">
-                                            <rect key="frame" x="5" y="5" width="80" height="60"/>
+                                            <rect key="frame" x="5" y="5" width="64" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="7c2-PY-ihY" secondAttribute="height" multiplier="4:3" id="afm-Nj-DPx"/>
                                             </constraints>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51l-s1-F9a">
+                                            <rect key="frame" x="272" y="30" width="44" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="Ql5-ij-BDx"/>
+                                                <constraint firstAttribute="width" constant="44" id="n9f-I6-mFe"/>
+                                            </constraints>
+                                            <state key="normal" title="Button" image="upload"/>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Flight conditions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88S-vu-TdK">
+                                            <rect key="frame" x="89" y="30" width="181" height="20.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="jit-s3-QzD" firstAttribute="top" secondItem="7c2-PY-ihY" secondAttribute="top" id="6Cn-pd-zfs"/>
                                         <constraint firstItem="jit-s3-QzD" firstAttribute="leading" secondItem="7c2-PY-ihY" secondAttribute="trailing" constant="20" id="7vO-Iq-lD1"/>
-                                        <constraint firstItem="7c2-PY-ihY" firstAttribute="width" secondItem="rkx-P9-IDq" secondAttribute="width" multiplier="0.25" id="FUQ-HE-FRR"/>
+                                        <constraint firstItem="7c2-PY-ihY" firstAttribute="width" secondItem="rkx-P9-IDq" secondAttribute="width" multiplier="0.2" id="FUQ-HE-FRR"/>
+                                        <constraint firstItem="88S-vu-TdK" firstAttribute="top" secondItem="jit-s3-QzD" secondAttribute="bottom" constant="7" id="Jgs-he-eJ6"/>
                                         <constraint firstAttribute="trailing" secondItem="jit-s3-QzD" secondAttribute="trailing" constant="8" id="LTV-VE-fuO"/>
                                         <constraint firstItem="AAM-XM-Oyq" firstAttribute="centerX" secondItem="7c2-PY-ihY" secondAttribute="centerX" id="N0V-u7-UdS"/>
                                         <constraint firstItem="7c2-PY-ihY" firstAttribute="leading" secondItem="rkx-P9-IDq" secondAttribute="leading" constant="5" id="N3R-6x-tcs"/>
+                                        <constraint firstItem="51l-s1-F9a" firstAttribute="centerY" secondItem="rkx-P9-IDq" secondAttribute="centerY" id="Pd3-3s-Lwf"/>
                                         <constraint firstItem="88S-vu-TdK" firstAttribute="leading" secondItem="jit-s3-QzD" secondAttribute="leading" id="S43-ou-fER"/>
-                                        <constraint firstAttribute="bottom" secondItem="88S-vu-TdK" secondAttribute="bottom" constant="8" id="T06-h2-ZaD"/>
-                                        <constraint firstItem="88S-vu-TdK" firstAttribute="width" secondItem="jit-s3-QzD" secondAttribute="width" id="XAN-eD-bEp"/>
+                                        <constraint firstAttribute="trailing" secondItem="51l-s1-F9a" secondAttribute="trailing" constant="4" id="VRC-Xg-8yY"/>
+                                        <constraint firstAttribute="trailing" secondItem="88S-vu-TdK" secondAttribute="trailing" constant="50" id="Wrc-7T-HR7"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="AAM-XM-Oyq" secondAttribute="bottom" constant="5" id="ZKr-t5-iGi"/>
                                         <constraint firstItem="AAM-XM-Oyq" firstAttribute="firstBaseline" secondItem="7c2-PY-ihY" secondAttribute="baseline" constant="18.5" symbolType="layoutAnchor" id="Zte-mx-I46"/>
                                         <constraint firstItem="7c2-PY-ihY" firstAttribute="top" secondItem="rkx-P9-IDq" secondAttribute="top" constant="5" id="kLO-M1-4g0"/>
-                                        <constraint firstItem="88S-vu-TdK" firstAttribute="top" secondItem="jit-s3-QzD" secondAttribute="bottom" constant="10" id="mdF-Yl-4RG"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="actionButton" destination="51l-s1-F9a" id="0fj-i4-rgf"/>
                                     <outlet property="wayPointDescriptionLabel" destination="88S-vu-TdK" id="11J-BJ-Phc"/>
                                     <outlet property="wayPointImageView" destination="7c2-PY-ihY" id="k76-3D-zfB"/>
                                     <outlet property="wayPointTimeLabel" destination="AAM-XM-Oyq" id="fee-K8-oTL"/>
@@ -544,7 +554,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6w8-Kr-1i2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="635"/>
+            <point key="canvasLocation" x="1293.75" y="635"/>
         </scene>
         <!--Way Point Photo View Controller-->
         <scene sceneID="Laz-Rs-kcN">
@@ -618,6 +628,7 @@
         <image name="icons8-list-filled" width="25" height="25"/>
         <image name="icons8-settings-filled" width="25" height="25"/>
         <image name="mapIcon" width="25" height="25"/>
+        <image name="upload" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="gvT-uu-C8Z"/>

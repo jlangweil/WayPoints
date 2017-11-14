@@ -164,13 +164,9 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         var currentPlace : CLPlacemark?
         getPlacemark(forLocation: CLLocation(latitude: wayPointCoordinate!.latitude, longitude: wayPointCoordinate!.longitude)) { (placemark, error) in
             currentPlace = placemark
-            if let currentCity = currentPlace?.locality, let currentState=currentPlace?.administrativeArea  {
-                self.cityStateLabel.text = "\(currentCity), \(currentState)"
-            }
-            else {
-                self.cityStateLabel.text = ""
-            }
+            self.cityStateLabel.text = getCityState(for: currentPlace)
          }
+        
        
         
         

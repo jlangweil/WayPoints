@@ -143,7 +143,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     }
     
     // Used to get the city,state of the coordinate
-    func getPlacemark(forLocation location: CLLocation, completionHandler: @escaping (CLPlacemark?, String?) -> ()) {
+    /*func getPlacemark(forLocation location: CLLocation, completionHandler: @escaping (CLPlacemark?, String?) -> ()) {
         let geocoder = CLGeocoder()
         
         geocoder.reverseGeocodeLocation(location, completionHandler: {
@@ -162,7 +162,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             }
         })
         
-    }
+    }*/
    /* override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }*/
