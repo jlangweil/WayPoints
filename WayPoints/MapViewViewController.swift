@@ -187,15 +187,17 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         let precip: Precip = .rain
         let icing: Severity = .none
         let turbulence: Severity = .none
+        let altitude = "1000"
+        let cityState = "Someplace, USA"
         testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -70)
-        var testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world1", subtitle: "This is another test", photo: testImage, time:"12:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false)
+        var testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world1", subtitle: "This is another test", photo: testImage, time:"12:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false, cityState: cityState, altitude: altitude)
         waypoints.append(testWayPoint)
-        testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -100)
+        /*testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -100)
         testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.  This one is a little bigger.  Lots of fog", photo: testImage, time:"12:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false)
         waypoints.append(testWayPoint)
         testCoordinate = CLLocationCoordinate2D(latitude: 40.0, longitude: -110)
         testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.", photo: testImage, time:"1:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false)
-        waypoints.append(testWayPoint)
+        waypoints.append(testWayPoint)*/
     }
     
    

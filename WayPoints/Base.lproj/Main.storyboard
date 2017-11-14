@@ -100,27 +100,27 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coordinates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ik4-jt-uXw">
-                                                    <rect key="frame" x="8" y="0.0" width="106" height="24"/>
+                                                    <rect key="frame" x="8" y="4" width="106" height="24"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coordinates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q6m-ck-Vj1">
-                                                    <rect key="frame" x="8" y="24.5" width="83.5" height="18"/>
+                                                    <rect key="frame" x="8" y="28.5" width="83.5" height="18"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CityState" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyy-eH-9S7">
-                                                    <rect key="frame" x="241" y="20" width="71" height="21"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for location..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyy-eH-9S7">
+                                                    <rect key="frame" x="168" y="22.5" width="144" height="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ik4-jt-uXw" firstAttribute="leading" secondItem="M1H-XY-trk" secondAttribute="leading" constant="8" id="07O-0U-5yM"/>
-                                                <constraint firstItem="ik4-jt-uXw" firstAttribute="top" secondItem="M1H-XY-trk" secondAttribute="top" id="1kL-37-3fD"/>
+                                                <constraint firstItem="ik4-jt-uXw" firstAttribute="top" secondItem="M1H-XY-trk" secondAttribute="top" constant="4" id="1kL-37-3fD"/>
                                                 <constraint firstItem="eyy-eH-9S7" firstAttribute="centerY" secondItem="M1H-XY-trk" secondAttribute="centerY" id="HPj-0X-xal"/>
                                                 <constraint firstAttribute="trailing" secondItem="eyy-eH-9S7" secondAttribute="trailing" constant="8" id="LlC-Js-Xx5"/>
                                                 <constraint firstItem="q6m-ck-Vj1" firstAttribute="leading" secondItem="ik4-jt-uXw" secondAttribute="leading" id="Sbz-5f-6tZ"/>
@@ -136,20 +136,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxz-CO-d3r">
-                                                    <rect key="frame" x="8" y="0.0" width="68" height="24"/>
+                                                    <rect key="frame" x="8" y="4" width="68" height="24"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="altitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="38Z-Gr-VER">
-                                                    <rect key="frame" x="8" y="24" width="51.5" height="18"/>
+                                                    <rect key="frame" x="8" y="28" width="51.5" height="18"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cxz-CO-d3r" firstAttribute="top" secondItem="k6w-AD-8sO" secondAttribute="top" id="6ey-oF-KCd"/>
+                                                <constraint firstItem="cxz-CO-d3r" firstAttribute="top" secondItem="k6w-AD-8sO" secondAttribute="top" constant="4" id="6ey-oF-KCd"/>
                                                 <constraint firstItem="cxz-CO-d3r" firstAttribute="leading" secondItem="k6w-AD-8sO" secondAttribute="leading" constant="8" id="NWY-OA-mmB"/>
                                                 <constraint firstItem="38Z-Gr-VER" firstAttribute="firstBaseline" secondItem="cxz-CO-d3r" secondAttribute="baseline" constant="20" symbolType="layoutAnchor" id="ecr-lj-ZHV"/>
                                                 <constraint firstItem="38Z-Gr-VER" firstAttribute="leading" secondItem="cxz-CO-d3r" secondAttribute="leading" id="hlx-ps-Vgo"/>

@@ -47,6 +47,11 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     }
     
     @IBAction func saveWayPoint(_ sender: Any) {
+        if wayPointCoordinate == nil {
+            displayNoGpsAlert()
+            return
+        }
+        
         if imageView.image == nil {
             imageView.image = UIImage(named: "default")
         }
@@ -55,10 +60,16 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let precipitation = Precip(rawValue: precipitationSelection.titleForSegment(at: precipitationSelection.selectedSegmentIndex)!)
         let urgent = urgentSwitch.isOn
         let utcTime = "\(Date().currentDate) \(Date().preciseGMTTime)Z"
-        
-        
+        let cityState = self.cityStateLabel.text
+        var altitude: String
+        if wayPointAltitudeInFeet == nil {
+            altitude = "Altitude unknown"
+        }
+        else {
+            altitude = "\(wayPointAltitudeInFeet!)"
+        }
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, cityState: cityState, altitude: altitude)
         let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
         // add annotation to the array
         mapViewController.waypoints.append(annotation)
@@ -68,6 +79,12 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     
         navigationController?.popViewController(animated: true)
         
+    }
+    
+    func displayNoGpsAlert() {
+        let alert = UIAlertController(title: "Warning", message: "Unable to save - NO GPS Signal", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
     
     
@@ -104,8 +121,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         self.wayPointDescription.delegate=self
         locationManager.delegate=self
         // get location
-        setupCoreLocation()  // NEED TO MOVE THIS TO A SEPARATE THREAD - It Is blocking button actions until done
-        // Do any additional setup after loading the view.
+        setupCoreLocation()
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -164,13 +180,10 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         var currentPlace : CLPlacemark?
         getPlacemark(forLocation: CLLocation(latitude: wayPointCoordinate!.latitude, longitude: wayPointCoordinate!.longitude)) { (placemark, error) in
             currentPlace = placemark
-            self.cityStateLabel.text = getCityState(for: currentPlace)
+            if currentPlace != nil {
+                self.cityStateLabel.text = getCityState(for: currentPlace)
+            }
          }
-        
-       
-        
-        
-        
     }
     
     // Used to get the city,state of the coordinate
@@ -184,7 +197,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
                 completionHandler(nil, err.localizedDescription)
             } else if let placemarkArray = placemarks {
                 if let placemark = placemarkArray.first {
-                    completionHandler(placemark, nil)
+                    completionHandler(placemark, nil)  // could intercept here to return city state
                 } else {
                     completionHandler(nil, "Placemark was nil")
                 }
