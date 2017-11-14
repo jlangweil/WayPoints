@@ -474,33 +474,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="wayPointCell" rowHeight="104" id="621-MA-531" customClass="WayPointCustomTableCell" customModule="WayPoints" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="wayPointCell" rowHeight="104" id="621-MA-531" customClass="WayPointCustomTableCell" customModule="WayPoints" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="104"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="621-MA-531" id="rkx-P9-IDq">
-                                    <rect key="frame" x="0.0" y="0.0" width="286" height="103.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="103.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jit-s3-QzD">
-                                            <rect key="frame" x="97" y="5" width="181" height="18"/>
+                                            <rect key="frame" x="105.5" y="5" width="206.5" height="18"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Sample description of a waypoint" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88S-vu-TdK">
-                                            <rect key="frame" x="96.5" y="33" width="181" height="62.5"/>
+                                            <rect key="frame" x="105" y="33" width="206.5" height="62.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAM-XM-Oyq">
-                                            <rect key="frame" x="27" y="65.5" width="28" height="22.5"/>
+                                            <rect key="frame" x="31.5" y="72" width="28" height="16"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7c2-PY-ihY">
-                                            <rect key="frame" x="5" y="5" width="71.5" height="53.5"/>
+                                            <rect key="frame" x="5" y="5" width="80" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="7c2-PY-ihY" secondAttribute="height" multiplier="4:3" id="afm-Nj-DPx"/>
                                             </constraints>
@@ -538,6 +538,9 @@
                     <navigationItem key="navigationItem" id="cvM-93-K6A">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="ow6-Wz-LjQ"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="0u0-v0-4M7" kind="show" identifier="showPhoto" id="gvT-uu-C8Z"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6w8-Kr-1i2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -616,4 +619,7 @@
         <image name="icons8-settings-filled" width="25" height="25"/>
         <image name="mapIcon" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="gvT-uu-C8Z"/>
+    </inferredMetricsTieBreakers>
 </document>

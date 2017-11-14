@@ -56,18 +56,29 @@ class WayPointTableViewController: UITableViewController {
         if let wayPointCell = cell as? WayPointCustomTableCell {
             let cellData = WayPointCustomTableCellData(image: image, time: time, user: userName, description: description)
             wayPointCell.wayPointTableData = cellData
+            // Add gesture to image
+            let handler = #selector(self.openImage(byReactingTo:))
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: handler)
+            tapRecognizer.numberOfTapsRequired=1
+            wayPointCell.wayPointImageView.isUserInteractionEnabled=true
+            wayPointCell.wayPointImageView.addGestureRecognizer(tapRecognizer)
         }
         return cell
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
+    {
+        if let imageView = tapRecognizer.view as? UIImageView {
+            //callOutImage = callOutImageView.image
+            performSegue(withIdentifier: "showPhoto", sender: imageView)
+        }
     }
-    */
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // create object to pass in as sender and then pass to the destination.  for now just passing the image
+        if let photoController = segue.destination as? WayPointPhotoViewController,let customImageView = sender as? UIImageView {
+            photoController.image = customImageView.image
+        }
+    }
 
 }
