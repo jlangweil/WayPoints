@@ -49,12 +49,12 @@ class WayPointTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wayPointCell", for: indexPath)
         let description = waypoints[indexPath.row].subtitle
-        let userName = waypoints[indexPath.row].title
+        let location = waypoints[indexPath.row].cityState
         let time = waypoints[indexPath.row].time
         let image = waypoints[indexPath.row].photo
         //let turbulence = waypoints[indexPath.row]
         if let wayPointCell = cell as? WayPointCustomTableCell {
-            let cellData = WayPointCustomTableCellData(image: image, time: time, user: userName, description: description)
+            let cellData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
             wayPointCell.wayPointTableData = cellData
             // Add gesture to image
             let handler = #selector(self.openImage(byReactingTo:))

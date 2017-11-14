@@ -23,7 +23,7 @@ class WayPointCustomTableCell: UITableViewCell {
         wayPointDescriptionLabel.text = wayPointTableData?.description
         wayPointImageView.image = wayPointTableData?.image
         wayPointTimeLabel.text = wayPointTableData?.time
-        wayPointTitleLabel.text = wayPointTableData?.user
+        wayPointTitleLabel.text = wayPointTableData?.location
     }
     
     override func awakeFromNib() {

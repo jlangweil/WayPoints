@@ -537,6 +537,9 @@
                                             <constraint firstAttribute="trailing" secondItem="6IM-fF-Ioh" secondAttribute="trailing" constant="34" id="3Xx-z9-Cru"/>
                                             <constraint firstItem="6IM-fF-Ioh" firstAttribute="centerY" secondItem="AUt-Lo-B6e" secondAttribute="centerY" id="NNT-Xr-E8a"/>
                                         </constraints>
+                                        <connections>
+                                            <segue destination="inS-Pq-7uQ" kind="show" id="HXw-Io-a4h"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="ksP-jV-ll8">
                                         <rect key="frame" x="0.0" y="132" width="320" height="44"/>

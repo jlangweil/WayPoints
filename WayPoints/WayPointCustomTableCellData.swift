@@ -12,7 +12,7 @@ import MapKit
 struct WayPointCustomTableCellData {
     var image : UIImage?
     var time : String?
-    var user : String?
+    var location : String?
     var description : String?
     //var turbulenceImage : UIImage?
     
