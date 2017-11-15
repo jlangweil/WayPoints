@@ -7,4 +7,5 @@ target 'WayPoints' do
 
   # Pods for WayPoints
     pod 'Firebase/Core'
+    pod 'Firebase/Database'
 end

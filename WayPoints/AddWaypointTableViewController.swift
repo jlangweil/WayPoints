@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 class AddWaypointTableViewController: UITableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
 
@@ -73,12 +74,36 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
         // add annotation to the array
         mapViewController.waypoints.append(annotation)
+        // save to database
+        saveAnnotationToDatabase(annotation)
         // update map
         mapViewController.updateMap()
         // TODO update tableview here as well
     
         navigationController?.popViewController(animated: true)
         
+    }
+    
+    func saveAnnotationToDatabase(_ waypoint:WayPointAnnotation) {
+        // Add data to Firebase
+        let rootRef = Database.database().reference().child("waypoints");
+        let key = rootRef.childByAutoId().key
+        
+        //creating artist with the given values
+        let waypoint = ["id":key,
+                        "latitude": "\(waypoint.coordinate.latitude)" as String,
+                        "longitude": "\(waypoint.coordinate.longitude)" as String,
+                        "altitude": "\(waypoint.altitude)" as String,
+                        "citystate": waypoint.cityState! as String,
+                        "description": waypoint.subtitle! as String,
+                        "time": waypoint.time! as String,
+                        "turbulence": waypoint.turbulence.rawValue as String,
+                        "icing": waypoint.icing.rawValue as String,
+                        "precipitation": waypoint.precipitation.rawValue as String,
+                        "urgent": waypoint.urgent as Bool
+                        
+            ] as [String : Any]
+        rootRef.child(key).setValue(waypoint)
     }
     
     func displayNoGpsAlert() {
@@ -140,6 +165,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
+            // how do i get it to enable location services here?
             break
         case .authorizedAlways, .authorizedWhenInUse:
             enableLocationServices()

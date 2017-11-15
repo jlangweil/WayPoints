@@ -8,6 +8,9 @@
 
 import UIKit
 import MapKit
+import Firebase
+import FirebaseDatabase
+
 
 class MapViewViewController: UIViewController, MKMapViewDelegate {
 
@@ -182,7 +185,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             
             print("test: \( placemark?.administrativeArea)")
         }*/
-        let testImage = UIImage(named: "default")
+        /*let testImage = UIImage(named: "default")
         var testCoordinate : CLLocationCoordinate2D
         let precip: Precip = .rain
         let icing: Severity = .none
@@ -191,13 +194,28 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         let cityState = "Someplace, USA"
         testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -70)
         var testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world1", subtitle: "This is another test", photo: testImage, time:"12:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false, cityState: cityState, altitude: altitude)
-        waypoints.append(testWayPoint)
+        waypoints.append(testWayPoint)*/
         /*testCoordinate = CLLocationCoordinate2D(latitude: 30.0, longitude: -100)
         testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.  This one is a little bigger.  Lots of fog", photo: testImage, time:"12:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false)
         waypoints.append(testWayPoint)
         testCoordinate = CLLocationCoordinate2D(latitude: 40.0, longitude: -110)
         testWayPoint = WayPointAnnotation(coordinate: testCoordinate, title: "Hello world2", subtitle: "This is another test.", photo: testImage, time:"1:00PM", turbulence: turbulence, icing: icing, precipitation: precip, urgent:false)
         waypoints.append(testWayPoint)*/
+        
+        // try to add data to Firebase
+       // let rootRef = Database.database().reference().child("waypoints");
+        //let key = rootRef.childByAutoId().key
+        
+        //creating artist with the given values
+        //let waypoint = ["id":key,
+         //             "latitude": "40.0" as String,
+        //              "longitude": "-75.0" as String
+        //]
+        
+        //adding the artist inside the generated unique key
+       // rootRef.child(key).setValue(waypoint)
+       
+        
     }
     
    
