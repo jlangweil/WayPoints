@@ -49,7 +49,7 @@ class WayPointTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wayPointCell", for: indexPath)
         let description = waypoints[indexPath.row].subtitle
-        let location = waypoints[indexPath.row].cityState
+        let location = waypoints[indexPath.row].getLocation()
         let time = waypoints[indexPath.row].time
         let image = waypoints[indexPath.row].photo
         //let turbulence = waypoints[indexPath.row]

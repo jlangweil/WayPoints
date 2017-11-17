@@ -24,7 +24,6 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         }
     }
    
-    
     @IBOutlet weak var coordinatesLabel: UILabel!
     @IBOutlet weak var cityStateLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
@@ -36,6 +35,30 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     @IBOutlet weak var precipitationSelection: UISegmentedControl!
     @IBOutlet weak var imageViewCell: UITableViewCell!
     @IBOutlet weak var imageView: UIImageView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        wayPointDescription.layer.borderColor = UIColor.black.cgColor
+        wayPointDescription.layer.borderWidth = 1.0
+        altitudeLabel.text = "NO GPS POSITION"
+        coordinatesLabel.text = "NO GPS POSITION"
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        // set delgates
+        gestureRecognizer.delegate = self
+        self.view.addGestureRecognizer(gestureRecognizer)
+        self.wayPointDescription.delegate=self
+        locationManager.delegate=self
+        // get location
+        setupCoreLocation()
+        
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disableLocationServices()
+    }
     
     @IBAction func addPhoto(_ sender: Any) {
         let imagePicker = UIImagePickerController()
@@ -60,7 +83,6 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             displayNoGpsAlert()
             return
         }
-        
         if imageView.image == nil {
             imageView.image = UIImage(named: "default")
         }
@@ -69,7 +91,6 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let precipitation = Precip(rawValue: precipitationSelection.titleForSegment(at: precipitationSelection.selectedSegmentIndex)!)
         let urgent = urgentSwitch.isOn
         let utcTime = "\(Date().currentDate) \(Date().preciseGMTTime)Z"
-        let cityState = self.cityStateLabel.text
         var altitude: String
         if wayPointAltitudeInFeet == nil {
             altitude = "Altitude unknown"
@@ -78,7 +99,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             altitude = "\(wayPointAltitudeInFeet!)"
         }
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, cityState: cityState, altitude: altitude)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, placeMark: wayPointPlaceMark, altitude: altitude)
         let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
         // add annotation to the array
         mapViewController.waypoints.append(annotation)
@@ -96,22 +117,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         // Add data to Firebase
         let rootRef = Database.database().reference().child("waypoints");
         let key = rootRef.childByAutoId().key
-        
-        //creating artist with the given values
-        let waypoint = ["id":key,
-                        "latitude": "\(waypoint.coordinate.latitude)" as String,
-                        "longitude": "\(waypoint.coordinate.longitude)" as String,
-                        "altitude": "\(waypoint.altitude)" as String,
-                        "citystate": waypoint.cityState! as String,
-                        "description": waypoint.subtitle! as String,
-                        "time": waypoint.time! as String,
-                        "turbulence": waypoint.turbulence.rawValue as String,
-                        "icing": waypoint.icing.rawValue as String,
-                        "precipitation": waypoint.precipitation.rawValue as String,
-                        "urgent": waypoint.urgent as Bool
-                        
-            ] as [String : Any]
-        rootRef.child(key).setValue(waypoint)
+        let fireBaseWayPoint = waypoint.getDictionaryForDatabase(key)
+        rootRef.child(key).setValue(fireBaseWayPoint)
     }
     
     func displayNoGpsAlert() {
@@ -119,9 +126,6 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
-    
-    
-    
     
     @objc func dismissKeyboard() {
         wayPointDescription.resignFirstResponder()
@@ -137,37 +141,6 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         
     }
     
-
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        wayPointDescription.layer.borderColor = UIColor.black.cgColor
-        wayPointDescription.layer.borderWidth = 1.0
-        altitudeLabel.text = "NO GPS POSITION"
-        coordinatesLabel.text = "NO GPS POSITION"
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        gestureRecognizer.delegate = self
-        self.view.addGestureRecognizer(gestureRecognizer)
-        
-        // set delgates
-        self.wayPointDescription.delegate=self
-        locationManager.delegate=self
-        // get location
-        setupCoreLocation()
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        disableLocationServices()
-    }
-    
-    
-    
-    // MARK Location tasks
     // MARK Location methods
     func setupCoreLocation() {
         switch CLLocationManager.authorizationStatus() {

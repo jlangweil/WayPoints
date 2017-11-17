@@ -9,8 +9,6 @@
 import UIKit
 import MapKit
 import Firebase
-import FirebaseDatabase
-
 
 class MapViewViewController: UIViewController, MKMapViewDelegate {
 
@@ -42,7 +40,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         mapCenter = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         // Do any additional setup after loading the view.
         if waypoints.count == 0 {
-            populateTestData()
+            //populateTestData()
+            getWayPointsFromDatabase()  // the listener set up here will be moved to the sign on or an earlier page later.
         }
         // here is where we will get the data from the database based on a filter
         updateMap()
@@ -145,35 +144,17 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    // Used to get the city,state of the coordinate
-    /*func getPlacemark(forLocation location: CLLocation, completionHandler: @escaping (CLPlacemark?, String?) -> ()) {
-        let geocoder = CLGeocoder()
-        
-        geocoder.reverseGeocodeLocation(location, completionHandler: {
-            placemarks, error in
-            
-            if let err = error {
-                completionHandler(nil, err.localizedDescription)
-            } else if let placemarkArray = placemarks {
-                if let placemark = placemarkArray.first {
-                    completionHandler(placemark, nil)
-                } else {
-                    completionHandler(nil, "Placemark was nil")
-                }
-            } else {
-                completionHandler(nil, "Unknown error")
-            }
-        })
-        
-    }*/
-   /* override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }*/
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // create object to pass in as sender and then pass to the destination.  for now just passing the image
         if let photoController = segue.destination as? WayPointPhotoViewController,let customImageView = sender as? UIImageView {
             photoController.image = customImageView.image
         }
+    }
+    
+    private func getWayPointsFromDatabase() {
+        waypoints.removeAll()
+        // GET EVERYTHING FOR NOW
+        
     }
     
     private func populateTestData() {

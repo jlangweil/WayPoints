@@ -14,21 +14,32 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var title: String?
     var subtitle: String?
     var photo:UIImage?
-    var time:String?
+    var time:String
     var turbulence:Severity
     var icing:Severity
     var precipitation:Precip
     var urgent:Bool = false
-    
-    var cityState:String?
+    var placeMark: CLPlacemark?
     var altitude:String
     
     var latitude : Double
     var longitude : Double
     
-    var uploaded:Bool = false
+    var city:String? {
+        get {
+            return placeMark?.locality
+        }
+    }
     
-    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String?, turbulence:Severity, icing: Severity, precipitation: Precip, urgent: Bool, cityState: String?, altitude: String){
+    var state:String? {
+        get {
+            return placeMark?.administrativeArea
+        }
+    }
+    
+    //var uploaded:Bool = false
+    
+    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, urgent: Bool, placeMark: CLPlacemark?, altitude: String){
         self.coordinate = coordinate
         self.title = title
         self.subtitle = subtitle
@@ -38,10 +49,42 @@ class WayPointAnnotation: NSObject, MKAnnotation {
         self.precipitation=precipitation
         self.icing = icing
         self.urgent = urgent
-        self.cityState = cityState
+        self.placeMark = placeMark
         self.altitude = altitude
         self.latitude = coordinate.latitude
         self.longitude = coordinate.longitude
     }
+    
+    func getDictionaryForDatabase(_ key:String) -> [String:Any] {
+        let description = subtitle ?? ""
+        //let city = placeMark?.locality ?? ""
+        //let state = placeMark?.administrativeArea ?? ""
+       
+        let waypoint = ["id":key,
+                        "latitude": "\(latitude)" as String,
+                        "longitude": "\(longitude)" as String,
+                        "altitude": "\(altitude)" as String,
+                        "city": city ?? "" as String,
+                        "state": state ?? "" as String,
+                        "description": description as String,
+                        "time": time as String,
+                        "turbulence": turbulence.rawValue as String,
+                        "icing": icing.rawValue as String,
+                        "precipitation": precipitation.rawValue as String,
+                        "urgent": urgent as Bool
+            ] as [String : Any]
+        
+        return waypoint
+    }
+    
+    func getLocation() -> String {
+        if city != nil && state != nil {
+            return "\(city!), \(state!)"
+        }
+        else {
+            return ""
+        }
+    }
+    
 }
 
