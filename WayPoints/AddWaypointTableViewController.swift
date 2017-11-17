@@ -16,6 +16,14 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     var locationManager = CLLocationManager()
     var wayPointCoordinate: CLLocationCoordinate2D?
     var wayPointAltitudeInFeet: CLLocationDistance?
+    var wayPointPlaceMark: CLPlacemark? {
+        didSet {
+            if let city = wayPointPlaceMark!.locality, let state = wayPointPlaceMark!.administrativeArea {
+                self.cityStateLabel.text = "\(city), \(state)"
+            }
+        }
+    }
+   
     
     @IBOutlet weak var coordinatesLabel: UILabel!
     @IBOutlet weak var cityStateLabel: UILabel!
@@ -203,35 +211,20 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let altitudeInFeet = Int(wayPointAltitudeInFeet!)
         coordinatesLabel.text = "\(String(format: "%.5f", wayPointCoordinate!.latitude)), \(String(format: "%.5f", wayPointCoordinate!.longitude))"
         altitudeLabel.text = "\(altitudeInFeet) feet"
-        var currentPlace : CLPlacemark?
-        getPlacemark(forLocation: CLLocation(latitude: wayPointCoordinate!.latitude, longitude: wayPointCoordinate!.longitude)) { (placemark, error) in
-            currentPlace = placemark
-            if currentPlace != nil {
-                self.cityStateLabel.text = getCityState(for: currentPlace)
-            }
-         }
-    }
-    
-    // Used to get the city,state of the coordinate
-    func getPlacemark(forLocation location: CLLocation, completionHandler: @escaping (CLPlacemark?, String?) -> ()) {
         let geocoder = CLGeocoder()
-        
-        geocoder.reverseGeocodeLocation(location, completionHandler: {
-            placemarks, error in
+        geocoder.reverseGeocodeLocation(location, completionHandler: {(placemarks, error) in
+            if (error != nil) {
+                print("Error in reverseGeocode")
+            }
             
-            if let err = error {
-                completionHandler(nil, err.localizedDescription)
-            } else if let placemarkArray = placemarks {
-                if let placemark = placemarkArray.first {
-                    completionHandler(placemark, nil)  // could intercept here to return city state
-                } else {
-                    completionHandler(nil, "Placemark was nil")
+            let placemark = placemarks! as [CLPlacemark]
+            if placemark.count > 0 {
+                let placemark = placemarks![0]
+                if placemark.administrativeArea != nil && placemark.locality != nil {
+                    self.wayPointPlaceMark = placemark
                 }
-            } else {
-                completionHandler(nil, "Unknown error")
             }
         })
-        
     }
     
     // MARK imagePicker delegate methods
