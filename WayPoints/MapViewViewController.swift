@@ -43,13 +43,11 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             //populateTestData()
             getWayPointsFromDatabase()  // the listener set up here will be moved to the sign on or an earlier page later.
         }
-        // here is where we will get the data from the database based on a filter
-        updateMap()
     }
     
-    public func updateMap() {
+    /*public func updateMap() {
         mapView.addAnnotations(waypoints)
-    }
+    }*/
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -154,7 +152,30 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     private func getWayPointsFromDatabase() {
         waypoints.removeAll()
         // GET EVERYTHING FOR NOW
-        
+        let ref = Database.database().reference()
+        let wayPointsRef = ref.child("waypoints")
+        wayPointsRef.observe(DataEventType.childAdded, with: { [weak self] (snapshot) in
+            if let userDict = snapshot.value as? [String:Any] {
+                let id = userDict["id"] as! String // Will be used to retrieve image
+                let city = userDict["city"] as! String
+                let altitude = userDict["altitude"] as! String
+                let description = userDict["description"] as! String
+                let state = userDict["state"] as! String
+                let icing = userDict["icing"] as! String
+                
+                let latitude = userDict["latitude"] as! String
+                let longitude = userDict["longitude"] as! String
+                let precipitation = userDict["precipitation"] as! String
+                let time = userDict["time"] as! String
+                let turbulence = userDict["turbulence"] as! String
+                let urgent = userDict["urgent"] as! Bool
+                let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, urgent: urgent, city: city, state: state, altitude: altitude)
+                self?.waypoints.append(wayPointToBeAdded) // do I need the array of annotations?  Going to add directly to the map in each view.  Might remove this []
+                // here is where we will get the data from the database based on a filter
+                self?.mapView.addAnnotation(wayPointToBeAdded)
+            }
+        })
     }
     
     private func populateTestData() {

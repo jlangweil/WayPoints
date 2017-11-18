@@ -33,6 +33,10 @@ class WayPointTableViewController: UITableViewController {
         let mapVC = navController.topViewController as! MapViewViewController
         return mapVC.waypoints
     }
+    
+    private func refreshFromDatabase() {
+        // TODO clear data, set up observer and refresh table data accordingly.
+    }
 
 
     override func numberOfSections(in tableView: UITableView) -> Int {

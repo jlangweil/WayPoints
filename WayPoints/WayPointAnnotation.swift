@@ -19,27 +19,15 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var icing:Severity
     var precipitation:Precip
     var urgent:Bool = false
-    var placeMark: CLPlacemark?
     var altitude:String
-    
     var latitude : Double
     var longitude : Double
-    
-    var city:String? {
-        get {
-            return placeMark?.locality
-        }
-    }
-    
-    var state:String? {
-        get {
-            return placeMark?.administrativeArea
-        }
-    }
+    var city:String?
+    var state:String?
     
     //var uploaded:Bool = false
     
-    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, urgent: Bool, placeMark: CLPlacemark?, altitude: String){
+    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, urgent: Bool, city: String?, state: String?, altitude: String){
         self.coordinate = coordinate
         self.title = title
         self.subtitle = subtitle
@@ -49,7 +37,8 @@ class WayPointAnnotation: NSObject, MKAnnotation {
         self.precipitation=precipitation
         self.icing = icing
         self.urgent = urgent
-        self.placeMark = placeMark
+        self.city = city
+        self.state = state
         self.altitude = altitude
         self.latitude = coordinate.latitude
         self.longitude = coordinate.longitude

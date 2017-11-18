@@ -98,15 +98,20 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         else {
             altitude = "\(wayPointAltitudeInFeet!)"
         }
+        let city = wayPointPlaceMark?.locality
+        let state = wayPointPlaceMark?.administrativeArea
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, placeMark: wayPointPlaceMark, altitude: altitude)
-        let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
-        // add annotation to the array
-        mapViewController.waypoints.append(annotation)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, city: city, state: state, altitude: altitude)
         // save to database
         saveAnnotationToDatabase(annotation)
+        
+        // Replacing this, map controller will handle seeing and adding waypoints only through the database observer
+        /*let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
+        // add annotation to the array
+        mapViewController.waypoints.append(annotation)
+        
         // update map
-        mapViewController.updateMap()
+        mapViewController.updateMap()*/
         // TODO update tableview here as well
     
         navigationController?.popViewController(animated: true)
