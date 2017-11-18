@@ -61,15 +61,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="Luw-4M-m5w">
-                        <barButtonItem key="rightBarButtonItem" title="Add" style="plain" id="fcA-ag-emv">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AmA-KS-d7h">
-                                <rect key="frame" x="274" y="7" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add"/>
-                                <connections>
-                                    <segue destination="Jwi-nC-SDG" kind="show" identifier="addNewTable" id="75E-0h-rp1"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="fcA-ag-emv">
+                            <connections>
+                                <segue destination="Jwi-nC-SDG" kind="show" identifier="addNew" id="Usf-0A-88Q"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -593,7 +588,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LQT-xi-Tzx" id="Qq6-2j-fVf">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r35-fr-M8e">
@@ -623,7 +618,7 @@
                                         <rect key="frame" x="0.0" y="44" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mmf-eQ-dIc" id="eJS-cK-sSw">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Aircraft Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymj-wo-9M5">
@@ -845,8 +840,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="cvM-93-K6A">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="ow6-Wz-LjQ"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="ow6-Wz-LjQ">
+                            <connections>
+                                <segue destination="Jwi-nC-SDG" kind="show" identifier="addNewFromList" id="1Ud-bt-60B"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="dQt-7W-EqE">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshData:" destination="FwB-oK-FV6" eventType="valueChanged" id="nfZ-kZ-Fuq"/>
+                        </connections>
+                    </refreshControl>
                     <connections>
                         <segue destination="0u0-v0-4M7" kind="show" identifier="showPhoto" id="gvT-uu-C8Z"/>
                     </connections>
@@ -930,6 +935,7 @@
         <image name="upload" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gvT-uu-C8Z"/>
+        <segue reference="TIi-Ww-qUW"/>
+        <segue reference="1Ud-bt-60B"/>
     </inferredMetricsTieBreakers>
 </document>

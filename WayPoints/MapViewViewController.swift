@@ -153,7 +153,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         waypoints.removeAll()
         // GET EVERYTHING FOR NOW
         let ref = Database.database().reference()
-        let wayPointsRef = ref.child("waypoints")
+        let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "time")
         wayPointsRef.observe(DataEventType.childAdded, with: { [weak self] (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
                 let id = userDict["id"] as! String // Will be used to retrieve image

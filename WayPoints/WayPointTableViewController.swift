@@ -24,6 +24,8 @@ class WayPointTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         // be sure to reload if the model changes
         waypoints = getWayPointsFromMapView()
+        waypoints.reverse() // sort in most recent order
+       // waypoints.sort(by: <#T##(WayPointAnnotation, WayPointAnnotation) throws -> Bool#>)
         
     }
     
@@ -32,6 +34,10 @@ class WayPointTableViewController: UITableViewController {
         let navController = tabController?.viewControllers![0] as! UINavigationController
         let mapVC = navController.topViewController as! MapViewViewController
         return mapVC.waypoints
+    }
+    
+    @IBAction func refreshData(_ sender: UIRefreshControl) {
+        sender.endRefreshing()
     }
     
     private func refreshFromDatabase() {
