@@ -7,41 +7,80 @@
 //
 
 import UIKit
+import Firebase
+import MapKit
 
 class WayPointTableViewController: UITableViewController {
 
     //var map = Map()
     var waypoints : [WayPointAnnotation] = []
+    var mapVC: MapViewViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         //print ("map items: \(map.annotations.count)")
+        let tabController = self.tabBarController
+        let navController = tabController?.viewControllers![0] as! UINavigationController
+        mapVC = navController.topViewController as? MapViewViewController
+        
         tableView.estimatedRowHeight=104
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         // be sure to reload if the model changes
         waypoints = getWayPointsFromMapView()
         waypoints.reverse() // sort in most recent order
-       // waypoints.sort(by: <#T##(WayPointAnnotation, WayPointAnnotation) throws -> Bool#>)
         
+        gatherNewData()  //put this on another queue
     }
     
     private func getWayPointsFromMapView() -> [WayPointAnnotation]{
-        let tabController = self.tabBarController
-        let navController = tabController?.viewControllers![0] as! UINavigationController
-        let mapVC = navController.topViewController as! MapViewViewController
-        return mapVC.waypoints
+        return mapVC!.waypoints
     }
     
     @IBAction func refreshData(_ sender: UIRefreshControl) {
+        self.tableView.reloadData()
         sender.endRefreshing()
     }
     
-    private func refreshFromDatabase() {
-        // TODO clear data, set up observer and refresh table data accordingly.
+    private func gatherNewData() {
+        let ref = Database.database().reference()
+        let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "time")
+        wayPointsRef.observe(DataEventType.childAdded, with: { [weak self] (snapshot) in
+            if let userDict = snapshot.value as? [String:Any] {
+                let id = userDict["id"] as! String // Will be used to retrieve image
+                let city = userDict["city"] as! String
+                let altitude = userDict["altitude"] as! String
+                let description = userDict["description"] as! String
+                let state = userDict["state"] as! String
+                let icing = userDict["icing"] as! String
+                
+                let latitude = userDict["latitude"] as! String
+                let longitude = userDict["longitude"] as! String
+                let precipitation = userDict["precipitation"] as! String
+                let time = userDict["time"] as! String
+                let turbulence = userDict["turbulence"] as! String
+                let urgent = userDict["urgent"] as! Bool
+                let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, urgent: urgent, city: city, state: state, altitude: altitude, id: id)
+                if (self?.waypoints.contains(where: { (annotation) -> Bool in
+                    if id==annotation.id {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                }))!
+                {}// do nothing}
+                else {
+                    self?.waypoints.insert(wayPointToBeAdded, at: 0)
+                }
+            }
+        })
     }
 
 

@@ -149,7 +149,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func getWayPointsFromDatabase() {
+    func getWayPointsFromDatabase() {
         waypoints.removeAll()
         // GET EVERYTHING FOR NOW
         let ref = Database.database().reference()
@@ -170,7 +170,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                 let turbulence = userDict["turbulence"] as! String
                 let urgent = userDict["urgent"] as! Bool
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, urgent: urgent, city: city, state: state, altitude: altitude)
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, urgent: urgent, city: city, state: state, altitude: altitude, id: id)
                 self?.waypoints.append(wayPointToBeAdded) // do I need the array of annotations?  Going to add directly to the map in each view.  Might remove this []
                 // here is where we will get the data from the database based on a filter
                 self?.mapView.addAnnotation(wayPointToBeAdded)

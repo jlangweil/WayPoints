@@ -101,9 +101,11 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let city = wayPointPlaceMark?.locality
         let state = wayPointPlaceMark?.administrativeArea
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, city: city, state: state, altitude: altitude)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, city: city, state: state, altitude: altitude, id: nil)
         // save to database
-        saveAnnotationToDatabase(annotation)
+        let key = saveAnnotationToDatabase(annotation)
+        annotation.id = key
+        
         
         // Replacing this, map controller will handle seeing and adding waypoints only through the database observer
         /*let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
@@ -118,12 +120,13 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         
     }
     
-    func saveAnnotationToDatabase(_ waypoint:WayPointAnnotation) {
+    func saveAnnotationToDatabase(_ waypoint:WayPointAnnotation) -> String{
         // Add data to Firebase
         let rootRef = Database.database().reference().child("waypoints");
         let key = rootRef.childByAutoId().key
         let fireBaseWayPoint = waypoint.getDictionaryForDatabase(key)
         rootRef.child(key).setValue(fireBaseWayPoint)
+        return key
     }
     
     func displayNoGpsAlert() {

@@ -10,6 +10,7 @@ import Foundation
 import MapKit
 
 class WayPointAnnotation: NSObject, MKAnnotation {
+    var id: String?
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
@@ -27,7 +28,8 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     
     //var uploaded:Bool = false
     
-    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, urgent: Bool, city: String?, state: String?, altitude: String){
+    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, urgent: Bool, city: String?, state: String?, altitude: String, id: String?){
+        self.id=id
         self.coordinate = coordinate
         self.title = title
         self.subtitle = subtitle
