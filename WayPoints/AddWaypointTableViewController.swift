@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import Firebase
 
+
 class AddWaypointTableViewController: UITableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
 
     var locationIdentified: Bool = false
@@ -104,9 +105,10 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, city: city, state: state, altitude: altitude, id: nil)
         // save to database
         let key = saveAnnotationToDatabase(annotation)
-        annotation.id = key
-        
-        
+        if imageView.image != nil {
+            saveImageToDatabase(image: imageView.image!, key: key)
+        }
+       
         // Replacing this, map controller will handle seeing and adding waypoints only through the database observer
         /*let mapViewController = navigationController?.viewControllers[0] as! MapViewViewController
         // add annotation to the array
@@ -120,13 +122,39 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         
     }
     
-    func saveAnnotationToDatabase(_ waypoint:WayPointAnnotation) -> String{
+    func saveAnnotationToDatabase(_ waypoint:WayPointAnnotation) -> String {
         // Add data to Firebase
         let rootRef = Database.database().reference().child("waypoints");
         let key = rootRef.childByAutoId().key
         let fireBaseWayPoint = waypoint.getDictionaryForDatabase(key)
         rootRef.child(key).setValue(fireBaseWayPoint)
         return key
+    }
+    
+    func saveImageToDatabase(image:UIImage, key:String) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        //let keyRef = storageRef.child("\(key).jpg")
+        let imagesRef = storageRef.child("images/\(key).jpg")
+        // Data in memory
+        if let data = UIImageJPEGRepresentation(image, 1.0) as Data? {
+           
+            // Upload the file to the path "images/rivers.jpg"
+            let uploadTask = imagesRef.putData(data, metadata: nil) { (metadata, error) in
+                guard let metadata = metadata else {
+                    // Uh-oh, an error occurred!
+                    print(error.debugDescription)
+                    return
+                }
+                // Metadata contains file metadata such as size, content-type, and download URL.
+                let downloadURL = metadata.downloadURL
+            }
+            
+        }
+    }
+    
+    func saveImageToCache(image:UIImage, key:String) {
+        
     }
     
     func displayNoGpsAlert() {
