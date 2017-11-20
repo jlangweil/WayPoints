@@ -140,9 +140,10 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let imagesRef = storageRef.child("images/\(key).jpg")
         // Data in memory
         if let data = UIImageJPEGRepresentation(image, 1.0) as Data? {
-           
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
             // Upload the file to the path "images/rivers.jpg"
-            let uploadTask = imagesRef.putData(data, metadata: nil) { (metadata, error) in
+            let uploadTask = imagesRef.putData(data, metadata: metadata) { (metadata, error) in
                 
                 guard let metadata = metadata else {
                     // Uh-oh, an error occurred!

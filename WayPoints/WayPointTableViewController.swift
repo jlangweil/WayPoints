@@ -38,6 +38,11 @@ class WayPointTableViewController: UITableViewController {
         gatherNewData()  //put this on another queue
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "WayPoints List"
+    }
+    
     private func getWayPointsFromMapView() -> [WayPointAnnotation]{
         return mapVC!.waypoints
     }
@@ -58,7 +63,6 @@ class WayPointTableViewController: UITableViewController {
                 let description = userDict["description"] as! String
                 let state = userDict["state"] as! String
                 let icing = userDict["icing"] as! String
-                
                 let latitude = userDict["latitude"] as! String
                 let longitude = userDict["longitude"] as! String
                 let precipitation = userDict["precipitation"] as! String
@@ -99,9 +103,8 @@ class WayPointTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wayPointCell", for: indexPath)
         let description = waypoints[indexPath.row].subtitle
         let location = waypoints[indexPath.row].getLocation()
-        let time = waypoints[indexPath.row].time
-        let image = waypoints[indexPath.row].photo
-        //let turbulence = waypoints[indexPath.row]
+        let time = waypoints[indexPath.row].time.replacingOccurrences(of: " ", with: "\r\n")  // may want to separate datetime in database anyway for filtering query
+        let image = waypoints[indexPath.row].photo  // TODO: see if photo is nil.  If it is, check cache, then go to database.  Better-create thumbnails for smaller display
         if let wayPointCell = cell as? WayPointCustomTableCell {
             let cellData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
             wayPointCell.wayPointTableData = cellData

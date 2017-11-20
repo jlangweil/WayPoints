@@ -114,7 +114,12 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                     let urlContents = try? Data(contentsOf: url!)
                     if let imageData = urlContents {
                         DispatchQueue.main.async {
-                            calloutView.wayPointImage.image = UIImage(data: imageData)
+                            let downloadedImage = UIImage(data: imageData)
+                            calloutView.wayPointImage.image = downloadedImage
+                            // add to current waypoint
+                            wayPointAnnotation.photo = downloadedImage
+                            // add to cache
+                            imageCache.setObject(downloadedImage!, forKey: wayPointAnnotation.id! as NSString)
                             calloutView.spinner.stopAnimating()
                         }
                     }
