@@ -12,6 +12,7 @@ class CustomCalloutView: UIView {
     @IBOutlet weak var wxImageView: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
 
 }

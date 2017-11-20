@@ -80,12 +80,14 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     }
     
     @IBAction func saveWayPoint(_ sender: Any) {
+        var imageAttached: Bool = true
         if wayPointCoordinate == nil {
             displayNoGpsAlert()
             return
         }
         if imageView.image == nil {
             imageView.image = UIImage(named: "default")
+            imageAttached=false
         }
         let turbulence = Severity(rawValue: turbulenceSelection.titleForSegment(at: turbulenceSelection.selectedSegmentIndex)!)
         let icing = Severity(rawValue: icingSelection.titleForSegment(at: icingSelection.selectedSegmentIndex)!)
@@ -105,7 +107,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, city: city, state: state, altitude: altitude, id: nil)
         // save to database
         let key = saveAnnotationToDatabase(annotation)
-        if imageView.image != nil {
+        if imageAttached {
             saveImageToDatabase(image: imageView.image!, key: key)
         }
        
@@ -141,13 +143,16 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
            
             // Upload the file to the path "images/rivers.jpg"
             let uploadTask = imagesRef.putData(data, metadata: nil) { (metadata, error) in
+                
                 guard let metadata = metadata else {
                     // Uh-oh, an error occurred!
-                    print(error.debugDescription)
+                    print("Error uploading file \(key).jpg: \(error.debugDescription)")
                     return
                 }
                 // Metadata contains file metadata such as size, content-type, and download URL.
-                let downloadURL = metadata.downloadURL
+                //let downloadURL = metadata.downloadURL
+                print("Uploaded: \(key).jpg")
+                // TAKES A WHILE TO UPLOAD, Might want to shrink size and add progress bar before going back to map screen
             }
             
         }
@@ -226,11 +231,13 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
                 print("Error in reverseGeocode")
             }
             
-            let placemark = placemarks! as [CLPlacemark]
-            if placemark.count > 0 {
-                let placemark = placemarks![0]
-                if placemark.administrativeArea != nil && placemark.locality != nil {
-                    self.wayPointPlaceMark = placemark
+            if placemarks != nil {
+                let placemark = placemarks! as [CLPlacemark]
+                if placemark.count > 0 {
+                    let placemark = placemarks![0]
+                    if placemark.administrativeArea != nil && placemark.locality != nil {
+                        self.wayPointPlaceMark = placemark
+                    }
                 }
             }
         })

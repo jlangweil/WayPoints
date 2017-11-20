@@ -92,7 +92,41 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         calloutView.timeLabel.text = wayPointAnnotation.time
         
         // Set Callout Images
-        calloutView.wayPointImage.image = wayPointAnnotation.photo
+        //calloutView.wayPointImage.image = wayPointAnnotation.photo
+        //calloutView.wayPointImage.image = getPhoto(wayPointAnnotation.id)
+        
+        // Reference to an image file in Firebase Storage
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let reference = storageRef.child("images/\(wayPointAnnotation.id!).jpg")
+        
+        // Fetch the download URL
+        calloutView.spinner.startAnimating()
+        DispatchQueue.global(qos: .userInitiated).async {
+            reference.downloadURL { url, error in
+                if let error = error {
+                    // Handle any errors
+                    DispatchQueue.main.async {
+                        calloutView.wayPointImage.image = UIImage(named: "default")
+                        calloutView.spinner.stopAnimating()
+                    }
+                } else {
+                    let urlContents = try? Data(contentsOf: url!)
+                    if let imageData = urlContents {
+                        DispatchQueue.main.async {
+                            calloutView.wayPointImage.image = UIImage(data: imageData)
+                            calloutView.spinner.stopAnimating()
+                        }
+                    }
+                    else{
+                        DispatchQueue.main.async {
+                            calloutView.wayPointImage.image = UIImage(named: "default")
+                        }
+                    }
+                }
+            }
+        }
+        
         if turbulenceImageName != nil {
             calloutView.turbulanceImageView.image = UIImage(named: turbulenceImageName!)
         }

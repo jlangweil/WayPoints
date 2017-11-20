@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import Firebase
 
 func getImageName(weather:String, severity: Severity? ) -> String? {
     guard severity != nil else {
@@ -38,6 +39,8 @@ func getImageName(precip: Precip? ) -> String? {
     }
     
 }
+
+
 
 
 
