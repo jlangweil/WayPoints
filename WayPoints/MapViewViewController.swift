@@ -102,18 +102,19 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         
         // Fetch the download URL
         calloutView.spinner.startAnimating()
-        DispatchQueue.global(qos: .userInitiated).async {
-            reference.downloadURL { url, error in
-                if let error = error {
-                    // Handle any errors
-                    DispatchQueue.main.async {
-                        calloutView.wayPointImage.image = UIImage(named: "default")
-                        calloutView.spinner.stopAnimating()
-                    }
-                } else {
+        
+        reference.downloadURL { url, error in
+            if let error = error {
+                // Handle any errors
+               calloutView.wayPointImage.image = UIImage(named: "default")
+               calloutView.spinner.stopAnimating()
+            }
+            else {
+                DispatchQueue.global(qos: .userInitiated).async {
                     let urlContents = try? Data(contentsOf: url!)
                     if let imageData = urlContents {
                         DispatchQueue.main.async {
+                            // MAIN QUEUE
                             let downloadedImage = UIImage(data: imageData)
                             calloutView.wayPointImage.image = downloadedImage
                             // add to current waypoint
@@ -126,11 +127,13 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                     else{
                         DispatchQueue.main.async {
                             calloutView.wayPointImage.image = UIImage(named: "default")
-                        }
+                            }
                     }
                 }
             }
         }
+                
+        
         
         if turbulenceImageName != nil {
             calloutView.turbulanceImageView.image = UIImage(named: turbulenceImageName!)
