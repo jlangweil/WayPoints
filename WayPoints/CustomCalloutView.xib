@@ -23,7 +23,7 @@
                     </constraints>
                 </imageView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Text" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UR2-Mb-L0T">
-                    <rect key="frame" x="228" y="31.5" width="167" height="125.5"/>
+                    <rect key="frame" x="228" y="31.5" width="167" height="112"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -83,10 +83,10 @@
                 <constraint firstItem="UR2-Mb-L0T" firstAttribute="top" secondItem="HF6-1M-H5a" secondAttribute="bottom" constant="10" id="Wth-Aq-WlO"/>
                 <constraint firstItem="HF6-1M-H5a" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="Yoe-HZ-NFN"/>
                 <constraint firstItem="Xcz-Kz-RfC" firstAttribute="width" secondItem="UR2-Mb-L0T" secondAttribute="width" id="aT5-kG-1T2"/>
+                <constraint firstItem="Xcz-Kz-RfC" firstAttribute="top" secondItem="UR2-Mb-L0T" secondAttribute="bottom" constant="4" id="eTg-8j-1cG"/>
                 <constraint firstItem="UR2-Mb-L0T" firstAttribute="trailing" secondItem="9pe-uC-UqM" secondAttribute="trailing" id="g6j-nz-nxn"/>
                 <constraint firstAttribute="trailing" secondItem="9pe-uC-UqM" secondAttribute="trailing" constant="4" id="nCL-MM-I5O"/>
                 <constraint firstItem="9pe-uC-UqM" firstAttribute="leading" secondItem="z80-2l-g21" secondAttribute="trailing" id="s8G-sk-ZzA"/>
-                <constraint firstAttribute="bottom" secondItem="UR2-Mb-L0T" secondAttribute="bottom" constant="8" id="t6N-Gf-dYW"/>
                 <constraint firstItem="jUG-x7-dGC" firstAttribute="centerX" secondItem="08t-aW-Ig0" secondAttribute="centerX" id="ur3-gs-3y6"/>
                 <constraint firstAttribute="bottom" secondItem="Xcz-Kz-RfC" secondAttribute="bottom" constant="4" id="xgz-4h-jfn"/>
             </constraints>

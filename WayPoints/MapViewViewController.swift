@@ -91,49 +91,49 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         calloutView.wayPointDescription.text = wayPointAnnotation.subtitle
         calloutView.timeLabel.text = wayPointAnnotation.time
         
-        // Set Callout Images
-        //calloutView.wayPointImage.image = wayPointAnnotation.photo
-        //calloutView.wayPointImage.image = getPhoto(wayPointAnnotation.id)
-        
-        // Reference to an image file in Firebase Storage
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
-        let reference = storageRef.child("images/\(wayPointAnnotation.id!).jpg")
-        
-        // Fetch the download URL
-        calloutView.spinner.startAnimating()
-        
-        reference.downloadURL { url, error in
-            if let error = error {
-                // Handle any errors
-               calloutView.wayPointImage.image = UIImage(named: "default")
-               calloutView.spinner.stopAnimating()
-            }
-            else {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    let urlContents = try? Data(contentsOf: url!)
-                    if let imageData = urlContents {
-                        DispatchQueue.main.async {
-                            // MAIN QUEUE
-                            let downloadedImage = UIImage(data: imageData)
-                            calloutView.wayPointImage.image = downloadedImage
-                            // add to current waypoint
-                            wayPointAnnotation.photo = downloadedImage
-                            // add to cache
-                            imageCache.setObject(downloadedImage!, forKey: wayPointAnnotation.id! as NSString)
-                            calloutView.spinner.stopAnimating()
-                        }
-                    }
-                    else{
-                        DispatchQueue.main.async {
-                            calloutView.wayPointImage.image = UIImage(named: "default")
+        if let cachedImage = imageCache.object(forKey: wayPointAnnotation.id! as NSString) {
+            calloutView.wayPointImage.image = cachedImage
+        }
+        else {
+            // Reference to an image file in Firebase Storage
+            let storage = Storage.storage()
+            let storageRef = storage.reference()
+            let reference = storageRef.child("images/\(wayPointAnnotation.id!).jpg")
+            
+            // Fetch the download URL
+            calloutView.spinner.startAnimating()
+            
+            reference.downloadURL { url, error in
+                if let error = error {
+                    // Handle any errors
+                    print("Could not retrieve image: \(error.localizedDescription)")
+                    calloutView.wayPointImage.image = UIImage(named: "default")
+                    calloutView.spinner.stopAnimating()
+                }
+                else {
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        let urlContents = try? Data(contentsOf: url!)
+                        if let imageData = urlContents {
+                            DispatchQueue.main.async {
+                                // MAIN QUEUE
+                                let downloadedImage = UIImage(data: imageData)
+                                calloutView.wayPointImage.image = downloadedImage
+                                // add to current waypoint
+                                wayPointAnnotation.photo = downloadedImage // add to waypoint if viewed on map or get from cache?
+                                // add to cache
+                                imageCache.setObject(downloadedImage!, forKey: wayPointAnnotation.id! as NSString)
+                                calloutView.spinner.stopAnimating()
                             }
+                        }
+                        else{
+                            DispatchQueue.main.async {
+                                calloutView.wayPointImage.image = UIImage(named: "default")
+                            }
+                        }
                     }
                 }
             }
         }
-                
-        
         
         if turbulenceImageName != nil {
             calloutView.turbulanceImageView.image = UIImage(named: turbulenceImageName!)
