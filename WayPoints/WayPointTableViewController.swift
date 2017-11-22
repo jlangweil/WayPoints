@@ -109,11 +109,15 @@ class WayPointTableViewController: UITableViewController {
         var image : UIImage?
         // Set data without image
         if let wayPointCell = cell as? WayPointCustomTableCell {
-            let cellData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
-            wayPointCell.wayPointTableData = cellData
+            wayPointCell.spinner.startAnimating()
+            wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
         }
         if let cachedImage = imageCache.object(forKey: id! as NSString) {
             image = cachedImage
+            if let wayPointCell = cell as? WayPointCustomTableCell {
+                wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
+                wayPointCell.spinner.stopAnimating()
+            }
         }
         else {
             // move this to global file later
@@ -131,12 +135,14 @@ class WayPointTableViewController: UITableViewController {
                         let urlContents = try? Data(contentsOf: url!)
                         if let imageData = urlContents {
                             image = UIImage(data: imageData)
+                            imageCache.setObject(image!, forKey: id! as NSString)
                             // Resize to thumbnail size here to save on UI performance scrolling
                         }
                         DispatchQueue.main.async {
                         if let wayPointCell = cell as? WayPointCustomTableCell {
                             let cellData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
                             wayPointCell.wayPointTableData = cellData
+                            wayPointCell.spinner.stopAnimating()
                             // Add gesture to image
                             let handler = #selector(self.openImage(byReactingTo:))
                             let tapRecognizer = UITapGestureRecognizer(target: self, action: handler)

@@ -16,6 +16,7 @@ class WayPointCustomTableCell: UITableViewCell {
     @IBOutlet weak var wayPointDescriptionLabel: UILabel!
     @IBOutlet weak var wayPointTimeLabel: UILabel!
     @IBOutlet weak var actionButton: UIButton!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var wayPointTableData: WayPointCustomTableCellData? { didSet {updateUI() } }
     

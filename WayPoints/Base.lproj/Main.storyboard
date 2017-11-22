@@ -701,10 +701,15 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="SpA-K7-FmC">
+                                            <rect key="frame" x="19" y="10" width="37" height="37"/>
+                                            <color key="color" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="jit-s3-QzD" firstAttribute="top" secondItem="7c2-PY-ihY" secondAttribute="top" id="6Cn-pd-zfs"/>
                                         <constraint firstItem="jit-s3-QzD" firstAttribute="leading" secondItem="7c2-PY-ihY" secondAttribute="trailing" constant="20" id="7vO-Iq-lD1"/>
+                                        <constraint firstItem="SpA-K7-FmC" firstAttribute="centerX" secondItem="7c2-PY-ihY" secondAttribute="centerX" id="EbO-dR-sA4"/>
                                         <constraint firstItem="7c2-PY-ihY" firstAttribute="width" secondItem="rkx-P9-IDq" secondAttribute="width" multiplier="0.2" id="FUQ-HE-FRR"/>
                                         <constraint firstItem="88S-vu-TdK" firstAttribute="top" secondItem="jit-s3-QzD" secondAttribute="bottom" constant="7" id="Jgs-he-eJ6"/>
                                         <constraint firstAttribute="trailing" secondItem="jit-s3-QzD" secondAttribute="trailing" constant="8" id="LTV-VE-fuO"/>
@@ -713,6 +718,7 @@
                                         <constraint firstItem="51l-s1-F9a" firstAttribute="centerY" secondItem="rkx-P9-IDq" secondAttribute="centerY" id="Pd3-3s-Lwf"/>
                                         <constraint firstItem="88S-vu-TdK" firstAttribute="leading" secondItem="jit-s3-QzD" secondAttribute="leading" id="S43-ou-fER"/>
                                         <constraint firstAttribute="trailing" secondItem="51l-s1-F9a" secondAttribute="trailing" constant="4" id="VRC-Xg-8yY"/>
+                                        <constraint firstItem="SpA-K7-FmC" firstAttribute="centerY" secondItem="7c2-PY-ihY" secondAttribute="centerY" id="WdT-lq-0FT"/>
                                         <constraint firstAttribute="trailing" secondItem="88S-vu-TdK" secondAttribute="trailing" constant="50" id="Wrc-7T-HR7"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="AAM-XM-Oyq" secondAttribute="bottom" constant="5" id="ZKr-t5-iGi"/>
                                         <constraint firstItem="AAM-XM-Oyq" firstAttribute="firstBaseline" secondItem="7c2-PY-ihY" secondAttribute="baseline" constant="18.5" symbolType="layoutAnchor" id="Zte-mx-I46"/>
@@ -721,6 +727,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="actionButton" destination="51l-s1-F9a" id="0fj-i4-rgf"/>
+                                    <outlet property="spinner" destination="SpA-K7-FmC" id="RB8-Gh-JrD"/>
                                     <outlet property="wayPointDescriptionLabel" destination="88S-vu-TdK" id="11J-BJ-Phc"/>
                                     <outlet property="wayPointImageView" destination="7c2-PY-ihY" id="k76-3D-zfB"/>
                                     <outlet property="wayPointTimeLabel" destination="AAM-XM-Oyq" id="fee-K8-oTL"/>
