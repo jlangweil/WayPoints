@@ -128,7 +128,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         // Add data to Firebase
         let rootRef = Database.database().reference().child("waypoints");
         let key = rootRef.childByAutoId().key
-        let fireBaseWayPoint = waypoint.getDictionaryForDatabase(key)
+        var fireBaseWayPoint = waypoint.getDictionaryForDatabase(key)
+        fireBaseWayPoint["timestamp"] = ServerValue.timestamp()
         rootRef.child(key).setValue(fireBaseWayPoint)
         return key
     }
@@ -139,7 +140,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         //let keyRef = storageRef.child("\(key).jpg")
         let imagesRef = storageRef.child("images/\(key).jpg")
         // Data in memory
-        if let data = UIImageJPEGRepresentation(image, 1.0) as Data? {
+        if let data = UIImageJPEGRepresentation(image, 0.5) as Data? {
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             // Upload the file to the path "images/rivers.jpg"

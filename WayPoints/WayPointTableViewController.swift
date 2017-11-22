@@ -129,6 +129,10 @@ class WayPointTableViewController: UITableViewController {
                     // Handle any errors
                     print("Could not retrieve image: \(error.localizedDescription)")
                     image = UIImage(named: "default")
+                    if let wayPointCell = cell as? WayPointCustomTableCell {
+                        wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
+                        wayPointCell.spinner.stopAnimating()
+                    }
                 }
                 else {
                     DispatchQueue.global(qos: .userInitiated).async {
