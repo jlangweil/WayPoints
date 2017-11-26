@@ -18,9 +18,6 @@ class WayPointTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        //print ("map items: \(map.annotations.count)")
         let tabController = self.tabBarController
         let navController = tabController?.viewControllers![0] as! UINavigationController
         mapVC = navController.topViewController as? MapViewViewController
@@ -44,6 +41,9 @@ class WayPointTableViewController: UITableViewController {
     }
     
     private func getWayPointsFromMapView() -> [WayPointAnnotation]{
+        if mapVC!.waypoints.count == 0 {
+            mapVC!.getWayPointsFromDatabase()
+        }
         return mapVC!.waypoints
     }
     
@@ -104,55 +104,50 @@ class WayPointTableViewController: UITableViewController {
         let id = waypoints[indexPath.row].id
         let description = waypoints[indexPath.row].subtitle
         let location = waypoints[indexPath.row].getLocation()
-        let time = waypoints[indexPath.row].time.replacingOccurrences(of: " ", with: "\r\n")  // may want to separate datetime in database anyway for filtering query
+        let time = waypoints[indexPath.row].time
+        //let time = waypoints[indexPath.row].time.replacingOccurrences(of: " ", with: "\r\n")  // may want to separate datetime in database anyway for filtering query
         //let image = waypoints[indexPath.row].photo  // TODO: see if photo is nil.  If it is, check cache, then go to database.  Better-create thumbnails for smaller display
         var image : UIImage?
         // Set data without image
         if let wayPointCell = cell as? WayPointCustomTableCell {
             wayPointCell.spinner.startAnimating()
-            wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
-        }
-        if let cachedImage = imageCache.object(forKey: id! as NSString) {
-            image = cachedImage
-            if let wayPointCell = cell as? WayPointCustomTableCell {
-                wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
+            let placeholder = UIImage(named: "placeholder")
+            wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: placeholder, time: time, location: location, description: description)
+            if let cachedImage = imageCache.object(forKey: id! as NSString) {
+                wayPointCell.wayPointImageView.image = cachedImage
                 wayPointCell.spinner.stopAnimating()
             }
-        }
-        else {
-            // move this to global file later
-            let storage = Storage.storage()
-            let storageRef = storage.reference()
-            let reference = storageRef.child("images/\(id!).jpg")
-            reference.downloadURL { url, error in
-                if let error = error {
-                    // Handle any errors
-                    print("Could not retrieve image: \(error.localizedDescription)")
-                    image = UIImage(named: "default")
-                    if let wayPointCell = cell as? WayPointCustomTableCell {
-                        wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
-                        wayPointCell.spinner.stopAnimating()
-                    }
-                }
-                else {
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        let urlContents = try? Data(contentsOf: url!)
-                        if let imageData = urlContents {
-                            image = UIImage(data: imageData)
-                            imageCache.setObject(image!, forKey: id! as NSString)
-                            // Resize to thumbnail size here to save on UI performance scrolling
-                        }
-                        DispatchQueue.main.async {
+            else {
+                // move this to global file later
+                let storage = Storage.storage()
+                let storageRef = storage.reference()
+                let reference = storageRef.child("images/\(id!).jpg")
+                reference.downloadURL { url, error in
+                    if let error = error {
+                        // Handle any errors
+                        print("Could not retrieve image: \(error.localizedDescription)")
                         if let wayPointCell = cell as? WayPointCustomTableCell {
-                            let cellData = WayPointCustomTableCellData(image: image, time: time, location: location, description: description)
-                            wayPointCell.wayPointTableData = cellData
                             wayPointCell.spinner.stopAnimating()
-                            // Add gesture to image
-                            let handler = #selector(self.openImage(byReactingTo:))
-                            let tapRecognizer = UITapGestureRecognizer(target: self, action: handler)
-                            tapRecognizer.numberOfTapsRequired=1
-                            wayPointCell.wayPointImageView.isUserInteractionEnabled=true
-                            wayPointCell.wayPointImageView.addGestureRecognizer(tapRecognizer)
+                        }
+                    }
+                    else {
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            let urlContents = try? Data(contentsOf: url!)
+                            if let imageData = urlContents {
+                                image = UIImage(data: imageData)
+                                imageCache.setObject(image!, forKey: id! as NSString)
+                            }
+                            DispatchQueue.main.async {
+                                if let wayPointCell = cell as? WayPointCustomTableCell {
+                                    wayPointCell.wayPointImageView.image = image
+                                    wayPointCell.spinner.stopAnimating()
+                                    // Add gesture to image
+                                    let handler = #selector(self.openImage(byReactingTo:))
+                                    let tapRecognizer = UITapGestureRecognizer(target: self, action: handler)
+                                    tapRecognizer.numberOfTapsRequired=1
+                                    wayPointCell.wayPointImageView.isUserInteractionEnabled=true
+                                    wayPointCell.wayPointImageView.addGestureRecognizer(tapRecognizer)
+                                }
                             }
                         }
                     }
@@ -161,8 +156,6 @@ class WayPointTableViewController: UITableViewController {
         }
         return cell
     }
-    
-    
     
     @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
     {
