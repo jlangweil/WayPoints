@@ -108,7 +108,11 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         // save to database
         let key = saveAnnotationToDatabase(annotation)
         if imageAttached {
-            saveImageToDatabase(image: imageView.image!, key: key)
+            saveImageToDatabase(image: imageView.image!, key: key, thumbnail: false)
+            // save thumbnail
+            let thumbnailSize = CGSize(width: 100, height: 75)
+            let thumbnailImage = imageView.image!.resizeImage(targetSize: thumbnailSize)
+            saveImageToDatabase(image: thumbnailImage, key: key, thumbnail: true)
         }
        
         // Replacing this, map controller will handle seeing and adding waypoints only through the database observer
@@ -134,11 +138,15 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         return key
     }
     
-    func saveImageToDatabase(image:UIImage, key:String) {
+    func saveImageToDatabase(image:UIImage, key:String, thumbnail:Bool) {
         let storage = Storage.storage()
         let storageRef = storage.reference()
         //let keyRef = storageRef.child("\(key).jpg")
-        let imagesRef = storageRef.child("images/\(key).jpg")
+        var ext = ""
+        if thumbnail {
+            ext = "_thumb"
+        }
+        let imagesRef = storageRef.child("images/\(key)\(ext).jpg")
         // Data in memory
         if let data = UIImageJPEGRepresentation(image, 0.5) as Data? {
             let metadata = StorageMetadata()
@@ -148,12 +156,12 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
                 
                 guard let metadata = metadata else {
                     // Uh-oh, an error occurred!
-                    print("Error uploading file \(key).jpg: \(error.debugDescription)")
+                    print("Error uploading file \(key)\(ext).jpg: \(error.debugDescription)")
                     return
                 }
                 // Metadata contains file metadata such as size, content-type, and download URL.
                 //let downloadURL = metadata.downloadURL
-                print("Uploaded: \(key).jpg")
+                print("Uploaded: \(key)\(ext).jpg")
                 // TAKES A WHILE TO UPLOAD, Might want to shrink size and add progress bar before going back to map screen
             }
             

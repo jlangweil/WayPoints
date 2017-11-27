@@ -36,6 +36,9 @@
                                 <state key="normal" title="Sat">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="showSatView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eiw-vl-lHl"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Liu-VQ-Fbd">
                                 <rect key="frame" x="254" y="405" width="58" height="44"/>
@@ -43,6 +46,9 @@
                                 <state key="normal" title="Street">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="showStreetView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zY2-yR-oEP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -61,6 +67,21 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="Luw-4M-m5w">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="gbO-5W-akh">
+                            <rect key="frame" x="28.5" y="7.5" width="247" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="MFK-Yu-8mB"/>
+                                <constraint firstAttribute="width" constant="220" id="fxH-CC-Wmf"/>
+                            </constraints>
+                            <segments>
+                                <segment title="Today"/>
+                                <segment title="24hrs"/>
+                                <segment title="1 week"/>
+                                <segment title="Custom"/>
+                            </segments>
+                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="fcA-ag-emv">
                             <connections>
                                 <segue destination="Jwi-nC-SDG" kind="show" identifier="addNew" id="Usf-0A-88Q"/>
@@ -69,12 +90,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="PhB-jD-VYJ" id="v73-Hk-lD9"/>
+                        <outlet property="timeFilter" destination="gbO-5W-akh" id="PYb-c3-uQO"/>
                         <segue destination="0u0-v0-4M7" kind="show" identifier="showPhoto" id="TIi-Ww-qUW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1293.5999999999999" y="-133.5832083958021"/>
+            <point key="canvasLocation" x="1291" y="-135"/>
         </scene>
         <!--Add New-->
         <scene sceneID="Kie-OU-Sn7">
@@ -682,7 +704,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Flight conditions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88S-vu-TdK">
-                                            <rect key="frame" x="89" y="31.5" width="223" height="40"/>
+                                            <rect key="frame" x="89" y="31.5" width="223" height="37"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -692,14 +714,14 @@
                                             <color key="color" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </activityIndicatorView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAM-XM-Oyq">
-                                            <rect key="frame" x="286" y="75.5" width="26" height="13.5"/>
+                                            <rect key="frame" x="286" y="78.5" width="26" height="13.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="AAM-XM-Oyq" firstAttribute="top" secondItem="88S-vu-TdK" secondAttribute="bottom" constant="4" id="7tT-tm-H3c"/>
+                                        <constraint firstItem="AAM-XM-Oyq" firstAttribute="top" secondItem="88S-vu-TdK" secondAttribute="bottom" constant="10" id="7tT-tm-H3c"/>
                                         <constraint firstItem="jit-s3-QzD" firstAttribute="leading" secondItem="7c2-PY-ihY" secondAttribute="trailing" constant="20" id="7vO-Iq-lD1"/>
                                         <constraint firstItem="SpA-K7-FmC" firstAttribute="centerY" secondItem="rkx-P9-IDq" secondAttribute="centerY" id="96W-eX-23E"/>
                                         <constraint firstItem="SpA-K7-FmC" firstAttribute="centerX" secondItem="7c2-PY-ihY" secondAttribute="centerX" id="EbO-dR-sA4"/>
@@ -712,7 +734,7 @@
                                         <constraint firstItem="SpA-K7-FmC" firstAttribute="centerY" secondItem="7c2-PY-ihY" secondAttribute="centerY" id="WdT-lq-0FT"/>
                                         <constraint firstAttribute="trailing" secondItem="88S-vu-TdK" secondAttribute="trailing" constant="8" id="Wrc-7T-HR7"/>
                                         <constraint firstItem="jit-s3-QzD" firstAttribute="top" secondItem="rkx-P9-IDq" secondAttribute="top" constant="4" id="Yjw-vh-3Sz"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="AAM-XM-Oyq" secondAttribute="bottom" constant="4" id="ZKr-t5-iGi"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="AAM-XM-Oyq" secondAttribute="bottom" constant="1" id="ZKr-t5-iGi"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -825,7 +847,7 @@
         <image name="mapIcon" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gvT-uu-C8Z"/>
-        <segue reference="1Ud-bt-60B"/>
+        <segue reference="TIi-Ww-qUW"/>
+        <segue reference="Usf-0A-88Q"/>
     </inferredMetricsTieBreakers>
 </document>

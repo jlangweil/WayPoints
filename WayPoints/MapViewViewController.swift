@@ -21,7 +21,16 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    //fileprivate var callOutImage : UIImage?
+   
+    @IBAction func showStreetView(_ sender: Any) {
+       self.mapView.mapType = MKMapType.standard
+    }
+    
+    @IBAction func showSatView(_ sender: Any) {
+        self.mapView.mapType = MKMapType.satellite
+    }
+    
+    @IBOutlet weak var timeFilter: UISegmentedControl!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
