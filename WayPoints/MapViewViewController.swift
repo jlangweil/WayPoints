@@ -24,7 +24,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-   
+    @IBOutlet weak var timeDisplay: UILabel!
+    
     @IBAction func showStreetView(_ sender: Any) {
        self.mapView.mapType = MKMapType.standard
     }
@@ -43,19 +44,22 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         // 0 = Today, 1 = 24 hrs, 2 = 1 week 3 = custom
         let selection = timeFilter.selectedSegmentIndex
         let calendar = Calendar.current
-        let currentDate = Date()
-        self.endDate = currentDate.toFirebaseTimestamp()
+        var endingDate = Date()
+        var startingDate = Date()
+        self.endDate = endingDate.toFirebaseTimestamp()
         switch selection {
         case 0:
-            self.startDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: currentDate)?.toFirebaseTimestamp()
+            startingDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: endingDate)!
         case 1:
-            self.startDate = calendar.date(byAdding: Calendar.Component.hour, value: -24, to: currentDate)?.toFirebaseTimestamp()
+            startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -24, to: endingDate)!
         case 2:
-            self.startDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: currentDate)?.toFirebaseTimestamp()
+            startingDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: endingDate)!
         default:
             // 6 hours for now
-            self.startDate = calendar.date(byAdding: Calendar.Component.hour, value: -6, to: currentDate)?.toFirebaseTimestamp()
+            startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -6, to: endingDate)!
         }
+        self.startDate = startingDate.toFirebaseTimestamp()
+        timeDisplay.text = "\(startingDate.currentDate) \(startingDate.preciseGMTTime)Z - \(endingDate.currentDate) \(endingDate.preciseGMTTime)Z"
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
     }
     

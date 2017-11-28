@@ -351,38 +351,5 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
 
 }
 
-extension Formatter {
-    // create static date formatters for your date representations
-    static let preciseLocalTime: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss.SSS"
-        return formatter
-    }()
-    static let preciseGMTTime: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.dateFormat = "HH:mm"
-        return formatter
-    }()
-    static let USDate: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/YYYY"
-        return formatter
-    }()
-}
-extension Date {
-    // you can create a read-only computed property to return just the nanoseconds from your date time
-    var nanosecond: Int { return Calendar.current.component(.nanosecond,  from: self)   }
-    // the same for your local time
-    var preciseLocalTime: String {
-        return Formatter.preciseLocalTime.string(for: self) ?? ""
-    }
-    // or GMT time
-    var preciseGMTTime: String {
-        return Formatter.preciseGMTTime.string(for: self) ?? ""
-    }
-    var currentDate: String {
-        return Formatter.USDate.string(for: self) ?? ""
-    }
-}
+
 
