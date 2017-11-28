@@ -230,6 +230,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     }
     
     func getWayPointsFromDatabase() {
+        self.mapView.removeAnnotations(waypoints)
         waypoints.removeAll()
         // GET EVERYTHING FOR NOW
         let ref = Database.database().reference()
