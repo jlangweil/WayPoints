@@ -17,6 +17,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     
     var startDate:Int?
     var endDate:Int?
+    var startingDate = Date()
+    var endingDate = Date()
+    
+    var datePickerContainer = UIView()
     
     var mapCenter : CLLocationCoordinate2D? {
         didSet {
@@ -35,17 +39,39 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBOutlet weak var timeFilter: UISegmentedControl!
-    @IBAction func rangeSelected(_ sender: Any) {
+    @IBAction func timeSelected(_ sender: Any) {
         setDateRanges()
         getWayPointsFromDatabase()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "WayPoints Map"
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // set up some sample data for now, get from Model later
+        let latitude = 40.0
+        let longitude = -74.0
+        self.mapView.delegate=self
+        setUpDatePicker()
+        setDateRanges()
+        
+        mapCenter = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        // Do any additional setup after loading the view.
+        if waypoints.count == 0 {
+            //populateTestData()
+            getWayPointsFromDatabase()  // the listener set up here will be moved to the sign on or an earlier page later.
+        }
     }
     
     func setDateRanges() {
         // 0 = Today, 1 = 24 hrs, 2 = 1 week 3 = custom
         let selection = timeFilter.selectedSegmentIndex
         let calendar = Calendar.current
-        var endingDate = Date()
-        var startingDate = Date()
+        self.endingDate = Date()
         self.endDate = endingDate.toFirebaseTimestamp()
         switch selection {
         case 0:
@@ -56,36 +82,61 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             startingDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: endingDate)!
         default:
             // 6 hours for now
-            startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -6, to: endingDate)!
+            showDatePicker()
+            //startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -6, to: endingDate)!
         }
         self.startDate = startingDate.toFirebaseTimestamp()
         timeDisplay.text = "\(startingDate.currentDate) \(startingDate.preciseGMTTime)Z - \(endingDate.currentDate) \(endingDate.preciseGMTTime)Z"
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationItem.title = "WayPoints Map"
+    func setUpDatePicker() {
+        let datePicker : UIDatePicker = UIDatePicker()
+        let viewWidth = self.view.frame.width
+        datePickerContainer.frame = CGRect(x:0, y:80, width:viewWidth, height:250)
+        datePickerContainer.backgroundColor = UIColor.white
+        
+        let pickerSize : CGSize = datePicker.sizeThatFits(CGSize.zero)
+        
+        
+        datePicker.frame = CGRect(x:0, y:50, width:pickerSize.width, height:200)
+        datePicker.setDate(Date(), animated: true)
+        datePicker.maximumDate = Date()
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(dateChanged), for: UIControlEvents.valueChanged)
+        datePickerContainer.addSubview(datePicker)
+        
+        let doneButton = UIButton()
+        doneButton.setTitle("Done", for: UIControlState.normal)
+        doneButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
+        doneButton.addTarget(self, action: #selector(dismissPicker), for: UIControlEvents.touchUpInside)
+        doneButton.frame = CGRect(x:viewWidth-70-5, y:5, width:70, height:44)
+        
+        datePickerContainer.addSubview(doneButton)
+        self.view.addSubview(datePickerContainer)
+        datePickerContainer.isHidden=true
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // adjust fonts
-
-        // set up some sample data for now, get from Model later
-        let latitude = 40.0
-        let longitude = -74.0
-        self.mapView.delegate=self
-        
-        setDateRanges()
-        
-        mapCenter = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        // Do any additional setup after loading the view.
-        if waypoints.count == 0 {
-            //populateTestData()
-            getWayPointsFromDatabase()  // the listener set up here will be moved to the sign on or an earlier page later.
-        }
+    func showDatePicker() {
+        datePickerContainer.isHidden=false
     }
+    
+    @objc func dismissPicker(sender: UIButton) {
+        getWayPointsFromDatabase()
+        self.datePickerContainer.isHidden=true
+        self.timeFilter.selectedSegmentIndex = -1
+    }// end dismissPicker
+    
+    @objc func dateChanged(_ sender: UIDatePicker){
+        let calendar = Calendar.current
+        startingDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: sender.date)!
+        endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: sender.date)!
+        self.startDate = startingDate.toFirebaseTimestamp()
+        self.endDate = endingDate.toFirebaseTimestamp()
+        timeDisplay.text = "\(startingDate.currentDate)"
+        print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
+    }
+    
     
     /*public func updateMap() {
         mapView.addAnnotations(waypoints)

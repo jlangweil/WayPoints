@@ -88,10 +88,10 @@
                                 <segment title="Today"/>
                                 <segment title="24hrs"/>
                                 <segment title="1 week"/>
-                                <segment title="Custom"/>
+                                <segment title="Day"/>
                             </segments>
                             <connections>
-                                <action selector="rangeSelected:" destination="BYZ-38-t0r" eventType="valueChanged" id="qf4-c8-CkV"/>
+                                <action selector="timeSelected:" destination="BYZ-38-t0r" eventType="valueChanged" id="XGF-h0-uYa"/>
                             </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="fcA-ag-emv">
