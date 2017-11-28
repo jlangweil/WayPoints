@@ -15,6 +15,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     // The Model
     var waypoints : [WayPointAnnotation] = []
     
+    var startDate:Int?
+    var endDate:Int?
+    
     var mapCenter : CLLocationCoordinate2D? {
         didSet {
             mapView.setCenter(mapCenter!, animated: true)
@@ -31,6 +34,30 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBOutlet weak var timeFilter: UISegmentedControl!
+    @IBAction func rangeSelected(_ sender: Any) {
+        setDateRanges()
+        getWayPointsFromDatabase()
+    }
+    
+    func setDateRanges() {
+        // 0 = Today, 1 = 24 hrs, 2 = 1 week 3 = custom
+        let selection = timeFilter.selectedSegmentIndex
+        let calendar = Calendar.current
+        let currentDate = Date()
+        self.endDate = currentDate.toFirebaseTimestamp()
+        switch selection {
+        case 0:
+            self.startDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: currentDate)?.toFirebaseTimestamp()
+        case 1:
+            self.startDate = calendar.date(byAdding: Calendar.Component.hour, value: -24, to: currentDate)?.toFirebaseTimestamp()
+        case 2:
+            self.startDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: currentDate)?.toFirebaseTimestamp()
+        default:
+            // 6 hours for now
+            self.startDate = calendar.date(byAdding: Calendar.Component.hour, value: -6, to: currentDate)?.toFirebaseTimestamp()
+        }
+        print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,6 +72,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         let latitude = 40.0
         let longitude = -74.0
         self.mapView.delegate=self
+        
+        setDateRanges()
         
         mapCenter = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         // Do any additional setup after loading the view.
@@ -108,7 +137,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             let storage = Storage.storage()
             let storageRef = storage.reference()
             let reference = storageRef.child("images/\(wayPointAnnotation.id!).jpg")
-            
+            //let reference = storageRef.child("images/\(wayPointAnnotation.id!)_thumb.jpg")
             // Fetch the download URL
             calloutView.spinner.startAnimating()
             
@@ -204,7 +233,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         waypoints.removeAll()
         // GET EVERYTHING FOR NOW
         let ref = Database.database().reference()
-        let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "time")
+        //let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "time")
+        let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "timestamp").queryStarting(atValue: self.startDate).queryEnding(atValue: self.endDate)
         wayPointsRef.observe(DataEventType.childAdded, with: { [weak self] (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
                 let id = userDict["id"] as! String // Will be used to retrieve image

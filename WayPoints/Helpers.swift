@@ -42,6 +42,14 @@ func getImageName(precip: Precip? ) -> String? {
     
 }
 
+extension Date {
+    
+    func toFirebaseTimestamp() -> Int {
+        return Int(self.timeIntervalSince1970) * 1000
+    }
+    
+}
+
 extension UIImage {
     
     func resizeImage(targetSize: CGSize) -> UIImage {

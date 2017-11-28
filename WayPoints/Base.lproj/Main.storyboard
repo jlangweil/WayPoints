@@ -81,6 +81,9 @@
                                 <segment title="1 week"/>
                                 <segment title="Custom"/>
                             </segments>
+                            <connections>
+                                <action selector="rangeSelected:" destination="BYZ-38-t0r" eventType="valueChanged" id="qf4-c8-CkV"/>
+                            </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="fcA-ag-emv">
                             <connections>
