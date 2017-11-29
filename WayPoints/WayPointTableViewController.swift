@@ -10,14 +10,19 @@ import UIKit
 import Firebase
 import MapKit
 
-class WayPointTableViewController: UITableViewController {
+class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
 
     //var map = Map()
-    var waypoints : [WayPointAnnotation] = [] 
+    var waypoints : [WayPointAnnotation] = []
+    var copyOfWayPointsForSearch: [WayPointAnnotation] = []
     var mapVC: MapViewViewController?
+    var searchTerm: String?
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate=self
         let tabController = self.tabBarController
         let navController = tabController?.viewControllers![0] as! UINavigationController
         mapVC = navController.topViewController as? MapViewViewController
@@ -164,20 +169,54 @@ class WayPointTableViewController: UITableViewController {
         return cell
     }
     
+    // MARK SEARCHING
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        print("Searching for: \(searchBar.text!)")
+        searchTerm = searchBar.text
+        copyOfWayPointsForSearch = waypoints
+        filterSearch()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            perform(#selector(hideKeyboardWithSearchBar(bar:)), with: searchBar, afterDelay: 0)
+        }
+    }
+    
+    @objc func hideKeyboardWithSearchBar(bar:UISearchBar) {
+        bar.resignFirstResponder()
+        searchTerm = nil
+        if copyOfWayPointsForSearch.count > 0 {
+            waypoints = copyOfWayPointsForSearch
+            copyOfWayPointsForSearch.removeAll()
+            self.tableView.reloadData()
+        }
+    }
+    
+    /*func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchTerm = nil
+        waypoints = copyOfWayPointsForSearch
+        self.tableView.reloadData()
+    }*/
+    
+    func filterSearch() {
+        waypoints = waypoints.filter { ($0.city?.contains(find: searchTerm!) ?? false) || ($0.state?.contains(find: searchTerm!) ?? false) || $0.description.contains(find: searchTerm!)}
+        self.tableView.reloadData()
+    }
+    
+    func cancelSearch() {
+        
+    }
+    
+    
+    // MARK SEGUE
+    
     @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
     {
-        /*let tapLocation = tapRecognizer.location(in: self.tableView)
-        if let indexPath = self.tableView.indexPathForRow(at: tapLocation) {
-            let row = indexPath.row
-            let waypoint = waypoints[row]
-            let id = waypoint.id!
-            var i=0
-        }*/
-       
-        
-        
-        if let imageView = tapRecognizer.view as? UIImageView {
-            //callOutImage = callOutImageView.image
+      if let imageView = tapRecognizer.view as? UIImageView {
             if let cell = imageView.superview?.superview as? WayPointCustomTableCell {
                 let imageID = cell.imageID!
                 performSegue(withIdentifier: "showPhoto", sender: imageID)
@@ -187,9 +226,8 @@ class WayPointTableViewController: UITableViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // create object to pass in as sender and then pass to the destination.  for now just passing the image
+        // Pass the ImageID for the full sized image to the photo controller to load
         if let photoController = segue.destination as? WayPointPhotoViewController,let imageID = sender as? String {
-            //photoController.image = customImageView.image
             photoController.idOfImageToLoad = imageID
         }
     }
