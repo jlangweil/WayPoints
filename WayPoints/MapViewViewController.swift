@@ -188,14 +188,15 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         calloutView.timeLabel.text = wayPointAnnotation.time
         
         if let cachedImage = imageCache.object(forKey: wayPointAnnotation.id! as NSString) {
+            print("got cached image")
             calloutView.wayPointImage.image = cachedImage
         }
         else {
             // Reference to an image file in Firebase Storage
             let storage = Storage.storage()
             let storageRef = storage.reference()
+            //let reference = storageRef.child("images/\(wayPointAnnotation.id!).jpg")
             let reference = storageRef.child("images/\(wayPointAnnotation.id!).jpg")
-            //let reference = storageRef.child("images/\(wayPointAnnotation.id!)_thumb.jpg")
             // Fetch the download URL
             calloutView.spinner.startAnimating()
             
@@ -291,8 +292,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         self.mapView.removeAnnotations(waypoints)
         waypoints.removeAll()
         let ref = Database.database().reference()
-        //ref.removeAllObservers()
-        //let wayPointsRef = ref.child("waypoints")
+        ref.removeAllObservers()  //is this ok?
         print(self.startDate!)
         print(self.endDate!)
         let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "timestamp").queryStarting(atValue: self.startDate).queryEnding(atValue: self.endDate)

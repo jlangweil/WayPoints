@@ -797,6 +797,9 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLx-Dn-Btj">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="YMa-d1-Peh">
+                                <rect key="frame" x="141" y="273" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -804,11 +807,16 @@
                             <constraint firstItem="LFS-y6-FEC" firstAttribute="bottom" secondItem="YLx-Dn-Btj" secondAttribute="bottom" id="LgD-fe-IiI"/>
                             <constraint firstItem="LFS-y6-FEC" firstAttribute="trailing" secondItem="YLx-Dn-Btj" secondAttribute="trailing" id="Tjf-O6-JJc"/>
                             <constraint firstItem="YLx-Dn-Btj" firstAttribute="top" secondItem="LFS-y6-FEC" secondAttribute="top" id="TyC-qv-kqu"/>
+                            <constraint firstItem="YLx-Dn-Btj" firstAttribute="centerY" secondItem="LFS-y6-FEC" secondAttribute="centerY" id="XIW-27-iD2"/>
+                            <constraint firstItem="YLx-Dn-Btj" firstAttribute="centerX" secondItem="LFS-y6-FEC" secondAttribute="centerX" id="dbw-gi-JFd"/>
+                            <constraint firstItem="YMa-d1-Peh" firstAttribute="centerY" secondItem="LFS-y6-FEC" secondAttribute="centerY" id="w8O-Cc-gTj"/>
+                            <constraint firstItem="YMa-d1-Peh" firstAttribute="centerX" secondItem="LFS-y6-FEC" secondAttribute="centerX" id="y9o-i0-30r"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LFS-y6-FEC"/>
                     </view>
                     <connections>
                         <outlet property="scrollView" destination="YLx-Dn-Btj" id="8rI-Dj-5cI"/>
+                        <outlet property="spinner" destination="YMa-d1-Peh" id="LoT-PK-etr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zkf-gB-2Ec" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -860,7 +868,7 @@
         <image name="mapIcon" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gvT-uu-C8Z"/>
-        <segue reference="1Ud-bt-60B"/>
+        <segue reference="TIi-Ww-qUW"/>
+        <segue reference="Usf-0A-88Q"/>
     </inferredMetricsTieBreakers>
 </document>

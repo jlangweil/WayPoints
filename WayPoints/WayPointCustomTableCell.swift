@@ -18,6 +18,8 @@ class WayPointCustomTableCell: UITableViewCell {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    var imageID : String?
+    
     var wayPointTableData: WayPointCustomTableCellData? { didSet {updateUI() } }
     
     private func updateUI() {

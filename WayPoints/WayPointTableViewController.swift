@@ -116,10 +116,11 @@ class WayPointTableViewController: UITableViewController {
         var image : UIImage?
         // Set data without image
         if let wayPointCell = cell as? WayPointCustomTableCell {
+            wayPointCell.imageID = id
             wayPointCell.spinner.startAnimating()
             let placeholder = UIImage(named: "placeholder")
             wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: placeholder, time: time, location: location, description: description)
-            if let cachedImage = imageCache.object(forKey: id! as NSString) {
+            if let cachedImage = imageCache.object(forKey: "\(id!)_thumb" as NSString) {
                 wayPointCell.wayPointImageView.image = cachedImage
                 wayPointCell.spinner.stopAnimating()
             }
@@ -127,7 +128,7 @@ class WayPointTableViewController: UITableViewController {
                 // move this to global file later
                 let storage = Storage.storage()
                 let storageRef = storage.reference()
-                let reference = storageRef.child("images/\(id!).jpg")
+                let reference = storageRef.child("images/\(id!)_thumb.jpg")
                 reference.downloadURL { url, error in
                     if let error = error {
                         // Handle any errors
@@ -141,7 +142,7 @@ class WayPointTableViewController: UITableViewController {
                             let urlContents = try? Data(contentsOf: url!)
                             if let imageData = urlContents {
                                 image = UIImage(data: imageData)
-                                imageCache.setObject(image!, forKey: id! as NSString)
+                                imageCache.setObject(image!, forKey: "\(id!)_thumb" as NSString)
                             }
                             DispatchQueue.main.async {
                                 if let wayPointCell = cell as? WayPointCustomTableCell {
@@ -165,16 +166,31 @@ class WayPointTableViewController: UITableViewController {
     
     @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
     {
+        /*let tapLocation = tapRecognizer.location(in: self.tableView)
+        if let indexPath = self.tableView.indexPathForRow(at: tapLocation) {
+            let row = indexPath.row
+            let waypoint = waypoints[row]
+            let id = waypoint.id!
+            var i=0
+        }*/
+       
+        
+        
         if let imageView = tapRecognizer.view as? UIImageView {
             //callOutImage = callOutImageView.image
-            performSegue(withIdentifier: "showPhoto", sender: imageView)
+            if let cell = imageView.superview?.superview as? WayPointCustomTableCell {
+                let imageID = cell.imageID!
+                performSegue(withIdentifier: "showPhoto", sender: imageID)
+            }
+            
         }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // create object to pass in as sender and then pass to the destination.  for now just passing the image
-        if let photoController = segue.destination as? WayPointPhotoViewController,let customImageView = sender as? UIImageView {
-            photoController.image = customImageView.image
+        if let photoController = segue.destination as? WayPointPhotoViewController,let imageID = sender as? String {
+            //photoController.image = customImageView.image
+            photoController.idOfImageToLoad = imageID
         }
     }
 

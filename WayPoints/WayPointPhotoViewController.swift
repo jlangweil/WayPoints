@@ -7,15 +7,66 @@
 //
 
 import UIKit
+import Firebase
 
 class WayPointPhotoViewController: UIViewController, UIScrollViewDelegate {
 
     var frameHeight : CGFloat?
     var frameWidth : CGFloat?
+    var idOfImageToLoad: String?
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor=UIColor.black
+        if idOfImageToLoad != nil {
+            fetchImage()
+        }
+        else {
+            setUpViews()
+        }
+    }
+    
+    func fetchImage() {
+        spinner.startAnimating()
+        let id = self.idOfImageToLoad!
+        var currentImage : UIImage?
+        if let cachedImage = imageCache.object(forKey: "\(idOfImageToLoad!)" as NSString) {
+            self.image = cachedImage
+            setUpViews()
+            spinner.stopAnimating()
+        }
+        else {
+            // move this to global file later
+            let storage = Storage.storage()
+            let storageRef = storage.reference()
+            let reference = storageRef.child("images/\(id).jpg")
+            reference.downloadURL { [weak self] url, error in
+                if let error = error {
+                    // Handle any errors
+                    print("Could not retrieve image: \(error.localizedDescription)")
+                    self?.spinner.stopAnimating()
+                }
+                else {
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        let urlContents = try? Data(contentsOf: url!)
+                        if let imageData = urlContents {
+                            currentImage = UIImage(data: imageData)
+                            imageCache.setObject(currentImage!, forKey: "\(id)" as NSString)
+                        }
+                        DispatchQueue.main.async {
+                            self?.image = currentImage
+                            self?.setUpViews()
+                            self?.spinner.stopAnimating()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func setUpViews() {
         scrollView?.contentSize = imageView.frame.size
         // Do any additional setup after loading the view.
         frameHeight = self.view.frame.size.height
@@ -33,9 +84,8 @@ class WayPointPhotoViewController: UIViewController, UIScrollViewDelegate {
         self.scrollView.zoomScale = minZoom;
         
         imageView.center = CGPoint(x:frameWidth!/2, y:(frameHeight!-heightOfBars)/2)
-        
-        
     }
+    
     
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
@@ -46,6 +96,7 @@ class WayPointPhotoViewController: UIViewController, UIScrollViewDelegate {
             scrollView.addSubview(imageView)
         }
     }
+    
     private var imageView = UIImageView()
     
     var image : UIImage? {
