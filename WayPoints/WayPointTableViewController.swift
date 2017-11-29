@@ -13,7 +13,7 @@ import MapKit
 class WayPointTableViewController: UITableViewController {
 
     //var map = Map()
-    var waypoints : [WayPointAnnotation] = []
+    var waypoints : [WayPointAnnotation] = [] 
     var mapVC: MapViewViewController?
     
     override func viewDidLoad() {
@@ -22,17 +22,17 @@ class WayPointTableViewController: UITableViewController {
         let navController = tabController?.viewControllers![0] as! UINavigationController
         mapVC = navController.topViewController as? MapViewViewController
         
-        tableView.estimatedRowHeight=104
+        tableView.estimatedRowHeight=125
         tableView.rowHeight = UITableViewAutomaticDimension
         
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         // be sure to reload if the model changes
-        waypoints = getWayPointsFromMapView()
-        waypoints.reverse() // sort in most recent order
-        
+        //waypoints = getWayPointsFromMapView()
+        //waypoints.reverse() // sort in most recent order
         gatherNewData()  //put this on another queue
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,8 +54,9 @@ class WayPointTableViewController: UITableViewController {
     
     private func gatherNewData() {
         let ref = Database.database().reference()
-        let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "time")
+        let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "timestamp")  // how much data should we get / starting point???
         wayPointsRef.observe(DataEventType.childAdded, with: { [weak self] (snapshot) in
+            print("priority: \(snapshot.priority!)")
             if let userDict = snapshot.value as? [String:Any] {
                 let id = userDict["id"] as! String // Will be used to retrieve image
                 let city = userDict["city"] as! String
@@ -82,12 +83,17 @@ class WayPointTableViewController: UITableViewController {
                 {}// do nothing}
                 else {
                     self?.waypoints.insert(wayPointToBeAdded, at: 0)
+                    //self?.tableView?.reloadData()
+                    self?.tableView?.beginUpdates()
+                    let indexPath = IndexPath(row: 0, section: 0)
+                    self?.tableView?.insertRows(at: [indexPath], with: .fade)
+                    self?.tableView?.endUpdates()
                 }
             }
         })
     }
-
-
+    
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

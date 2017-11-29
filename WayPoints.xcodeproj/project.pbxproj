@@ -95,8 +95,8 @@
 			children = (
 				184D234F1FBBA090005D0BA8 /* GoogleService-Info.plist */,
 				180500281FA901CF00644FF4 /* AnnotationView.swift */,
-				180500251FA8196300644FF4 /* CustomCalloutView.swift */,
 				180500241FA8196200644FF4 /* CustomCalloutView.xib */,
+				180500251FA8196300644FF4 /* CustomCalloutView.swift */,
 				1873F2D01FB53DB600570C24 /* AddWaypointTableViewController.swift */,
 				18D7AF071F9945500087B9E6 /* MapViewViewController.swift */,
 				189EB9DF1F95471D00BBDF90 /* Main.storyboard */,

@@ -56,6 +56,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         let latitude = 40.0
         let longitude = -74.0
         self.mapView.delegate=self
+        let calendar = Calendar.current
+        endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: Date())!
         setUpDatePicker()
         setDateRanges()
         
@@ -72,10 +74,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         let selection = timeFilter.selectedSegmentIndex
         let calendar = Calendar.current
         self.endingDate = Date()
-        self.endDate = endingDate.toFirebaseTimestamp()
         switch selection {
         case 0:
             startingDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: endingDate)!
+            endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endingDate)!
         case 1:
             startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -24, to: endingDate)!
         case 2:
@@ -86,6 +88,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             //startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -6, to: endingDate)!
         }
         self.startDate = startingDate.toFirebaseTimestamp()
+        self.endDate = endingDate.toFirebaseTimestamp()
         timeDisplay.text = "\(startingDate.currentDate) \(startingDate.preciseGMTTime)Z - \(endingDate.currentDate) \(endingDate.preciseGMTTime)Z"
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
     }
@@ -287,12 +290,15 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     func getWayPointsFromDatabase() {
         self.mapView.removeAnnotations(waypoints)
         waypoints.removeAll()
-        // GET EVERYTHING FOR NOW
         let ref = Database.database().reference()
-        //let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "time")
+        //ref.removeAllObservers()
+        //let wayPointsRef = ref.child("waypoints")
+        print(self.startDate!)
+        print(self.endDate!)
         let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "timestamp").queryStarting(atValue: self.startDate).queryEnding(atValue: self.endDate)
         wayPointsRef.observe(DataEventType.childAdded, with: { [weak self] (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
+                print("Observer fired")
                 let id = userDict["id"] as! String // Will be used to retrieve image
                 let city = userDict["city"] as! String
                 let altitude = userDict["altitude"] as! String
