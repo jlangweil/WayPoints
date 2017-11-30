@@ -28,6 +28,41 @@ class WayPointPhotoViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let newWidth = size.width
+        let newHeight = size.height
+        var heightOfBars = CGFloat(171)
+        var widthOfBars = CGFloat(88)
+        if newWidth > newHeight {
+            // landscape
+            self.tabBarController!.tabBar.isHidden = true
+            self.navigationController!.navigationBar.isHidden = true
+            heightOfBars = CGFloat(0)  
+        }
+        else {
+            self.tabBarController!.tabBar.isHidden = false
+            self.navigationController!.navigationBar.isHidden = false
+            widthOfBars = CGFloat(0)
+        }
+        
+        imageView.center = CGPoint(x:newWidth/2, y:(newHeight-heightOfBars)/2)
+        let imageHeight = imageView.image!.size.height
+        let imageWidth = imageView.image!.size.width
+        var minZoom = min(newWidth / imageWidth, newHeight / imageHeight)
+        
+        if (minZoom > 1.0) {
+            minZoom = 1.0;
+        }
+        
+        self.scrollView.minimumZoomScale = minZoom;
+        self.scrollView.zoomScale = minZoom;
+       
+        imageView.center = CGPoint(x:(newWidth-widthOfBars)/2, y:(newHeight-heightOfBars)/2)
+        imageView.sizeToFit()
+    }
+
+    
     func fetchImage() {
         spinner.startAnimating()
         let id = self.idOfImageToLoad!
@@ -82,7 +117,7 @@ class WayPointPhotoViewController: UIViewController, UIScrollViewDelegate {
         
         self.scrollView.minimumZoomScale = minZoom;
         self.scrollView.zoomScale = minZoom;
-        
+        print("heightofbars: \(heightOfBars)")
         imageView.center = CGPoint(x:frameWidth!/2, y:(frameHeight!-heightOfBars)/2)
     }
     
