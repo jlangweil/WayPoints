@@ -78,18 +78,20 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         case 0:
             startingDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: endingDate)!
             endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endingDate)!
+            datePickerContainer.isHidden=true
         case 1:
             startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -24, to: endingDate)!
+            datePickerContainer.isHidden=true
         case 2:
             startingDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: endingDate)!
+            datePickerContainer.isHidden=true
         default:
-            // 6 hours for now
             showDatePicker()
             //startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -6, to: endingDate)!
         }
         self.startDate = startingDate.toFirebaseTimestamp()
         self.endDate = endingDate.toFirebaseTimestamp()
-        timeDisplay.text = "\(startingDate.currentDate) \(startingDate.preciseGMTTime)Z - \(endingDate.currentDate) \(endingDate.preciseGMTTime)Z"
+        timeDisplay.text = "\(startingDate.preciseGMTDateTime)Z - \(endingDate.preciseGMTDateTime)Z"
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
     }
     
@@ -292,7 +294,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         self.mapView.removeAnnotations(waypoints)
         waypoints.removeAll()
         let ref = Database.database().reference()
-        ref.removeAllObservers()  //is this ok?
+        ref.removeAllObservers()
         print(self.startDate!)
         print(self.endDate!)
         let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "timestamp").queryStarting(atValue: self.startDate).queryEnding(atValue: self.endDate)

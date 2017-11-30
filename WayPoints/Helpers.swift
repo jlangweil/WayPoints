@@ -55,6 +55,12 @@ extension Formatter {
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
+    static let preciseGMTDateTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "MM/dd/YYYY HH:mm"
+        return formatter
+    }()
     static let USDate: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/YYYY"
@@ -76,6 +82,9 @@ extension Date {
     // or GMT time
     var preciseGMTTime: String {
         return Formatter.preciseGMTTime.string(for: self) ?? ""
+    }
+    var preciseGMTDateTime: String {
+        return Formatter.preciseGMTDateTime.string(for: self) ?? ""
     }
     var currentDate: String {
         return Formatter.USDate.string(for: self) ?? ""

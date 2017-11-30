@@ -59,6 +59,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
     
     private func gatherNewData() {
         let ref = Database.database().reference()
+        ref.removeAllObservers()
         let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "timestamp")  // how much data should we get / starting point???
         wayPointsRef.observe(DataEventType.childAdded, with: { [weak self] (snapshot) in
             print("priority: \(snapshot.priority!)")
