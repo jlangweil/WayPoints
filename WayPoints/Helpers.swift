@@ -54,7 +54,26 @@ func getImageName(precip: Precip? ) -> String? {
     else {
         return nil
     }
-    
+}
+
+func getWaypointPinName(conditions: [String?], urgent: Bool) -> String {
+    if (urgent) {
+        return "planered"
+    }
+    else {
+        let severeConditions = conditions.filter{ ($0?.contains(find: Severity.severe.rawValue) ?? false) || ($0?.contains(find: Precip.mixed.rawValue) ?? false) || $0?.contains(find: Precip.snow.rawValue) ?? false}
+        let moderateConditions = conditions.filter{ ($0?.contains(find: Severity.light.rawValue) ?? false) || ($0?.contains(find: Severity.moderate.rawValue) ?? false) || $0?.contains(find: Precip.rain.rawValue) ?? false}
+        if severeConditions.count > 0 {
+            return "planered"
+        }
+        else if moderateConditions.count > 0 {
+            return "planeyellow"
+        }
+        else {
+            return "wayPointPinDefaultSmall"
+        }
+        
+    }
 }
 
 extension String {

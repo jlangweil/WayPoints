@@ -163,8 +163,20 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             annotationView?.annotation = annotation
             
         }
-        //annotationView?.image = UIImage(named: "plane")
-        annotationView?.image = UIImage(named: "wayPointPinDefaultSmall")
+        
+        if let waypointAnnotation = annotation as? WayPointAnnotation {
+            var conditions: [String?] = []
+            conditions.append(waypointAnnotation.turbulence.rawValue)
+            conditions.append(waypointAnnotation.icing.rawValue)
+            conditions.append(waypointAnnotation.precipitation.rawValue)
+            let urgent = waypointAnnotation.urgent
+            let pinImageName = getWaypointPinName(conditions: conditions, urgent: urgent)
+            annotationView?.image = UIImage(named: pinImageName)
+        }
+        else {
+            annotationView?.image = UIImage(named: "wayPointPinDefaultSmall")
+        }
+        
        
         // TODO: Make sure pin is transparent
         return annotationView
