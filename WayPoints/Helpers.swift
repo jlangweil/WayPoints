@@ -12,19 +12,34 @@ import Firebase
 
 let imageCache = NSCache<NSString, UIImage>()
 
-func getImageName(weather:String, severity: Severity? ) -> String? {
+func getBackgroundColorForSeverity(severity: Severity? ) -> UIColor {
     guard severity != nil else {
         print("severity is null")
-        return nil
+        return UIColor.white
     }
-    if severity! != .none && severity! != .unknown {
-        let fileName = "\(weather)-\(severity!)"
-        return fileName
+    switch severity! {
+        case .none, .unknown:
+            return UIColor.white
+        case .severe:
+            return UIColor.red
+        case .moderate:
+            return UIColor.yellow
+        default:
+            return UIColor.white
     }
-    else {
-        return nil
+}
+
+func getTextForSeverity(severity: Severity?) -> String {
+    guard severity != nil else {
+        print("severity is null")
+        return ""
     }
-  
+    switch severity! {
+    case .none, .unknown:
+        return "🚫"
+    default:
+        return ""
+    }
 }
 
 func getImageName(precip: Precip? ) -> String? {
@@ -38,6 +53,21 @@ func getImageName(precip: Precip? ) -> String? {
     }
     else {
         return nil
+    }
+    
+}
+
+extension String {
+    
+    func getAltitudeAsInteger() -> Int {
+        var retVal = 0
+        if let range = self.range(of: ".") {
+            let firstPart = self[(self.startIndex)..<range.lowerBound]
+            if let altitude = Int(firstPart) {
+                retVal = altitude
+            }
+        }
+        return retVal
     }
     
 }

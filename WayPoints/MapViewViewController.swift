@@ -180,14 +180,22 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         
         let wayPointAnnotation = view.annotation as! WayPointAnnotation
         let views = Bundle.main.loadNibNamed("CustomCalloutView", owner: nil, options: nil)
-        let turbulenceImageName = getImageName(weather: "turbulence", severity: wayPointAnnotation.turbulence)
+        /*let turbulenceImageName = getImageName(weather: "turbulence", severity: wayPointAnnotation.turbulence)
         let icingImageName = getImageName(weather: "icing", severity: wayPointAnnotation.icing)
-        let weatherImageName = getImageName(precip: wayPointAnnotation.precipitation)
+        let weatherImageName = getImageName(precip: wayPointAnnotation.precipitation)*/
         
         let calloutView = views?[0] as! CustomCalloutView
-        calloutView.wayPointUsername.text = wayPointAnnotation.title
+        calloutView.wayPointUsername.text = "\(wayPointAnnotation.altitude.getAltitudeAsInteger()) ft"
         calloutView.wayPointDescription.text = wayPointAnnotation.subtitle
+        calloutView.wayPointDescription.layer.borderWidth = 1
+        calloutView.wayPointDescription.layer.borderColor = UIColor.black.cgColor
         calloutView.timeLabel.text = wayPointAnnotation.time
+        calloutView.location.text = wayPointAnnotation.getLocation()
+        calloutView.turbStatus.text = getTextForSeverity(severity: wayPointAnnotation.turbulence)
+        calloutView.turbStatus.layer.backgroundColor = getBackgroundColorForSeverity(severity: wayPointAnnotation.turbulence).cgColor
+        calloutView.icingStatus.text = getTextForSeverity(severity: wayPointAnnotation.icing)
+        calloutView.icingStatus.layer.backgroundColor = getBackgroundColorForSeverity(severity: wayPointAnnotation.icing).cgColor
+        
         
         if let cachedImage = imageCache.object(forKey: wayPointAnnotation.id! as NSString) {
             print("got cached image")
@@ -234,7 +242,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             }
         }
         
-        if turbulenceImageName != nil {
+        /*if turbulenceImageName != nil {
             calloutView.turbulanceImageView.image = UIImage(named: turbulenceImageName!)
         }
         if icingImageName != nil {
@@ -242,7 +250,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
         if weatherImageName != nil {
             calloutView.wxImageView.image = UIImage(named: weatherImageName!)
-        }
+        }*/
         
         // Resize callout relative to screen width
         let resizedWidth = mapView.frame.width * 0.9
