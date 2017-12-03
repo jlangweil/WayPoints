@@ -14,6 +14,4 @@ struct WayPointCustomTableCellData {
     var time : String?
     var location : String?
     var description : String?
-    //var turbulenceImage : UIImage?
-    
 }

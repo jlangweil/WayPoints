@@ -15,8 +15,8 @@ class WayPointCustomTableCell: UITableViewCell {
     @IBOutlet weak var wayPointTitleLabel: UILabel!
     @IBOutlet weak var wayPointDescriptionLabel: UILabel!
     @IBOutlet weak var wayPointTimeLabel: UILabel!
-    @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var conditionsLabel: UILabel!
     
     var imageID : String?
     

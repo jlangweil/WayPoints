@@ -26,8 +26,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         let tabController = self.tabBarController
         let navController = tabController?.viewControllers![0] as! UINavigationController
         mapVC = navController.topViewController as? MapViewViewController
-        
-        tableView.estimatedRowHeight=125
+        tableView.estimatedRowHeight=175
         tableView.rowHeight = UITableViewAutomaticDimension
         
         
@@ -117,6 +116,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         let description = waypoints[indexPath.row].subtitle
         let location = waypoints[indexPath.row].getLocation()
         let time = waypoints[indexPath.row].time
+        let conditions = "Turbulence: \(waypoints[indexPath.row].turbulence)     Icing: \(waypoints[indexPath.row].turbulence)     Precipitation: \(waypoints[indexPath.row].precipitation)"
         //let time = waypoints[indexPath.row].time.replacingOccurrences(of: " ", with: "\r\n")  // may want to separate datetime in database anyway for filtering query
         //let image = waypoints[indexPath.row].photo  // TODO: see if photo is nil.  If it is, check cache, then go to database.  Better-create thumbnails for smaller display
         var image : UIImage?
@@ -126,6 +126,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
             wayPointCell.spinner.startAnimating()
             let placeholder = UIImage(named: "placeholder")
             wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: placeholder, time: time, location: location, description: description)
+            wayPointCell.conditionsLabel.text = conditions
             if let cachedImage = imageCache.object(forKey: "\(id!)_thumb" as NSString) {
                 wayPointCell.wayPointImageView.image = cachedImage
                 wayPointCell.spinner.stopAnimating()
