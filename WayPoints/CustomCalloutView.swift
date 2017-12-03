@@ -11,6 +11,7 @@ class CustomCalloutView: UIView {
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var turbStatus: UILabel!
     @IBOutlet weak var icingStatus: UILabel!
+    @IBOutlet weak var precipImage: UIImageView!
     
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!

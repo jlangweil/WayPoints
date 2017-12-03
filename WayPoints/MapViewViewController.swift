@@ -195,7 +195,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         calloutView.turbStatus.layer.backgroundColor = getBackgroundColorForSeverity(severity: wayPointAnnotation.turbulence).cgColor
         calloutView.icingStatus.text = getTextForSeverity(severity: wayPointAnnotation.icing)
         calloutView.icingStatus.layer.backgroundColor = getBackgroundColorForSeverity(severity: wayPointAnnotation.icing).cgColor
-        
+        let precipImageName = getImageName(precip: wayPointAnnotation.precipitation)
+        if precipImageName != nil {
+            calloutView.precipImage.image = UIImage(named: precipImageName!)
+        }
         
         if let cachedImage = imageCache.object(forKey: wayPointAnnotation.id! as NSString) {
             print("got cached image")
