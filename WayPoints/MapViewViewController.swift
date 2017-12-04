@@ -211,6 +211,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         if precipImageName != nil {
             calloutView.precipImage.image = UIImage(named: precipImageName!)
         }
+        calloutView.skyStatus.text = wayPointAnnotation.clouds
         
         if let cachedImage = imageCache.object(forKey: wayPointAnnotation.id! as NSString) {
             print("got cached image")
@@ -330,7 +331,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                 let description = userDict["description"] as! String
                 let state = userDict["state"] as! String
                 let icing = userDict["icing"] as! String
-                
+                let clouds = userDict["clouds"] as? String ?? ""
                 let latitude = userDict["latitude"] as! String
                 let longitude = userDict["longitude"] as! String
                 let precipitation = userDict["precipitation"] as! String
@@ -338,9 +339,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                 let turbulence = userDict["turbulence"] as! String
                 let urgent = userDict["urgent"] as! Bool
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, urgent: urgent, city: city, state: state, altitude: altitude, id: id)
-                self?.waypoints.append(wayPointToBeAdded) // do I need the array of annotations?  Going to add directly to the map in each view.  Might remove this []
-                // here is where we will get the data from the database based on a filter
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, id: id)
+                self?.waypoints.append(wayPointToBeAdded) 
                 self?.mapView.addAnnotation(wayPointToBeAdded)
             }
         })

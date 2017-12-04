@@ -285,8 +285,40 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="sco-ha-JLv">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="8jD-A6-LIf">
                                         <rect key="frame" x="0.0" y="479" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8jD-A6-LIf" id="0tO-lW-xPI">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clouds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="li6-xZ-BW4">
+                                                    <rect key="frame" x="8" y="10" width="62" height="24"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gJS-oj-7Ea">
+                                                    <rect key="frame" x="98" y="8" width="214" height="29"/>
+                                                    <segments>
+                                                        <segment title="CLR"/>
+                                                        <segment title="FEW"/>
+                                                        <segment title="SCT"/>
+                                                        <segment title="BKN"/>
+                                                        <segment title="OVC"/>
+                                                    </segments>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="li6-xZ-BW4" firstAttribute="centerY" secondItem="0tO-lW-xPI" secondAttribute="centerY" id="1Pa-9w-i0t"/>
+                                                <constraint firstItem="gJS-oj-7Ea" firstAttribute="centerY" secondItem="0tO-lW-xPI" secondAttribute="centerY" id="2ru-AU-cnS"/>
+                                                <constraint firstItem="li6-xZ-BW4" firstAttribute="leading" secondItem="0tO-lW-xPI" secondAttribute="leading" constant="8" id="3aI-En-R3F"/>
+                                                <constraint firstAttribute="trailing" secondItem="gJS-oj-7Ea" secondAttribute="trailing" constant="8" id="DuA-eV-aSc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="sco-ha-JLv">
+                                        <rect key="frame" x="0.0" y="523" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sco-ha-JLv" id="2rB-9K-fsN">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -317,7 +349,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="eNq-Hj-YDe">
-                                        <rect key="frame" x="0.0" y="523" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="567" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eNq-Hj-YDe" id="wed-2O-wgD">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -352,7 +384,7 @@
                             <tableViewSection headerTitle="Add Photo" footerTitle="" id="YBl-NT-D53">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="46" id="K8c-Dv-f2e">
-                                        <rect key="frame" x="0.0" y="630.5" width="320" height="46"/>
+                                        <rect key="frame" x="0.0" y="674.5" width="320" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K8c-Dv-f2e" id="eu4-rr-dbf">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="45.5"/>
@@ -372,7 +404,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="91" id="SBN-eg-aaM">
-                                        <rect key="frame" x="0.0" y="676.5" width="320" height="91"/>
+                                        <rect key="frame" x="0.0" y="720.5" width="320" height="91"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SBN-eg-aaM" id="vUO-my-kW0">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="90.5"/>
@@ -412,6 +444,7 @@
                         <outlet property="altitudeLabel" destination="38Z-Gr-VER" id="a4i-Ru-IDI"/>
                         <outlet property="charactersRemainingLabel" destination="B3k-5a-4xu" id="qGs-B1-aHE"/>
                         <outlet property="cityStateLabel" destination="eyy-eH-9S7" id="dN6-Wo-rBC"/>
+                        <outlet property="cloudSelection" destination="gJS-oj-7Ea" id="B36-2Z-CXY"/>
                         <outlet property="coordinatesLabel" destination="q6m-ck-Vj1" id="sZh-jd-e6t"/>
                         <outlet property="icingSelection" destination="jHO-CV-L5c" id="giN-98-DhH"/>
                         <outlet property="imageView" destination="1ad-m8-gGx" id="3OW-05-jFV"/>
@@ -863,7 +896,7 @@
         <image name="mapIcon" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gvT-uu-C8Z"/>
-        <segue reference="1Ud-bt-60B"/>
+        <segue reference="TIi-Ww-qUW"/>
+        <segue reference="Usf-0A-88Q"/>
     </inferredMetricsTieBreakers>
 </document>

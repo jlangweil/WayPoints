@@ -19,6 +19,7 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var turbulence:Severity
     var icing:Severity
     var precipitation:Precip
+    var clouds:String
     var urgent:Bool = false
     var altitude:String
     var latitude : Double
@@ -28,7 +29,7 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     
     //var uploaded:Bool = false
     
-    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, urgent: Bool, city: String?, state: String?, altitude: String, id: String?){
+    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, clouds: String, urgent: Bool, city: String?, state: String?, altitude: String, id: String?){
         self.id=id
         self.coordinate = coordinate
         self.title = title
@@ -38,6 +39,7 @@ class WayPointAnnotation: NSObject, MKAnnotation {
         self.turbulence = turbulence
         self.precipitation=precipitation
         self.icing = icing
+        self.clouds = clouds
         self.urgent = urgent
         self.city = city
         self.state = state
@@ -62,6 +64,7 @@ class WayPointAnnotation: NSObject, MKAnnotation {
                         "turbulence": turbulence.rawValue as String,
                         "icing": icing.rawValue as String,
                         "precipitation": precipitation.rawValue as String,
+                        "clouds": clouds,
                         "urgent": urgent as Bool
             ] as [String : Any]
         

@@ -33,6 +33,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     @IBOutlet weak var urgentSwitch: UISwitch!
     @IBOutlet weak var turbulenceSelection: UISegmentedControl!
     @IBOutlet weak var icingSelection: UISegmentedControl!
+    @IBOutlet weak var cloudSelection: UISegmentedControl!
     @IBOutlet weak var precipitationSelection: UISegmentedControl!
     @IBOutlet weak var imageViewCell: UITableViewCell!
     @IBOutlet weak var imageView: UIImageView!
@@ -92,11 +93,12 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let turbulence = Severity(rawValue: turbulenceSelection.titleForSegment(at: turbulenceSelection.selectedSegmentIndex)!)
         let icing = Severity(rawValue: icingSelection.titleForSegment(at: icingSelection.selectedSegmentIndex)!)
         let precipitation = Precip(rawValue: precipitationSelection.titleForSegment(at: precipitationSelection.selectedSegmentIndex)!)
+        let clouds = cloudSelection.titleForSegment(at: cloudSelection.selectedSegmentIndex)
         let urgent = urgentSwitch.isOn
         let utcTime = "\(Date().currentDate) \(Date().preciseGMTTime)Z"
         var altitude: String
         if wayPointAltitudeInFeet == nil {
-            altitude = "Altitude unknown"
+            altitude = "-- ft"
         }
         else {
             altitude = "\(wayPointAltitudeInFeet!)"
@@ -104,7 +106,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let city = wayPointPlaceMark?.locality
         let state = wayPointPlaceMark?.administrativeArea
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, urgent: urgent, city: city, state: state, altitude: altitude, id: nil)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: city, state: state, altitude: altitude, id: nil)
         // save to database
         let key = saveAnnotationToDatabase(annotation)
         if imageAttached {

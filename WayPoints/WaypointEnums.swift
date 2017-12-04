@@ -23,3 +23,5 @@ enum Severity:String {
     case severe = "SEV"
     case unknown = ""
 }
+
+

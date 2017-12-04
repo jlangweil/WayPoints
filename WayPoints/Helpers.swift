@@ -38,7 +38,7 @@ func getTextForSeverity(severity: Severity?) -> String {
     case .none, .unknown:
         return "🚫"
     default:
-        return ""
+        return severity?.rawValue ?? ""
     }
 }
 

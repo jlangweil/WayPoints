@@ -72,11 +72,12 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
                 let latitude = userDict["latitude"] as! String
                 let longitude = userDict["longitude"] as! String
                 let precipitation = userDict["precipitation"] as! String
+                let clouds = userDict["clouds"] as? String ?? ""
                 let time = userDict["time"] as! String
                 let turbulence = userDict["turbulence"] as! String
                 let urgent = userDict["urgent"] as! Bool
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, urgent: urgent, city: city, state: state, altitude: altitude, id: id)
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, id: id)
                 if (self?.waypoints.contains(where: { (annotation) -> Bool in
                     if id==annotation.id {
                         return true
@@ -116,7 +117,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         let description = waypoints[indexPath.row].subtitle
         let location = waypoints[indexPath.row].getLocation()
         let time = waypoints[indexPath.row].time
-        let conditions = "Turbulence: \(waypoints[indexPath.row].turbulence)     Icing: \(waypoints[indexPath.row].turbulence)     Precipitation: \(waypoints[indexPath.row].precipitation)"
+        let conditions = "Turbulence: \(waypoints[indexPath.row].turbulence.rawValue.uppercased())\nIcing: \(waypoints[indexPath.row].icing.rawValue.uppercased())\nPrecipitation: \(waypoints[indexPath.row].precipitation.rawValue.uppercased())\nClouds: \(waypoints[indexPath.row].clouds)"
         //let time = waypoints[indexPath.row].time.replacingOccurrences(of: " ", with: "\r\n")  // may want to separate datetime in database anyway for filtering query
         //let image = waypoints[indexPath.row].photo  // TODO: see if photo is nil.  If it is, check cache, then go to database.  Better-create thumbnails for smaller display
         var image : UIImage?
