@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
@@ -38,7 +38,7 @@
                     <dataDetectorType key="dataDetectorTypes" flightNumber="YES"/>
                 </textView>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="jUG-x7-dGC">
-                    <rect key="frame" x="58" y="41" width="37" height="37"/>
+                    <rect key="frame" x="58" y="41.5" width="37" height="37"/>
                     <color key="color" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </activityIndicatorView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcz-Kz-RfC">
@@ -124,9 +124,9 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zu-Ro-CQz">
-                    <rect key="frame" x="304" y="131" width="25" height="14.5"/>
+                    <rect key="frame" x="304" y="131" width="30" height="14.5"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="25" id="wbm-C0-RQw"/>
+                        <constraint firstAttribute="width" constant="30" id="wbm-C0-RQw"/>
                     </constraints>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                     <nil key="textColor"/>
@@ -185,6 +185,7 @@
                 <outlet property="spinner" destination="jUG-x7-dGC" id="SJG-tk-MKZ"/>
                 <outlet property="timeLabel" destination="Xcz-Kz-RfC" id="gdN-qe-eNl"/>
                 <outlet property="turbStatus" destination="D05-oA-Y3j" id="dmP-4U-J5t"/>
+                <outlet property="userLabel" destination="3nA-Ao-NJD" id="m1h-AY-Mtm"/>
                 <outlet property="wayPointDescription" destination="UR2-Mb-L0T" id="gbh-Lw-Mpj"/>
                 <outlet property="wayPointImage" destination="08t-aW-Ig0" id="3Si-ZY-KRM"/>
                 <outlet property="wayPointUsername" destination="HF6-1M-H5a" id="70s-mN-euj"/>

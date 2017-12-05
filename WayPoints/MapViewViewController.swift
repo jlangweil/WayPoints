@@ -203,6 +203,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         calloutView.wayPointDescription.layer.borderColor = UIColor.black.cgColor
         calloutView.timeLabel.text = wayPointAnnotation.time
         calloutView.location.text = wayPointAnnotation.getLocation()
+        if wayPointAnnotation.urgent {
+            calloutView.location.text = "\(calloutView.location.text!) 🚨"
+        }
         calloutView.turbStatus.text = getTextForSeverity(severity: wayPointAnnotation.turbulence)
         calloutView.turbStatus.layer.backgroundColor = getBackgroundColorForSeverity(severity: wayPointAnnotation.turbulence).cgColor
         calloutView.icingStatus.text = getTextForSeverity(severity: wayPointAnnotation.icing)
@@ -212,6 +215,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             calloutView.precipImage.image = UIImage(named: precipImageName!)
         }
         calloutView.skyStatus.text = wayPointAnnotation.clouds
+        
         
         if let cachedImage = imageCache.object(forKey: wayPointAnnotation.id! as NSString) {
             print("got cached image")

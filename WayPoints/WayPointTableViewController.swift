@@ -115,7 +115,10 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wayPointCell", for: indexPath)
         let id = waypoints[indexPath.row].id
         let description = waypoints[indexPath.row].subtitle
-        let location = waypoints[indexPath.row].getLocation()
+        var location = waypoints[indexPath.row].getLocation()
+        if waypoints[indexPath.row].urgent {
+            location = "\(location) 🚨"
+        }
         let time = waypoints[indexPath.row].time
         let conditions = "Turbulence: \(waypoints[indexPath.row].turbulence.rawValue.uppercased())\nIcing: \(waypoints[indexPath.row].icing.rawValue.uppercased())\nPrecipitation: \(waypoints[indexPath.row].precipitation.rawValue.uppercased())\nClouds: \(waypoints[indexPath.row].clouds)"
         //let time = waypoints[indexPath.row].time.replacingOccurrences(of: " ", with: "\r\n")  // may want to separate datetime in database anyway for filtering query
