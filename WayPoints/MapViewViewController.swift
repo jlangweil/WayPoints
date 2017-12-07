@@ -51,10 +51,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let defaultLatitude = 40.0
+        let defaultLongitude = -74.0
         
-        // set up some sample data for now, get from Model later
-        let latitude = 40.0
-        let longitude = -74.0
         // set map bounds here if setting to do so is set
         let restoreMapPosition = defaults.bool(forKey: "saveMapPosition")
         print ("RestoreMapPosition=\(restoreMapPosition)")
@@ -65,12 +65,39 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         setUpDatePicker()
         setDateRanges()
         
-        mapCenter = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        if restoreMapPosition, defaults.object(forKey: "longitudeDelta") != nil {
+            let savedCenterLatitude = defaults.double(forKey: "mapCenterLatitude")
+            let savedCenterLongitude = defaults.double(forKey: "mapCenterLongitude")
+            let savedLatitudeDelta = defaults.double(forKey: "latitudeDelta")
+            let savedLongitudeDelta = defaults.double(forKey: "longitudeDelta")
+            let span = MKCoordinateSpan(latitudeDelta: savedLatitudeDelta, longitudeDelta: savedLongitudeDelta)
+            let savedCoord = CLLocationCoordinate2D(latitude: savedCenterLatitude, longitude: savedCenterLongitude)
+            let region = MKCoordinateRegion(center: savedCoord, span: span)
+            mapView.setRegion(region, animated: true)
+        }
+        else {
+           mapCenter = CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude)
+        }
+
         // Do any additional setup after loading the view.
         if waypoints.count == 0 {
             //populateTestData()
             getWayPointsFromDatabase()  // the listener set up here will be moved to the sign on or an earlier page later.
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let currentCenter = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        let latitude = currentCenter.coordinate.latitude
+        let longitude = currentCenter.coordinate.longitude
+        let latitudeDelta = mapView.region.span.latitudeDelta
+        let longitudeDelta = mapView.region.span.longitudeDelta
+        //print ("Coordinates: \(latitude), \(longitude)  Radius=\(radius)")
+        defaults.set(latitude, forKey: "mapCenterLatitude")
+        defaults.set(longitude, forKey: "mapCenterLongitude")
+        defaults.set(longitudeDelta, forKey: "longitudeDelta")
+        defaults.set(latitudeDelta, forKey: "latitudeDelta")
+        defaults.synchronize()
     }
     
     func setDateRanges() {
@@ -144,21 +171,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         self.endDate = endingDate.toFirebaseTimestamp()
         timeDisplay.text = "\(startingDate.currentDate)"
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
-    }
-    
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        let currentCenter = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
-        let latitude = currentCenter.coordinate.latitude
-        let longitude = currentCenter.coordinate.longitude
-        let topCentralLat:Double = latitude -  mapView.region.span.latitudeDelta/2
-        let topCentralLocation = CLLocation(latitude: topCentralLat, longitude: longitude)
-        let radius = currentCenter.distance(from: topCentralLocation)
-        print ("Coordinates: \(latitude), \(longitude)  Radius=\(radius)")
-        defaults.set(latitude, forKey: "mapCenterLatitude")
-        defaults.set(longitude, forKey: "mapCenterLongitude")
-        defaults.set(radius, forKey: "mapRadius")
-       
-        
     }
 
     @IBOutlet weak var mapView: MKMapView!

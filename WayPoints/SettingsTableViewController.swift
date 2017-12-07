@@ -16,6 +16,7 @@ class SettingsTableViewController: UITableViewController {
     @IBAction func switchMapPosition(_ sender: Any) {
         //print("switch position: \(saveMapPositionSwitch.isOn)")
         defaults.set(saveMapPositionSwitch.isOn, forKey: "saveMapPosition")
+        defaults.synchronize()
     }
     
     
