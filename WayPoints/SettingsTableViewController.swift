@@ -10,8 +10,6 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 
-    let defaults = UserDefaults.standard
- 
     @IBOutlet weak var saveMapPositionSwitch: UISwitch!
     @IBOutlet weak var datePicker: UIPickerView!
     

@@ -11,6 +11,7 @@ import MapKit
 import Firebase
 
 let imageCache = NSCache<NSString, UIImage>()
+let defaults = UserDefaults.standard
 
 func getBackgroundColorForSeverity(severity: Severity? ) -> UIColor {
     guard severity != nil else {

@@ -55,6 +55,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         // set up some sample data for now, get from Model later
         let latitude = 40.0
         let longitude = -74.0
+        // set map bounds here if setting to do so is set
+        let restoreMapPosition = defaults.bool(forKey: "saveMapPosition")
+        print ("RestoreMapPosition=\(restoreMapPosition)")
+        
         self.mapView.delegate=self
         let calendar = Calendar.current
         endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: Date())!
@@ -142,10 +146,20 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
     }
     
-    
-    /*public func updateMap() {
-        mapView.addAnnotations(waypoints)
-    }*/
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let currentCenter = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        let latitude = currentCenter.coordinate.latitude
+        let longitude = currentCenter.coordinate.longitude
+        let topCentralLat:Double = latitude -  mapView.region.span.latitudeDelta/2
+        let topCentralLocation = CLLocation(latitude: topCentralLat, longitude: longitude)
+        let radius = currentCenter.distance(from: topCentralLocation)
+        print ("Coordinates: \(latitude), \(longitude)  Radius=\(radius)")
+        defaults.set(latitude, forKey: "mapCenterLatitude")
+        defaults.set(longitude, forKey: "mapCenterLongitude")
+        defaults.set(radius, forKey: "mapRadius")
+       
+        
+    }
 
     @IBOutlet weak var mapView: MKMapView!
     
