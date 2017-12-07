@@ -635,18 +635,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r35-fr-M8e">
-                                                    <rect key="frame" x="4" y="4" width="312" height="41.5"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aircraft Reg #:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PiY-Gh-8lA">
                                                     <rect key="frame" x="16" y="14.5" width="111" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r35-fr-M8e">
+                                                    <rect key="frame" x="4" y="4" width="312" height="41.5"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="setAircraftReg:" destination="XyL-Bs-GAY" eventType="editingDidEnd" id="4U3-St-YJN"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="PiY-Gh-8lA" firstAttribute="leading" secondItem="Qq6-2j-fVf" secondAttribute="leading" constant="16" id="Bes-hD-8Q2"/>
@@ -677,6 +680,9 @@
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="setAircraftType:" destination="XyL-Bs-GAY" eventType="editingDidEnd" id="7HI-KF-vqK"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -695,6 +701,10 @@
                             <outlet property="delegate" destination="XyL-Bs-GAY" id="zEI-3a-mxO"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="aircraftRegTextField" destination="r35-fr-M8e" id="umb-gl-NHg"/>
+                        <outlet property="aircraftTypeTextField" destination="PgF-Xi-ZRW" id="4as-Du-gCp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFO-YW-R2g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
