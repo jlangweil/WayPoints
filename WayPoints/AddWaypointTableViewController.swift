@@ -13,7 +13,8 @@ import Firebase
 
 class AddWaypointTableViewController: UITableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
 
-    var locationIdentified: Bool = false
+    var locationIdentified = false
+    var reverseGeoCodeSucceeded = false
     var locationManager = CLLocationManager()
     var wayPointCoordinate: CLLocationCoordinate2D?
     var wayPointAltitudeInFeet: CLLocationDistance?
@@ -25,6 +26,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         }
     }
    
+    @IBOutlet weak var aircraftTypeTextView: UITextView!
+    @IBOutlet weak var registrationTextView: UITextView!
     @IBOutlet weak var coordinatesLabel: UILabel!
     @IBOutlet weak var cityStateLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
@@ -44,11 +47,19 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         wayPointDescription.layer.borderWidth = 1.0
         altitudeLabel.text = "NO GPS POSITION"
         coordinatesLabel.text = "NO GPS POSITION"
+        if let reg=defaults.string(forKey: "defaultAircraftRegistration") {
+            registrationTextView.text = reg
+        }
+        if let acType=defaults.string(forKey: "defaultAircraftType") {
+            aircraftTypeTextView.text = acType
+        }
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         // set delgates
         gestureRecognizer.delegate = self
         self.view.addGestureRecognizer(gestureRecognizer)
         self.wayPointDescription.delegate=self
+        self.aircraftTypeTextView.delegate=self
+        self.registrationTextView.delegate=self
         locationManager.delegate=self
         // get location
         setupCoreLocation()
@@ -237,22 +248,26 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let altitudeInFeet = Int(wayPointAltitudeInFeet!)
         coordinatesLabel.text = "\(String(format: "%.5f", wayPointCoordinate!.latitude)), \(String(format: "%.5f", wayPointCoordinate!.longitude))"
         altitudeLabel.text = "\(altitudeInFeet) feet"
-        let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(location, completionHandler: {(placemarks, error) in
-            if (error != nil) {
-                print("Error in reverseGeocode")
-            }
-            
-            if placemarks != nil {
-                let placemark = placemarks! as [CLPlacemark]
-                if placemark.count > 0 {
-                    let placemark = placemarks![0]
-                    if placemark.administrativeArea != nil && placemark.locality != nil {
-                        self.wayPointPlaceMark = placemark
+        if !reverseGeoCodeSucceeded {
+            print("Attempting to use GeoCoder to get location...")
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(location, completionHandler: {[weak self](placemarks, error) in
+                if (error != nil) {
+                    print("Error in reverseGeocode \(error.debugDescription)")
+                }
+                
+                if placemarks != nil {
+                    let placemark = placemarks! as [CLPlacemark]
+                    if placemark.count > 0 {
+                        let placemark = placemarks![0]
+                        if placemark.administrativeArea != nil && placemark.locality != nil {
+                            self?.wayPointPlaceMark = placemark
+                            self?.reverseGeoCodeSucceeded = true
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }
     
     // MARK imagePicker delegate methods
@@ -266,16 +281,23 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     
     // MARK textView delegate methods
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let numberOfChars = newText.count
-        /*if(textView.text.characters.count > 20 && range.length == 0) {
-         print("Please summarize in 20 characters or less")
-         return false;
-         }*/
-        if numberOfChars < 281 {
-            charactersRemainingLabel .text = String(280-numberOfChars)
+        
+        if textView == registrationTextView {
+            return numberOfChars < 7
         }
-        return numberOfChars < 281;
+        else if textView == aircraftTypeTextView {
+            return numberOfChars < 5
+        }
+        else {
+            if numberOfChars < 281 {
+                charactersRemainingLabel .text = String(280-numberOfChars)
+            }
+            return numberOfChars < 281;
+        }
+       
     }
 
     override func didReceiveMemoryWarning() {
