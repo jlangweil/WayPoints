@@ -26,10 +26,12 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var longitude : Double
     var city:String?
     var state:String?
+    var aircraftRegistration:String
+    var aircraftType:String
     
     //var uploaded:Bool = false
     
-    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, clouds: String, urgent: Bool, city: String?, state: String?, altitude: String, id: String?){
+    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, clouds: String, urgent: Bool, city: String?, state: String?, altitude: String, aircraftRegistration: String, aircraftType:String, id: String?){
         self.id=id
         self.coordinate = coordinate
         self.title = title
@@ -46,6 +48,8 @@ class WayPointAnnotation: NSObject, MKAnnotation {
         self.altitude = altitude
         self.latitude = coordinate.latitude
         self.longitude = coordinate.longitude
+        self.aircraftType = aircraftType
+        self.aircraftRegistration = aircraftRegistration
     }
     
     func getDictionaryForDatabase(_ key:String) -> [String:Any] {
@@ -65,7 +69,9 @@ class WayPointAnnotation: NSObject, MKAnnotation {
                         "icing": icing.rawValue as String,
                         "precipitation": precipitation.rawValue as String,
                         "clouds": clouds,
-                        "urgent": urgent as Bool
+                        "urgent": urgent as Bool,
+                        "aircraft": aircraftRegistration ?? "" as String,
+                        "aircrafttype": aircraftType ?? "" as String
             ] as [String : Any]
         
         return waypoint

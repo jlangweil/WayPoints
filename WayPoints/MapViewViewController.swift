@@ -241,7 +241,11 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             calloutView.precipImage.image = UIImage(named: precipImageName!)
         }
         calloutView.skyStatus.text = wayPointAnnotation.clouds
-        
+        var acType=""
+        if wayPointAnnotation.aircraftType != "" {
+            acType = " (\(wayPointAnnotation.aircraftType))"
+        }
+        calloutView.userLabel.text = "\(wayPointAnnotation.aircraftRegistration)\(acType)"
         
         if let cachedImage = imageCache.object(forKey: wayPointAnnotation.id! as NSString) {
             print("got cached image")
@@ -288,16 +292,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             }
         }
         
-        /*if turbulenceImageName != nil {
-            calloutView.turbulanceImageView.image = UIImage(named: turbulenceImageName!)
-        }
-        if icingImageName != nil {
-            calloutView.icingImageView.image = UIImage(named: icingImageName!)
-        }
-        if weatherImageName != nil {
-            calloutView.wxImageView.image = UIImage(named: weatherImageName!)
-        }*/
-        
         // Resize callout relative to screen width
         let resizedWidth = mapView.frame.width * 0.9
         calloutView.frame.size = CGSize(width: resizedWidth, height: resizedWidth/2.418)
@@ -312,7 +306,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         
         calloutView.layer.borderWidth=3
         calloutView.layer.borderColor = UIColor.black.cgColor
-        
         
         // add custom callout view to annotation and recenter map
         view.addSubview(calloutView)
@@ -368,8 +361,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                 let time = userDict["time"] as! String
                 let turbulence = userDict["turbulence"] as! String
                 let urgent = userDict["urgent"] as! Bool
+                let aircraftRegistration = userDict["aircraft"] as? String ?? ""
+                let aircraftType = userDict["aircrafttype"] as? String ?? ""
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, id: id)
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, id: id)
                 self?.waypoints.append(wayPointToBeAdded) 
                 self?.mapView.addAnnotation(wayPointToBeAdded)
             }

@@ -17,6 +17,8 @@ class WayPointCustomTableCell: UITableViewCell {
     @IBOutlet weak var wayPointTimeLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var conditionsLabel: UILabel!
+    @IBOutlet weak var aircraftLabel: UILabel!
+    @IBOutlet weak var aircraftTypeLabel: UILabel!
     
     var imageID : String?
     

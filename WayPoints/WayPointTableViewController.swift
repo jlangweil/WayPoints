@@ -76,8 +76,10 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
                 let time = userDict["time"] as! String
                 let turbulence = userDict["turbulence"] as! String
                 let urgent = userDict["urgent"] as! Bool
+                let aircraftRegistration = userDict["aircraft"] as? String ?? ""
+                let aircraftType = userDict["aircrafttype"] as? String ?? ""
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, id: id)
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, id: id)
                 if (self?.waypoints.contains(where: { (annotation) -> Bool in
                     if id==annotation.id {
                         return true
@@ -132,6 +134,8 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
             let placeholder = UIImage(named: "placeholder")
             wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: placeholder, time: time, location: location, description: description)
             wayPointCell.conditionsLabel.text = conditions
+            wayPointCell.aircraftLabel.text=waypoints[indexPath.row].aircraftRegistration
+            wayPointCell.aircraftTypeLabel.text=waypoints[indexPath.row].aircraftType
             if let cachedImage = imageCache.object(forKey: "\(id!)_thumb" as NSString) {
                 wayPointCell.wayPointImageView.image = cachedImage
                 wayPointCell.spinner.stopAnimating()

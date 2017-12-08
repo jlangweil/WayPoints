@@ -116,8 +116,10 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         }
         let city = wayPointPlaceMark?.locality
         let state = wayPointPlaceMark?.administrativeArea
+        let aircraftType = aircraftTypeTextView.text ?? ""
+        let aircraftRegistration = registrationTextView.text ?? ""
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: city, state: state, altitude: altitude, id: nil)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, id: nil)
         // save to database
         let key = saveAnnotationToDatabase(annotation)
         if imageAttached {
