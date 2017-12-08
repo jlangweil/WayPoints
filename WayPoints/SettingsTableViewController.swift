@@ -11,7 +11,8 @@ import UIKit
 class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var saveMapPositionSwitch: UISwitch!
-    @IBOutlet weak var datePicker: UIPickerView!
+    @IBOutlet weak var defaultAirplane: UILabel!
+    
     
     @IBAction func switchMapPosition(_ sender: Any) {
         //print("switch position: \(saveMapPositionSwitch.isOn)")
@@ -24,6 +25,9 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         let saveMapPositionDefault = defaults.bool(forKey: "saveMapPosition")
         saveMapPositionSwitch.isOn = saveMapPositionDefault
+        if let reg=defaults.string(forKey: "defaultAircraftRegistration") {
+            defaultAirplane.text = reg
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

@@ -610,6 +610,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="1kb-sg-zAL"/>
                     <connections>
+                        <outlet property="defaultAirplane" destination="2Kf-dN-sjr" id="7cE-ix-G4e"/>
                         <outlet property="saveMapPositionSwitch" destination="wqj-rw-3Hx" id="rVo-dO-eBF"/>
                     </connections>
                 </tableViewController>
