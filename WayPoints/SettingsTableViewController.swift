@@ -12,6 +12,7 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var saveMapPositionSwitch: UISwitch!
     @IBOutlet weak var defaultAirplane: UILabel!
+    @IBOutlet weak var displayHistoryLabel: UILabel!
     
     
     @IBAction func switchMapPosition(_ sender: Any) {
@@ -23,10 +24,17 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.tableFooterView = UIView()
         let saveMapPositionDefault = defaults.bool(forKey: "saveMapPosition")
         saveMapPositionSwitch.isOn = saveMapPositionDefault
         if let reg=defaults.string(forKey: "defaultAircraftRegistration") {
             defaultAirplane.text = reg
+        }
+        if let history=defaults.string(forKey: "waypointhistory") {
+            displayHistoryLabel.text = history
+        }
+        else {
+            displayHistoryLabel.text = "1 week"
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

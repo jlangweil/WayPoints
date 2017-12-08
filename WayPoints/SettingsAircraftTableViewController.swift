@@ -13,12 +13,10 @@ class SettingsAircraftTableViewController: UITableViewController, UITextFieldDel
     @IBOutlet weak var aircraftRegTextField: UITextField!
     @IBOutlet weak var aircraftTypeTextField: UITextField!
     @IBAction func setAircraftReg(_ sender: UITextField) {
-        print("Registriation will set")
         defaults.set(sender.text!, forKey: "defaultAircraftRegistration")
         defaults.synchronize()
     }
     @IBAction func setAircraftType(_ sender: UITextField) {
-        print("AC Type will set")
         defaults.set(sender.text!, forKey: "defaultAircraftType")
         defaults.synchronize()
     }
