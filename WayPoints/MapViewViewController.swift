@@ -46,7 +46,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = "WayPoints Map"
+        setUpCustomHistory()
+        setDateRanges()
     }
     
     override func viewDidLoad() {
@@ -86,6 +87,12 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func setUpCustomHistory() {
+        if let history=defaults.string(forKey: "waypointhistory") {
+            self.timeFilter.setTitle(history, forSegmentAt: 2)
+        }
+    }
+    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let currentCenter = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         let latitude = currentCenter.coordinate.latitude
@@ -104,6 +111,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         // 0 = Today, 1 = 24 hrs, 2 = 1 week 3 = custom
         let selection = timeFilter.selectedSegmentIndex
         let calendar = Calendar.current
+        var dateOption: String?
         self.endingDate = Date()
         switch selection {
         case 0:
@@ -114,7 +122,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -24, to: endingDate)!
             datePickerContainer.isHidden=true
         case 2:
-            startingDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: endingDate)!
+            // custom view based on default of 1 week, or selected option in settings
+            dateOption = timeFilter.titleForSegment(at: selection)
+            startingDate = getCustomStartingDate(dateOption!, endingDate: endingDate)
+            //startingDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: endingDate)!
             datePickerContainer.isHidden=true
         default:
             showDatePicker()
@@ -122,8 +133,39 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
         self.startDate = startingDate.toFirebaseTimestamp()
         self.endDate = endingDate.toFirebaseTimestamp()
-        timeDisplay.text = "\(startingDate.preciseGMTDateTime)Z - \(endingDate.preciseGMTDateTime)Z"
+        if dateOption == "All" {
+            timeDisplay.text = "All available data"
+        }
+        else {
+            timeDisplay.text = "\(startingDate.preciseGMTDateTime)Z - \(endingDate.preciseGMTDateTime)Z"
+        }
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
+    }
+    
+    func getCustomStartingDate(_ dateOption: String, endingDate: Date) -> Date {
+        let calendar = Calendar.current
+        var startingDate : Date
+        switch dateOption {
+            case "1 week":
+                startingDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: endingDate)!
+            case "2 weeks":
+                startingDate = calendar.date(byAdding: Calendar.Component.day, value: -14, to: endingDate)!
+            case "1 month":
+                startingDate = calendar.date(byAdding: Calendar.Component.month, value: -1, to: endingDate)!
+            case "2 months":
+                startingDate = calendar.date(byAdding: Calendar.Component.month, value: -2, to: endingDate)!
+            case "6 months":
+                startingDate = calendar.date(byAdding: Calendar.Component.month, value: -6, to: endingDate)!
+            case "1 year":
+                startingDate = calendar.date(byAdding: Calendar.Component.year, value: -1, to: endingDate)!
+            case "2 years":
+                startingDate = calendar.date(byAdding: Calendar.Component.year, value: -2, to: endingDate)!
+            case "All":
+                startingDate = Date(timeIntervalSince1970: 0)
+            default:
+                startingDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: endingDate)!
+            }
+        return startingDate
     }
     
     func setUpDatePicker() {

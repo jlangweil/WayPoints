@@ -16,7 +16,6 @@ class SettingsTableViewController: UITableViewController {
     
     
     @IBAction func switchMapPosition(_ sender: Any) {
-        //print("switch position: \(saveMapPositionSwitch.isOn)")
         defaults.set(saveMapPositionSwitch.isOn, forKey: "saveMapPosition")
         defaults.synchronize()
     }
@@ -27,6 +26,20 @@ class SettingsTableViewController: UITableViewController {
         self.tableView.tableFooterView = UIView()
         let saveMapPositionDefault = defaults.bool(forKey: "saveMapPosition")
         saveMapPositionSwitch.isOn = saveMapPositionDefault
+        updateUI()
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUI()
+    }
+
+    func updateUI() {
         if let reg=defaults.string(forKey: "defaultAircraftRegistration") {
             defaultAirplane.text = reg
         }
@@ -36,16 +49,6 @@ class SettingsTableViewController: UITableViewController {
         else {
             displayHistoryLabel.text = "1 week"
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source

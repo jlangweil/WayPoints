@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EKN-6I-46A">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -10,6 +10,7 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,14 +20,14 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MapViewViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PhB-jD-VYJ">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wz3-Wy-W3B">
-                                <rect key="frame" x="254" y="459" width="58" height="44"/>
+                                <rect key="frame" x="254" y="371" width="58" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="2j3-ih-Lnb"/>
@@ -40,7 +41,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Liu-VQ-Fbd">
-                                <rect key="frame" x="254" y="405" width="58" height="44"/>
+                                <rect key="frame" x="254" y="317" width="58" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Street">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,28 +77,32 @@
                     </view>
                     <navigationItem key="navigationItem" id="Luw-4M-m5w">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="gbO-5W-akh">
-                            <rect key="frame" x="22.5" y="7.5" width="247" height="29"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="MFK-Yu-8mB"/>
-                                <constraint firstAttribute="width" constant="220" id="fxH-CC-Wmf"/>
-                            </constraints>
-                            <segments>
-                                <segment title="Today"/>
-                                <segment title="24hrs"/>
-                                <segment title="1 week"/>
-                                <segment title="Day"/>
-                            </segments>
-                            <connections>
-                                <action selector="timeSelected:" destination="BYZ-38-t0r" eventType="valueChanged" id="XGF-h0-uYa"/>
-                            </connections>
-                        </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="fcA-ag-emv">
-                            <connections>
-                                <segue destination="Jwi-nC-SDG" kind="show" identifier="addNew" id="Usf-0A-88Q"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="done" systemItem="add" id="fcA-ag-emv">
+                                <connections>
+                                    <segue destination="Jwi-nC-SDG" kind="show" identifier="addNew" id="Usf-0A-88Q"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="KuK-jd-vqa">
+                                <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="gbO-5W-akh">
+                                    <rect key="frame" x="44.5" y="7.5" width="223" height="29"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="MFK-Yu-8mB"/>
+                                        <constraint firstAttribute="width" constant="260" id="fxH-CC-Wmf"/>
+                                    </constraints>
+                                    <segments>
+                                        <segment title="Today"/>
+                                        <segment title="24hrs"/>
+                                        <segment title="1 week"/>
+                                        <segment title="Day"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="timeSelected:" destination="BYZ-38-t0r" eventType="valueChanged" id="XGF-h0-uYa"/>
+                                    </connections>
+                                </segmentedControl>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="PhB-jD-VYJ" id="v73-Hk-lD9"/>
@@ -115,7 +120,7 @@
             <objects>
                 <tableViewController id="Jwi-nC-SDG" customClass="AddWaypointTableViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="p2d-bJ-Kve">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -569,7 +574,7 @@
             <objects>
                 <tableViewController id="fBY-ME-ApV" customClass="SettingsTableViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="txx-1K-CEv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -669,6 +674,26 @@
                                             <segue destination="eob-Bg-w0m" kind="show" id="bcG-sS-ydX"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="pTH-eS-iXP">
+                                        <rect key="frame" x="0.0" y="132" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pTH-eS-iXP" id="lDG-kY-ezw">
+                                            <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About WayPoints" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFi-Vo-BEz">
+                                                    <rect key="frame" x="16" y="12" width="131" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="AFi-Vo-BEz" firstAttribute="centerY" secondItem="lDG-kY-ezw" secondAttribute="centerY" id="5Ps-em-4od"/>
+                                                <constraint firstItem="AFi-Vo-BEz" firstAttribute="leading" secondItem="lDG-kY-ezw" secondAttribute="leading" constant="16" id="TBs-fl-ejp"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -680,7 +705,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="1kb-sg-zAL"/>
                     <connections>
                         <outlet property="defaultAirplane" destination="2Kf-dN-sjr" id="7cE-ix-G4e"/>
-                        <outlet property="displayHistoryLabel" destination="6IM-fF-Ioh" id="AIQ-t6-vzv"/>
+                        <outlet property="displayHistoryLabel" destination="6IM-fF-Ioh" id="JHK-z6-tJt"/>
                         <outlet property="saveMapPositionSwitch" destination="wqj-rw-3Hx" id="rVo-dO-eBF"/>
                     </connections>
                 </tableViewController>
@@ -693,7 +718,7 @@
             <objects>
                 <tableViewController id="XyL-Bs-GAY" customClass="SettingsAircraftTableViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="P5u-VH-tiY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -786,7 +811,7 @@
             <objects>
                 <tableViewController id="eob-Bg-w0m" customClass="SettingsDisplayHistoryTableViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="uSX-Jg-dCO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -978,7 +1003,7 @@
             <objects>
                 <tableViewController id="FwB-oK-FV6" customClass="WayPointTableViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qxb-Cf-Onp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="prominent" placeholder="Search aircraft, city, info" id="G5o-1h-eyx">
@@ -1125,14 +1150,14 @@
             <objects>
                 <viewController id="0u0-v0-4M7" customClass="WayPointPhotoViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OX7-3Y-136">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLx-Dn-Btj">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="YMa-d1-Peh">
-                                <rect key="frame" x="141" y="273" width="37" height="37"/>
+                                <rect key="frame" x="141" y="229" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
