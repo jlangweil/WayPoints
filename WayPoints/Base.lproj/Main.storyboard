@@ -181,9 +181,17 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <stepper hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="50000" stepValue="500" translatesAutoresizingMaskIntoConstraints="NO" id="YwE-C0-Sp5">
+                                                    <rect key="frame" x="210" y="16" width="94" height="29"/>
+                                                    <connections>
+                                                        <action selector="altitudeChanged:" destination="Jwi-nC-SDG" eventType="valueChanged" id="EjL-ru-nNl"/>
+                                                    </connections>
+                                                </stepper>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="cxz-CO-d3r" firstAttribute="top" secondItem="k6w-AD-8sO" secondAttribute="top" constant="4" id="6ey-oF-KCd"/>
+                                                <constraint firstItem="YwE-C0-Sp5" firstAttribute="centerY" secondItem="k6w-AD-8sO" secondAttribute="centerY" id="DDd-wy-rGq"/>
+                                                <constraint firstAttribute="trailing" secondItem="YwE-C0-Sp5" secondAttribute="trailing" constant="16" id="DzA-Su-sl4"/>
                                                 <constraint firstItem="cxz-CO-d3r" firstAttribute="leading" secondItem="k6w-AD-8sO" secondAttribute="leading" constant="8" id="NWY-OA-mmB"/>
                                                 <constraint firstItem="38Z-Gr-VER" firstAttribute="firstBaseline" secondItem="cxz-CO-d3r" secondAttribute="baseline" constant="20" symbolType="layoutAnchor" id="ecr-lj-ZHV"/>
                                                 <constraint firstItem="38Z-Gr-VER" firstAttribute="leading" secondItem="cxz-CO-d3r" secondAttribute="leading" id="hlx-ps-Vgo"/>
@@ -512,6 +520,7 @@
                     <connections>
                         <outlet property="aircraftTypeTextView" destination="bgl-hR-goI" id="d25-2d-RYN"/>
                         <outlet property="altitudeLabel" destination="38Z-Gr-VER" id="a4i-Ru-IDI"/>
+                        <outlet property="altitudeStepper" destination="YwE-C0-Sp5" id="0z7-zm-OYG"/>
                         <outlet property="charactersRemainingLabel" destination="B3k-5a-4xu" id="qGs-B1-aHE"/>
                         <outlet property="cityStateLabel" destination="eyy-eH-9S7" id="dN6-Wo-rBC"/>
                         <outlet property="cloudSelection" destination="gJS-oj-7Ea" id="B36-2Z-CXY"/>
@@ -1226,6 +1235,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="gvT-uu-C8Z"/>
-        <segue reference="1Ud-bt-60B"/>
+        <segue reference="Usf-0A-88Q"/>
     </inferredMetricsTieBreakers>
 </document>

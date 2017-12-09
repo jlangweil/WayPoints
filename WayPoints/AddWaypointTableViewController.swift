@@ -17,7 +17,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     var reverseGeoCodeSucceeded = false
     var locationManager = CLLocationManager()
     var wayPointCoordinate: CLLocationCoordinate2D?
-    var manuallyAddedCoordinate: CLLocationCoordinate2D?
+    var manual = false
     var wayPointAltitudeInFeet: CLLocationDistance?
     var wayPointPlaceMark: CLPlacemark? {
         didSet {
@@ -41,6 +41,14 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     @IBOutlet weak var precipitationSelection: UISegmentedControl!
     @IBOutlet weak var imageViewCell: UITableViewCell!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var altitudeStepper: UIStepper!
+    
+    @IBAction func altitudeChanged(_ sender: UIStepper) {
+        let altitude = Int(sender.value)
+        altitudeLabel.text = "\(altitude) ft"
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +71,17 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         self.registrationTextView.delegate=self
         locationManager.delegate=self
         // get location
-        setupCoreLocation()
+        if !manual {
+            setupCoreLocation()
+        }
+        else
+        {
+            coordinatesLabel.text = "\(String(format: "%.5f", wayPointCoordinate!.latitude)), \(String(format: "%.5f", wayPointCoordinate!.longitude))"
+            altitudeLabel.text = "0 ft"
+            altitudeStepper.isHidden = false
+            let location = CLLocation(latitude: wayPointCoordinate!.latitude, longitude: wayPointCoordinate!.longitude)
+            setLocationUsingGeoCoder(location: location)
+        }
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -71,7 +89,9 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        disableLocationServices()
+        if !manual {
+            disableLocationServices()
+        }
     }
     
     @IBAction func addPhoto(_ sender: Any) {
@@ -109,18 +129,23 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let urgent = urgentSwitch.isOn
         let utcTime = "\(Date().currentDate) \(Date().preciseGMTTime)Z"
         var altitude: String
-        if wayPointAltitudeInFeet == nil {
-            altitude = "-- ft"
+        if manual {
+            altitude = Int(altitudeStepper.value)
         }
         else {
-            altitude = "\(wayPointAltitudeInFeet!)"
+            if wayPointAltitudeInFeet == nil {
+                altitude = "-- ft"
+            }
+            else {
+                altitude = "\(wayPointAltitudeInFeet!)"
+            }
         }
         let city = wayPointPlaceMark?.locality
         let state = wayPointPlaceMark?.administrativeArea
         let aircraftType = aircraftTypeTextView.text ?? ""
         let aircraftRegistration = registrationTextView.text ?? ""
         // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(Int(wayPointAltitudeInFeet!))ft", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, id: nil)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(altitude)", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, id: nil)
         // save to database
         let key = saveAnnotationToDatabase(annotation)
         if imageAttached {
@@ -175,17 +200,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
                     print("Error uploading file \(key)\(ext).jpg: \(error.debugDescription)")
                     return
                 }
-                // Metadata contains file metadata such as size, content-type, and download URL.
-                //let downloadURL = metadata.downloadURL
-                print("Uploaded: \(key)\(ext).jpg")
-                // TAKES A WHILE TO UPLOAD, Might want to shrink size and add progress bar before going back to map screen
             }
-            
         }
-    }
-    
-    func saveImageToCache(image:UIImage, key:String) {
-        
     }
     
     func displayNoGpsAlert() {
@@ -205,7 +221,6 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         else {
             return true
         }
-        
     }
     
     // MARK Location methods
@@ -252,25 +267,27 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         coordinatesLabel.text = "\(String(format: "%.5f", wayPointCoordinate!.latitude)), \(String(format: "%.5f", wayPointCoordinate!.longitude))"
         altitudeLabel.text = "\(altitudeInFeet) feet"
         if !reverseGeoCodeSucceeded {
-            print("Attempting to use GeoCoder to get location...")
-            let geocoder = CLGeocoder()
-            geocoder.reverseGeocodeLocation(location, completionHandler: {[weak self](placemarks, error) in
-                if (error != nil) {
-                    print("Error in reverseGeocode \(error.debugDescription)")
-                }
-                
-                if placemarks != nil {
-                    let placemark = placemarks! as [CLPlacemark]
-                    if placemark.count > 0 {
-                        let placemark = placemarks![0]
-                        if placemark.administrativeArea != nil && placemark.locality != nil {
-                            self?.wayPointPlaceMark = placemark
-                            self?.reverseGeoCodeSucceeded = true
-                        }
+            setLocationUsingGeoCoder(location: location)
+        }
+    }
+    
+    func setLocationUsingGeoCoder(location: CLLocation) {
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location, completionHandler: {[weak self](placemarks, error) in
+            if (error != nil) {
+                print("Error in reverseGeocode \(error.debugDescription)")
+            }
+            if placemarks != nil {
+                let placemark = placemarks! as [CLPlacemark]
+                if placemark.count > 0 {
+                    let placemark = placemarks![0]
+                    if placemark.administrativeArea != nil && placemark.locality != nil {
+                        self?.wayPointPlaceMark = placemark
+                        self?.reverseGeoCodeSucceeded = true
                     }
                 }
-            })
-        }
+            }
+        })
     }
     
     // MARK imagePicker delegate methods

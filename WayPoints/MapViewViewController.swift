@@ -387,6 +387,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     }
     
     func doesUserWantToCreateAWayPoint(at coordinate: CLLocationCoordinate2D) {
+        self.mapCenter = coordinate
         let alert = UIAlertController(title: "Manual Waypoint", message: "Create a waypoint at this location?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             //print("User would like to create a waypoint here - \(coordinate.latitude), \(coordinate.longitude)")
@@ -405,7 +406,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         if let addWaypointController = segue.destination as? AddWaypointTableViewController {
             if self.manualAdd==true {
                 let coordinate = sender as! CLLocationCoordinate2D
-                addWaypointController.manuallyAddedCoordinate = coordinate
+                addWaypointController.wayPointCoordinate = coordinate
+                addWaypointController.manual = true
             }
         }
     }
