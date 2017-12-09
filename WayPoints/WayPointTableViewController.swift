@@ -123,9 +123,25 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
             location = "\(location) 🚨"
         }
         let time = waypoints[indexPath.row].time
-        let conditions = "Turbulence: \(waypoints[indexPath.row].turbulence.rawValue.uppercased())\nIcing: \(waypoints[indexPath.row].icing.rawValue.uppercased())\nPrecipitation: \(waypoints[indexPath.row].precipitation.rawValue.uppercased())\nClouds: \(waypoints[indexPath.row].clouds)"
-        //let time = waypoints[indexPath.row].time.replacingOccurrences(of: " ", with: "\r\n")  // may want to separate datetime in database anyway for filtering query
-        //let image = waypoints[indexPath.row].photo  // TODO: see if photo is nil.  If it is, check cache, then go to database.  Better-create thumbnails for smaller display
+        let altitude = waypoints[indexPath.row].altitude
+        var conditions = ""
+        if altitude != "" {
+            conditions = "Altitude: \(altitude.getAltitudeAsInteger()) ft\n"
+        }
+        if waypoints[indexPath.row].turbulence != .none {
+            conditions = "\(conditions)Turbulence: \(waypoints[indexPath.row].turbulence.rawValue.uppercased())\n"
+        }
+        if waypoints[indexPath.row].icing != .none {
+            conditions = "\(conditions)Icing: \(waypoints[indexPath.row].icing.rawValue.uppercased())\n"
+        }
+        if waypoints[indexPath.row].precipitation != .none {
+            conditions = "\(conditions)Precipitation: \(waypoints[indexPath.row].precipitation.rawValue.uppercased())\n"
+        }
+        if waypoints[indexPath.row].clouds != "" {
+            conditions = "\(conditions)Clouds: \(waypoints[indexPath.row].clouds)"
+        }
+        
+
         var image : UIImage?
         // Set data without image
         if let wayPointCell = cell as? WayPointCustomTableCell {
@@ -206,23 +222,11 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    /*func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        searchTerm = nil
-        waypoints = copyOfWayPointsForSearch
-        self.tableView.reloadData()
-    }*/
-    
     func filterSearch() {
-        waypoints = waypoints.filter { ($0.city?.contains(find: searchTerm!) ?? false) || ($0.state?.contains(find: searchTerm!) ?? false) || $0.description.contains(find: searchTerm!)}
+        waypoints = waypoints.filter { ($0.city?.contains(find: searchTerm!) ?? false) || ($0.state?.contains(find: searchTerm!) ?? false) || $0.description.contains(find: searchTerm!) || ($0.aircraftRegistration.contains(find: searchTerm!) || ($0.aircraftType.contains(find: searchTerm!)))}
         self.tableView.reloadData()
     }
-    
-    func cancelSearch() {
-        
-    }
-    
-    
+
     // MARK SEGUE
     
     @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
