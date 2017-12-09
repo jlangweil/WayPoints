@@ -99,11 +99,11 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     }
     
     @objc func longTap(_ sender: UIGestureRecognizer){
-        if sender.state == .ended {
+        if sender.state == .began {
             let point = sender.location(in: self.mapView)
             let coordinateTouched = self.mapView.convert(point, toCoordinateFrom: self.mapView)
             print("\(coordinateTouched.latitude), \(coordinateTouched.longitude)")
-            // open a alert to create a waypoint or not.  set the manualAdd flag to true, and use it in the prepareFor segue
+            doesUserWantToCreateAWayPoint(at: coordinateTouched)
         }
 
     }
@@ -382,9 +382,19 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
     {
         if let callOutImageView = tapRecognizer.view as? UIImageView {
-            //callOutImage = callOutImageView.image
             performSegue(withIdentifier: "showPhoto", sender: callOutImageView)
         }
+    }
+    
+    func doesUserWantToCreateAWayPoint(at coordinate: CLLocationCoordinate2D) {
+        let alert = UIAlertController(title: "Manual Waypoint", message: "Create a waypoint at this location?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            //print("User would like to create a waypoint here - \(coordinate.latitude), \(coordinate.longitude)")
+            self.manualAdd=true
+            self.performSegue(withIdentifier: "addNew", sender: coordinate)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -393,7 +403,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             photoController.image = customImageView.image
         }
         if let addWaypointController = segue.destination as? AddWaypointTableViewController {
-            print("addWayPointController is next, manualAdd is \(manualAdd)")
+            if self.manualAdd==true {
+                let coordinate = sender as! CLLocationCoordinate2D
+                addWaypointController.manuallyAddedCoordinate = coordinate
+            }
         }
     }
     

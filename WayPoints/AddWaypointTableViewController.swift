@@ -17,6 +17,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     var reverseGeoCodeSucceeded = false
     var locationManager = CLLocationManager()
     var wayPointCoordinate: CLLocationCoordinate2D?
+    var manuallyAddedCoordinate: CLLocationCoordinate2D?
     var wayPointAltitudeInFeet: CLLocationDistance?
     var wayPointPlaceMark: CLPlacemark? {
         didSet {
