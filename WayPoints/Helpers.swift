@@ -12,6 +12,8 @@ import Firebase
 
 let imageCache = NSCache<NSString, UIImage>()
 let defaults = UserDefaults.standard
+let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
 
 func getBackgroundColorForSeverity(severity: Severity? ) -> UIColor {
     guard severity != nil else {
