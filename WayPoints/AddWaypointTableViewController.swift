@@ -188,7 +188,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     }
     
     func displayNoGpsAlert() {
-        let alert = UIAlertController(title: "Warning", message: "Unable to save - NO GPS Signal", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Warning", message: "Unable to save - NO GPS Signal\nLong press on map to manually select location", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true)
     }

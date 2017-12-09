@@ -28,6 +28,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    var manualAdd = false
+    
     @IBOutlet weak var timeDisplay: UILabel!
     
     @IBAction func showStreetView(_ sender: Any) {
@@ -79,6 +81,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         else {
            mapCenter = CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude)
         }
+        
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTap(_:)))
+        mapView.addGestureRecognizer(longGesture)
 
         // Do any additional setup after loading the view.
         if waypoints.count == 0 {
@@ -91,6 +96,16 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         if let history=defaults.string(forKey: "waypointhistory") {
             self.timeFilter.setTitle(history, forSegmentAt: 2)
         }
+    }
+    
+    @objc func longTap(_ sender: UIGestureRecognizer){
+        if sender.state == .ended {
+            let point = sender.location(in: self.mapView)
+            let coordinateTouched = self.mapView.convert(point, toCoordinateFrom: self.mapView)
+            print("\(coordinateTouched.latitude), \(coordinateTouched.longitude)")
+            // open a alert to create a waypoint or not.  set the manualAdd flag to true, and use it in the prepareFor segue
+        }
+
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -376,6 +391,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         // create object to pass in as sender and then pass to the destination.  for now just passing the image
         if let photoController = segue.destination as? WayPointPhotoViewController,let customImageView = sender as? UIImageView {
             photoController.image = customImageView.image
+        }
+        if let addWaypointController = segue.destination as? AddWaypointTableViewController {
+            print("addWayPointController is next, manualAdd is \(manualAdd)")
         }
     }
     
