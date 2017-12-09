@@ -1018,10 +1018,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h2i-l6-4Wy">
-                                <rect key="frame" x="16" y="63.5" width="288" height="347.5"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h2i-l6-4Wy">
+                                <rect key="frame" x="16" y="64" width="288" height="347"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Welcome to WayPoints, the new and improved social pirep tool!  
+                                <string key="text">Welcome to WayPoints, the new and improved social pirep tool!  
 
 Whether you are just looking to geolocate your own adventures, or check what conditions or the view looks like from other pilots in your area or around the world, WayPoints has you covered.
 
@@ -1031,7 +1031,7 @@ Uses your GPS to locate your for a report, or, if you forget and want to add a r
 
 For support contact: waypoints@gmail.com
 
-Happy flying!</mutableString>
+Happy flying!</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -1045,6 +1045,7 @@ Happy flying!</mutableString>
                             <constraint firstItem="wh3-05-sD6" firstAttribute="top" secondItem="EJY-FE-PfF" secondAttribute="top" id="4Y2-HI-buF"/>
                             <constraint firstItem="h2i-l6-4Wy" firstAttribute="leading" secondItem="EJY-FE-PfF" secondAttribute="leading" constant="16" id="PGW-8R-9Tm"/>
                             <constraint firstItem="EJY-FE-PfF" firstAttribute="bottom" secondItem="h2i-l6-4Wy" secondAttribute="bottom" constant="20" id="VcW-XN-ZWU"/>
+                            <constraint firstItem="h2i-l6-4Wy" firstAttribute="top" secondItem="wh3-05-sD6" secondAttribute="top" id="WfB-2s-RMq"/>
                             <constraint firstItem="EJY-FE-PfF" firstAttribute="trailing" secondItem="wh3-05-sD6" secondAttribute="trailing" id="euF-Kd-LAJ"/>
                             <constraint firstItem="EJY-FE-PfF" firstAttribute="bottom" secondItem="wh3-05-sD6" secondAttribute="bottom" id="hMR-vU-vL9"/>
                             <constraint firstItem="wh3-05-sD6" firstAttribute="leading" secondItem="EJY-FE-PfF" secondAttribute="leading" id="imb-Mv-iMU"/>

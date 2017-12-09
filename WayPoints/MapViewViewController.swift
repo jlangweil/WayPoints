@@ -404,8 +404,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             photoController.image = customImageView.image
         }
         if let addWaypointController = segue.destination as? AddWaypointTableViewController {
-            if self.manualAdd==true {
-                let coordinate = sender as! CLLocationCoordinate2D
+            if self.manualAdd==true, let coordinate = sender as? CLLocationCoordinate2D {
                 addWaypointController.wayPointCoordinate = coordinate
                 addWaypointController.manual = true
             }
