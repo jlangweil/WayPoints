@@ -130,7 +130,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let utcTime = "\(Date().currentDate) \(Date().preciseGMTTime)Z"
         var altitude: String
         if manual {
-            altitude = Int(altitudeStepper.value)
+            altitude = "\(Int(altitudeStepper.value))"
         }
         else {
             if wayPointAltitudeInFeet == nil {

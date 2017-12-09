@@ -80,6 +80,9 @@ func getWaypointPinName(conditions: [String?], urgent: Bool) -> String {
 extension String {
     
     func getAltitudeAsInteger() -> Int {
+        if let intValue = Int(self) {
+            return intValue
+        }
         var retVal = 0
         if let range = self.range(of: ".") {
             let firstPart = self[(self.startIndex)..<range.lowerBound]
