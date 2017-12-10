@@ -26,7 +26,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         let tabController = self.tabBarController
         let navController = tabController?.viewControllers![0] as! UINavigationController
         mapVC = navController.topViewController as? MapViewViewController
-        tableView.estimatedRowHeight=175
+        tableView.estimatedRowHeight=200
         tableView.rowHeight = UITableViewAutomaticDimension
         
         
