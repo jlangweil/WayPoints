@@ -331,6 +331,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                             DispatchQueue.main.async {
                                 // MAIN QUEUE
                                 let downloadedImage = UIImage(data: imageData)
+                                calloutView.wayPointImage.contentMode = .scaleAspectFit
                                 calloutView.wayPointImage.image = downloadedImage
                                 // add to current waypoint
                                 wayPointAnnotation.photo = downloadedImage // add to waypoint if viewed on map or get from cache?

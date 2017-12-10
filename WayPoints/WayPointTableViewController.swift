@@ -41,7 +41,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = "WayPoints List"
+        navigationItem.title = "WayPoints Feed"
     }
     
     private func getWayPointsFromMapView() -> [WayPointAnnotation]{
@@ -153,6 +153,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
             wayPointCell.aircraftLabel.text=waypoints[indexPath.row].aircraftRegistration
             wayPointCell.aircraftTypeLabel.text=waypoints[indexPath.row].aircraftType
             if let cachedImage = imageCache.object(forKey: "\(id!)_thumb" as NSString) {
+                wayPointCell.wayPointImageView.contentMode = .scaleAspectFit
                 wayPointCell.wayPointImageView.image = cachedImage
                 wayPointCell.spinner.stopAnimating()
             }
@@ -178,6 +179,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
                             }
                             DispatchQueue.main.async {
                                 if let wayPointCell = cell as? WayPointCustomTableCell {
+                                    wayPointCell.wayPointImageView.contentMode = .scaleAspectFit
                                     wayPointCell.wayPointImageView.image = image
                                     wayPointCell.spinner.stopAnimating()
                                     // Add gesture to image

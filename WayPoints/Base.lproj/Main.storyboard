@@ -559,11 +559,11 @@
             </objects>
             <point key="canvasLocation" x="-184" y="112.44377811094454"/>
         </scene>
-        <!--List-->
+        <!--Feed-->
         <scene sceneID="6Ck-CR-gtL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LBE-57-EJc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" image="icons8-list-filled" id="QEU-5l-dtb"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="icons8-list-filled" id="QEU-5l-dtb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DvY-ds-dNT">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -1071,7 +1071,7 @@ Happy flying!</string>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="wayPointCell" rowHeight="175" id="621-MA-531" customClass="WayPointCustomTableCell" customModule="WayPoints" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="wayPointCell" rowHeight="175" id="621-MA-531" customClass="WayPointCustomTableCell" customModule="WayPoints" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="320" height="175"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="621-MA-531" id="rkx-P9-IDq">
