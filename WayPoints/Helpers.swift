@@ -189,6 +189,23 @@ extension UIImage {
         UIGraphicsEndImageContext();
         return normalizedImage;
     }
+    
+    func getThumbnailSize() -> CGSize {
+        let originalWidth = Int(self.size.width)
+        let originalHeight = Int(self.size.height)
+        var newWidth: Int
+        var newHeight: Int
+        let maxResolution = 960
+        if originalWidth > originalHeight {
+            newWidth = maxResolution
+            newHeight = Int((maxResolution * originalHeight) / originalWidth)
+        }
+        else {
+            newHeight = maxResolution
+            newWidth = Int ((maxResolution * originalWidth) / originalHeight)
+        }
+        return CGSize(width: newWidth, height: newHeight)
+    }
 
 }
 

@@ -151,7 +151,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         if imageAttached {
             saveImageToDatabase(image: imageView.image!, key: key, thumbnail: false)
             // save thumbnail
-            let thumbnailSize = CGSize(width: 100, height: 75)
+            //let thumbnailSize = CGSize(width: 100, height: 75)
+            let thumbnailSize = imageView.image!.getThumbnailSize()
             let thumbnailImage = imageView.image!.resizeImage(targetSize: thumbnailSize)
             saveImageToDatabase(image: thumbnailImage, key: key, thumbnail: true)
         }

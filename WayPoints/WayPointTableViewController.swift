@@ -26,23 +26,27 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         let tabController = self.tabBarController
         let navController = tabController?.viewControllers![0] as! UINavigationController
         mapVC = navController.topViewController as? MapViewViewController
-        tableView.estimatedRowHeight=200
+        tableView.estimatedRowHeight=500
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        // be sure to reload if the model changes
-        //waypoints = getWayPointsFromMapView()
-        //waypoints.reverse() // sort in most recent order
         gatherNewData()  //put this on another queue
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "WayPoints Feed"
+        
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AppDelegate.AppUtility.lockOrientation(.portrait)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        AppDelegate.AppUtility.lockOrientation(.all)
+    }
+    
     
     private func getWayPointsFromMapView() -> [WayPointAnnotation]{
         if mapVC!.waypoints.count == 0 {
@@ -113,6 +117,11 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         return waypoints.count
     }
     
+    /*override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let waypoint = waypoints[indexPath.row]
+        waypoint.
+    }*/
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wayPointCell", for: indexPath)
@@ -146,19 +155,21 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         // Set data without image
         if let wayPointCell = cell as? WayPointCustomTableCell {
             wayPointCell.imageID = id
-            wayPointCell.spinner.startAnimating()
+            //wayPointCell.spinner.startAnimating()
             let placeholder = UIImage(named: "placeholder")
             wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: placeholder, time: time, location: location, description: description)
             wayPointCell.conditionsLabel.text = conditions
             wayPointCell.aircraftLabel.text=waypoints[indexPath.row].aircraftRegistration
             wayPointCell.aircraftTypeLabel.text=waypoints[indexPath.row].aircraftType
             if let cachedImage = imageCache.object(forKey: "\(id!)_thumb" as NSString) {
-                wayPointCell.wayPointImageView.contentMode = .scaleAspectFit
-                wayPointCell.wayPointImageView.image = cachedImage
-                wayPointCell.spinner.stopAnimating()
+                let handler = #selector(self.openImage(byReactingTo:))
+                let tapRecognizer = UITapGestureRecognizer(target: self, action: handler)
+                tapRecognizer.numberOfTapsRequired=1
+                wayPointCell.wayPointImageView.isUserInteractionEnabled=true
+                wayPointCell.wayPointImageView.addGestureRecognizer(tapRecognizer)
+                wayPointCell.setCustomImage(image:cachedImage)
             }
             else {
-                // move this to global file later
                 let storage = Storage.storage()
                 let storageRef = storage.reference()
                 let reference = storageRef.child("images/\(id!)_thumb.jpg")
@@ -167,7 +178,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
                         // Handle any errors
                         print("Could not retrieve image: \(error.localizedDescription)")
                         if let wayPointCell = cell as? WayPointCustomTableCell {
-                            wayPointCell.spinner.stopAnimating()
+                            wayPointCell.setCustomImage(image: placeholder)
                         }
                     }
                     else {
@@ -179,15 +190,12 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
                             }
                             DispatchQueue.main.async {
                                 if let wayPointCell = cell as? WayPointCustomTableCell {
-                                    wayPointCell.wayPointImageView.contentMode = .scaleAspectFit
-                                    wayPointCell.wayPointImageView.image = image
-                                    wayPointCell.spinner.stopAnimating()
-                                    // Add gesture to image
                                     let handler = #selector(self.openImage(byReactingTo:))
                                     let tapRecognizer = UITapGestureRecognizer(target: self, action: handler)
                                     tapRecognizer.numberOfTapsRequired=1
                                     wayPointCell.wayPointImageView.isUserInteractionEnabled=true
                                     wayPointCell.wayPointImageView.addGestureRecognizer(tapRecognizer)
+                                    wayPointCell.setCustomImage(image: image)
                                 }
                             }
                         }
@@ -197,7 +205,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         }
         return cell
     }
-    
+
     // MARK SEARCHING
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -233,7 +241,8 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
     
     @objc func openImage(byReactingTo tapRecognizer : UITapGestureRecognizer)
     {
-      if let imageView = tapRecognizer.view as? UIImageView {
+      print ("tap recognized")
+        if let imageView = tapRecognizer.view as? UIImageView {
             if let cell = imageView.superview?.superview as? WayPointCustomTableCell {
                 let imageID = cell.imageID!
                 performSegue(withIdentifier: "showPhoto", sender: imageID)
