@@ -28,10 +28,11 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var state:String?
     var aircraftRegistration:String
     var aircraftType:String
+    var imageAspect:String?
     
     //var uploaded:Bool = false
     
-    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, clouds: String, urgent: Bool, city: String?, state: String?, altitude: String, aircraftRegistration: String, aircraftType:String, id: String?){
+    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, clouds: String, urgent: Bool, city: String?, state: String?, altitude: String, aircraftRegistration: String, aircraftType:String, imageAspect:String?, id: String?){
         self.id=id
         self.coordinate = coordinate
         self.title = title
@@ -50,14 +51,12 @@ class WayPointAnnotation: NSObject, MKAnnotation {
         self.longitude = coordinate.longitude
         self.aircraftType = aircraftType
         self.aircraftRegistration = aircraftRegistration
+        self.imageAspect = imageAspect
     }
     
     func getDictionaryForDatabase(_ key:String) -> [String:Any] {
         let description = subtitle ?? ""
-        //let city = placeMark?.locality ?? ""
-        //let state = placeMark?.administrativeArea ?? ""
-       
-        let waypoint = ["id":key,
+       let waypoint = ["id":key,
                         "latitude": "\(latitude)" as String,
                         "longitude": "\(longitude)" as String,
                         "altitude": "\(altitude)" as String,
@@ -70,8 +69,9 @@ class WayPointAnnotation: NSObject, MKAnnotation {
                         "precipitation": precipitation.rawValue as String,
                         "clouds": clouds,
                         "urgent": urgent as Bool,
-                        "aircraft": aircraftRegistration ?? "" as String,
-                        "aircrafttype": aircraftType ?? "" as String
+                        "aircraft": aircraftRegistration,
+                        "aircrafttype": aircraftType,
+                        "imageAspect": imageAspect ?? "0" as String
             ] as [String : Any]
         
         return waypoint

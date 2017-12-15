@@ -15,15 +15,15 @@ class WayPointCustomTableCell: UITableViewCell {
     @IBOutlet weak var wayPointTitleLabel: UILabel!
     @IBOutlet weak var wayPointDescriptionLabel: UILabel!
     @IBOutlet weak var wayPointTimeLabel: UILabel!
-    //@IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var conditionsLabel: UILabel!
     @IBOutlet weak var aircraftLabel: UILabel!
     @IBOutlet weak var aircraftTypeLabel: UILabel!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     
     
     var imageID : String?
     
-    internal var aspectConstraint : NSLayoutConstraint? {
+   /* internal var aspectConstraint : NSLayoutConstraint? {
         didSet {
             if oldValue != nil {
                 wayPointImageView.removeConstraint(oldValue!)
@@ -61,7 +61,7 @@ class WayPointCustomTableCell: UITableViewCell {
             wayPointImageView.image = image!
         }
         
-    }
+    }*/
     
     var wayPointTableData: WayPointCustomTableCellData? { didSet {updateUI() } }
     

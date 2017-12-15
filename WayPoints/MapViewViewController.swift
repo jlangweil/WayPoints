@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Firebase
+import FirebaseStorageUI
 
 class MapViewViewController: UIViewController, MKMapViewDelegate {
 
@@ -140,11 +141,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
             // custom view based on default of 1 week, or selected option in settings
             dateOption = timeFilter.titleForSegment(at: selection)
             startingDate = getCustomStartingDate(dateOption!, endingDate: endingDate)
-            //startingDate = calendar.date(byAdding: Calendar.Component.day, value: -7, to: endingDate)!
             datePickerContainer.isHidden=true
         default:
             showDatePicker()
-            //startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -6, to: endingDate)!
         }
         self.startDate = startingDate.toFirebaseTimestamp()
         self.endDate = endingDate.toFirebaseTimestamp()
@@ -275,10 +274,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         
         let wayPointAnnotation = view.annotation as! WayPointAnnotation
         let views = Bundle.main.loadNibNamed("CustomCalloutView", owner: nil, options: nil)
-        /*let turbulenceImageName = getImageName(weather: "turbulence", severity: wayPointAnnotation.turbulence)
-        let icingImageName = getImageName(weather: "icing", severity: wayPointAnnotation.icing)
-        let weatherImageName = getImageName(precip: wayPointAnnotation.precipitation)*/
-        
         let calloutView = views?[0] as! CustomCalloutView
         calloutView.wayPointUsername.text = "\(wayPointAnnotation.altitude.getAltitudeAsInteger()) ft"
         calloutView.wayPointDescription.text = wayPointAnnotation.subtitle
@@ -304,50 +299,21 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         }
         calloutView.userLabel.text = "\(wayPointAnnotation.aircraftRegistration)\(acType)"
         
-        if let cachedImage = imageCache.object(forKey: wayPointAnnotation.id! as NSString) {
-            print("got cached image")
-            calloutView.wayPointImage.image = cachedImage
+        var imageExists = false
+        if let aspectRatio = wayPointAnnotation.imageAspect, aspectRatio != "0" {
+            imageExists = true
         }
-        else {
+
+        if imageExists {
             // Reference to an image file in Firebase Storage
             let storage = Storage.storage()
             let storageRef = storage.reference()
-            //let reference = storageRef.child("images/\(wayPointAnnotation.id!).jpg")
-            let reference = storageRef.child("images/\(wayPointAnnotation.id!).jpg")
-            // Fetch the download URL
+            let reference = storageRef.child("images/\(wayPointAnnotation.id!)_thumb.jpg")
+            let placeholder = UIImage(named: "placeholder")
             calloutView.spinner.startAnimating()
-            
-            reference.downloadURL { url, error in
-                if let error = error {
-                    // Handle any errors
-                    print("Could not retrieve image: \(error.localizedDescription)")
-                    calloutView.wayPointImage.image = UIImage(named: "default")
-                    calloutView.spinner.stopAnimating()
-                }
-                else {
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        let urlContents = try? Data(contentsOf: url!)
-                        if let imageData = urlContents {
-                            DispatchQueue.main.async {
-                                // MAIN QUEUE
-                                let downloadedImage = UIImage(data: imageData)
-                                calloutView.wayPointImage.contentMode = .scaleAspectFit
-                                calloutView.wayPointImage.image = downloadedImage
-                                // add to current waypoint
-                                wayPointAnnotation.photo = downloadedImage // add to waypoint if viewed on map or get from cache?
-                                // add to cache
-                                imageCache.setObject(downloadedImage!, forKey: wayPointAnnotation.id! as NSString)
-                                calloutView.spinner.stopAnimating()
-                            }
-                        }
-                        else{
-                            DispatchQueue.main.async {
-                                calloutView.wayPointImage.image = UIImage(named: "default")
-                            }
-                        }
-                    }
-                }
-            }
+            calloutView.wayPointImage.contentMode = .scaleAspectFit
+            calloutView.wayPointImage.sd_setImage(with: reference, placeholderImage: placeholder)
+            calloutView.spinner.stopAnimating()
         }
         
         // Resize callout relative to screen width
@@ -391,7 +357,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         self.mapCenter = coordinate
         let alert = UIAlertController(title: "Manual Waypoint", message: "Create a waypoint at this location?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-            //print("User would like to create a waypoint here - \(coordinate.latitude), \(coordinate.longitude)")
             self.manualAdd=true
             self.performSegue(withIdentifier: "addNew", sender: coordinate)
         }))
@@ -439,7 +404,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                 let aircraftRegistration = userDict["aircraft"] as? String ?? ""
                 let aircraftType = userDict["aircrafttype"] as? String ?? ""
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, id: id)
+                let imageAspect = userDict["imageAspect"] as? String ?? "0"
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect: imageAspect, id: id)
                 self?.waypoints.append(wayPointToBeAdded) 
                 self?.mapView.addAnnotation(wayPointToBeAdded)
             }

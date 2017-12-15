@@ -119,8 +119,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             return
         }
         if imageView.image == nil {
-            imageView.image = UIImage(named: "default")
             imageAttached=false
+            imageView.image = UIImage(named: "default")
         }
         let turbulence = Severity(rawValue: turbulenceSelection.titleForSegment(at: turbulenceSelection.selectedSegmentIndex)!)
         let icing = Severity(rawValue: icingSelection.titleForSegment(at: icingSelection.selectedSegmentIndex)!)
@@ -144,14 +144,19 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let state = wayPointPlaceMark?.administrativeArea
         let aircraftType = aircraftTypeTextView.text ?? ""
         let aircraftRegistration = registrationTextView.text ?? ""
-        // TODO disable save button if GPS not working, allow to select own location/alt
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "Username @ \(altitude)", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, id: nil)
+        
+        var imageAspect: String?
+        if imageAttached {
+            let thumbnailSize = imageView.image!.getThumbnailSize()
+            let ratio = thumbnailSize.width / thumbnailSize.height
+            imageAspect = "\(ratio)"
+        }
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: nil)
         // save to database
         let key = saveAnnotationToDatabase(annotation)
         if imageAttached {
-            saveImageToDatabase(image: imageView.image!, key: key, thumbnail: false)
+            //saveImageToDatabase(image: imageView.image!, key: key, thumbnail: false)
             // save thumbnail
-            //let thumbnailSize = CGSize(width: 100, height: 75)
             let thumbnailSize = imageView.image!.getThumbnailSize()
             let thumbnailImage = imageView.image!.resizeImage(targetSize: thumbnailSize)
             saveImageToDatabase(image: thumbnailImage, key: key, thumbnail: true)
@@ -194,9 +199,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             // Upload the file to the path "images/rivers.jpg"
-            let uploadTask = imagesRef.putData(data, metadata: metadata) { (metadata, error) in
-                
-                guard let metadata = metadata else {
+            imagesRef.putData(data, metadata: metadata) { (metadata, error) in
+                guard metadata != nil else {
                     // Uh-oh, an error occurred!
                     print("Error uploading file \(key)\(ext).jpg: \(error.debugDescription)")
                     return
