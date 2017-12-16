@@ -55,6 +55,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("MAP VIEW, user = \(signedInUser)")
 
         let defaultLatitude = 40.0
         let defaultLongitude = -74.0

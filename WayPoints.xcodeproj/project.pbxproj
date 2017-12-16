@@ -13,6 +13,7 @@
 		1805002B1FAF978100644FF4 /* WayPointTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805002A1FAF978100644FF4 /* WayPointTableViewController.swift */; };
 		1805002D1FAF9AFF00644FF4 /* WayPointCustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805002C1FAF9AFF00644FF4 /* WayPointCustomTableCell.swift */; };
 		1805002F1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805002E1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift */; };
+		1806DD951FE4633300F552EB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1806DD941FE4633300F552EB /* LoginViewController.swift */; };
 		184D23461FB7CEF2005D0BA8 /* WaypointEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D23451FB7CEF2005D0BA8 /* WaypointEnums.swift */; };
 		184D23481FB8FDDE005D0BA8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D23471FB8FDDE005D0BA8 /* Helpers.swift */; };
 		184D234A1FBB3F60005D0BA8 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D23491FBB3F60005D0BA8 /* SettingsTableViewController.swift */; };
@@ -39,6 +40,8 @@
 		1805002A1FAF978100644FF4 /* WayPointTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointTableViewController.swift; sourceTree = "<group>"; };
 		1805002C1FAF9AFF00644FF4 /* WayPointCustomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointCustomTableCell.swift; sourceTree = "<group>"; };
 		1805002E1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointCustomTableCellData.swift; sourceTree = "<group>"; };
+		1806DD931FE4566200F552EB /* WayPoints.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WayPoints.entitlements; sourceTree = "<group>"; };
+		1806DD941FE4633300F552EB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		184D23451FB7CEF2005D0BA8 /* WaypointEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointEnums.swift; sourceTree = "<group>"; };
 		184D23471FB8FDDE005D0BA8 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		184D23491FBB3F60005D0BA8 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +96,7 @@
 		189EB9DA1F95471D00BBDF90 /* WayPoints */ = {
 			isa = PBXGroup;
 			children = (
+				1806DD931FE4566200F552EB /* WayPoints.entitlements */,
 				184D234F1FBBA090005D0BA8 /* GoogleService-Info.plist */,
 				180500281FA901CF00644FF4 /* AnnotationView.swift */,
 				180500241FA8196200644FF4 /* CustomCalloutView.xib */,
@@ -100,6 +104,7 @@
 				1873F2D01FB53DB600570C24 /* AddWaypointTableViewController.swift */,
 				18D7AF071F9945500087B9E6 /* MapViewViewController.swift */,
 				189EB9DF1F95471D00BBDF90 /* Main.storyboard */,
+				1806DD941FE4633300F552EB /* LoginViewController.swift */,
 				189EB9E71F95471D00BBDF90 /* LaunchScreen.storyboard */,
 				184D23491FBB3F60005D0BA8 /* SettingsTableViewController.swift */,
 				184D234B1FBB46F7005D0BA8 /* SettingsAircraftTableViewController.swift */,
@@ -180,6 +185,11 @@
 					189EB9D71F95471D00BBDF90 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -242,17 +252,37 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-WayPoints/Pods-WayPoints-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -267,9 +297,19 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WayPoints/Pods-WayPoints-resources.sh",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -296,6 +336,7 @@
 				184D234E1FBB4716005D0BA8 /* SettingsDisplayHistoryTableViewController.swift in Sources */,
 				1805002D1FAF9AFF00644FF4 /* WayPointCustomTableCell.swift in Sources */,
 				189EB9E41F95471D00BBDF90 /* WayPoints.xcdatamodeld in Sources */,
+				1806DD951FE4633300F552EB /* LoginViewController.swift in Sources */,
 				184D23481FB8FDDE005D0BA8 /* Helpers.swift in Sources */,
 				1873F2D11FB53DB600570C24 /* AddWaypointTableViewController.swift in Sources */,
 				189EB9DC1F95471D00BBDF90 /* AppDelegate.swift in Sources */,
@@ -436,6 +477,7 @@
 			baseConfigurationReference = 7A045CAB13D3295B3FF213A5 /* Pods-WayPoints.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WayPoints/WayPoints.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -457,6 +499,7 @@
 			baseConfigurationReference = 61741BB6FC7704E33566E738 /* Pods-WayPoints.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WayPoints/WayPoints.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
