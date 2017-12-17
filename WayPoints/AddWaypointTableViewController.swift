@@ -23,6 +23,12 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         didSet {
             if let city = wayPointPlaceMark!.locality, let state = wayPointPlaceMark!.administrativeArea {
                 self.cityStateLabel.text = "\(city), \(state)"
+                self.cityLocation = city
+                self.stateLocation = state
+            }
+            else if let country=wayPointPlaceMark!.country {
+                self.cityStateLabel.text = country
+                self.stateLocation = country
             }
         }
     }
@@ -48,6 +54,9 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         altitudeLabel.text = "\(altitude) ft"
         
     }
+    
+    var cityLocation: String?
+    var stateLocation: String?
     
     
     override func viewDidLoad() {
@@ -140,8 +149,9 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
                 altitude = "\(wayPointAltitudeInFeet!)"
             }
         }
-        let city = wayPointPlaceMark?.locality
-        let state = wayPointPlaceMark?.administrativeArea
+        //let city = wayPointPlaceMark?.locality
+        //let state = wayPointPlaceMark?.administrativeArea
+        
         let aircraftType = aircraftTypeTextView.text ?? ""
         let aircraftRegistration = registrationTextView.text ?? ""
         
@@ -151,7 +161,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             let ratio = thumbnailSize.width / thumbnailSize.height
             imageAspect = "\(ratio)"
         }
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: nil)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: cityLocation, state: stateLocation, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: nil, userID: signedInUser)
         // save to database
         let key = saveAnnotationToDatabase(annotation)
         if imageAttached {
@@ -286,7 +296,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
                 let placemark = placemarks! as [CLPlacemark]
                 if placemark.count > 0 {
                     let placemark = placemarks![0]
-                    if placemark.administrativeArea != nil && placemark.locality != nil {
+                    if (placemark.administrativeArea != nil && placemark.locality != nil) || placemark.country != nil {
                         self?.wayPointPlaceMark = placemark
                         self?.reverseGeoCodeSucceeded = true
                     }

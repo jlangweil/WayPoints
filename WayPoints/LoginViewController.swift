@@ -20,7 +20,6 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
     func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
         if user != nil {
             print("User signed in=\(user!.displayName!)")
-            signedInUser = user!.uid
             self.startApp()
         }
         else {

@@ -65,7 +65,6 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         ref.removeAllObservers()
         let wayPointsRef = ref.child("waypoints").queryOrdered(byChild: "timestamp")  // how much data should we get / starting point???
         wayPointsRef.observe(DataEventType.childAdded, with: { [weak self] (snapshot) in
-            print("priority: \(snapshot.priority!)")
             if let userDict = snapshot.value as? [String:Any] {
                 let id = userDict["id"] as! String
                 let city = userDict["city"] as! String
@@ -84,7 +83,8 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
                 let aircraftType = userDict["aircrafttype"] as? String ?? ""
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
                 let imageAspect = userDict["imageAspect"] as? String ?? "0"
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: id)
+                let userID = userDict["userID"] as? String ?? ""
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: id, userID: userID)
                 if (self?.waypoints.contains(where: { (annotation) -> Bool in
                     if id==annotation.id {
                         return true
@@ -206,7 +206,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func filterSearch() {
-        waypoints = waypoints.filter { ($0.city?.contains(find: searchTerm!) ?? false) || ($0.state?.contains(find: searchTerm!) ?? false) || $0.description.contains(find: searchTerm!) || ($0.aircraftRegistration.contains(find: searchTerm!) || ($0.aircraftType.contains(find: searchTerm!)))}
+        waypoints = waypoints.filter { ($0.city?.contains(find: searchTerm!) ?? false) || ($0.state?.contains(find: searchTerm!) ?? false) || $0.subtitle?.contains(find: searchTerm!) ?? false || ($0.aircraftRegistration.contains(find: searchTerm!) || ($0.aircraftType.contains(find: searchTerm!)))}
         self.tableView.reloadData()
     }
 

@@ -21,6 +21,19 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     var startingDate = Date()
     var endingDate = Date()
     
+    @IBOutlet weak var mapTypeButton: UIButton!
+    @IBAction func changeMapType(_ sender: Any) {
+        let currentMapType = self.mapView.mapType
+        if currentMapType == .standard {
+            self.mapView.mapType = MKMapType.satellite
+            self.mapTypeButton.setImage(UIImage(named: "road"), for: .normal)
+        }
+        else {
+            self.mapView.mapType = MKMapType.standard
+            self.mapTypeButton.setImage(UIImage(named: "satellite"), for: .normal)
+        }
+    }
+    
     var datePickerContainer = UIView()
     
     var mapCenter : CLLocationCoordinate2D? {
@@ -31,16 +44,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     
     var manualAdd = false
     
-    @IBOutlet weak var timeDisplay: UILabel!
-    
-    @IBAction func showStreetView(_ sender: Any) {
-       self.mapView.mapType = MKMapType.standard
-    }
-    
-    @IBAction func showSatView(_ sender: Any) {
-        self.mapView.mapType = MKMapType.satellite
-    }
-    
+    @IBOutlet weak var timeDisplay: UILabel!  
     @IBOutlet weak var timeFilter: UISegmentedControl!
     @IBAction func timeSelected(_ sender: Any) {
         setDateRanges()
@@ -407,7 +411,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                 let aircraftType = userDict["aircrafttype"] as? String ?? ""
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
                 let imageAspect = userDict["imageAspect"] as? String ?? "0"
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect: imageAspect, id: id)
+                let userID = userDict["userID"] as? String ?? ""
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect: imageAspect, id: id, userID: userID)
                 self?.waypoints.append(wayPointToBeAdded) 
                 self?.mapView.addAnnotation(wayPointToBeAdded)
             }

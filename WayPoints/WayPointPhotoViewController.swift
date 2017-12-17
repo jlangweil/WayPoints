@@ -13,19 +13,19 @@ class WayPointPhotoViewController: UIViewController, UIScrollViewDelegate {
 
     var frameHeight : CGFloat?
     var frameWidth : CGFloat?
-    var idOfImageToLoad: String?
+    //var idOfImageToLoad: String?
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor=UIColor.black
-        if idOfImageToLoad != nil {
-            fetchImage()
-        }
-        else {
+       // if idOfImageToLoad != nil {
+         //   fetchImage()
+        //}
+        //else {
             setUpViews()
-        }
+        //}
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -63,7 +63,7 @@ class WayPointPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
 
     
-    func fetchImage() {
+    /*func fetchImage() {
         spinner.startAnimating()
         let id = self.idOfImageToLoad!
         var currentImage : UIImage?
@@ -99,7 +99,7 @@ class WayPointPhotoViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
         }
-    }
+    } */
     
     func setUpViews() {
         scrollView?.contentSize = imageView.frame.size
