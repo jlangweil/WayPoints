@@ -26,6 +26,10 @@ var signedInUser : String {
     }
 }
 
+
+
+// Utils
+
 func getBackgroundColorForSeverity(severity: Severity? ) -> UIColor {
     guard severity != nil else {
         print("severity is null")
@@ -89,6 +93,8 @@ func getWaypointPinName(conditions: [String?], urgent: Bool) -> String {
         
     }
 }
+
+// Extension methods
 
 extension String {
     

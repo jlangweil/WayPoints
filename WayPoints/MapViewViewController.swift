@@ -4,17 +4,20 @@
 //
 //  Created by apple on 10/19/17.
 //  Copyright © 2017 jel enterprises. All rights reserved.
-//
+
 
 import UIKit
 import MapKit
+import CoreLocation
 import Firebase
 import FirebaseStorageUI
 
-class MapViewViewController: UIViewController, MKMapViewDelegate {
+class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     // The Model
     var waypoints : [WayPointAnnotation] = []
+   
+    var locationManager = CLLocationManager()
     
     var startDate:Int?
     var endDate:Int?
@@ -43,7 +46,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
     }
     
     var manualAdd = false
-    
     @IBOutlet weak var timeDisplay: UILabel!  
     @IBOutlet weak var timeFilter: UISegmentedControl!
     @IBAction func timeSelected(_ sender: Any) {
@@ -51,15 +53,41 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
         getWayPointsFromDatabase()
     }
     
+    var showMyWayPoints = false
+    @IBOutlet weak var showMyWayPointsLabel: UILabel!
+    @IBOutlet weak var showMyWayPointsSwitch: UISwitch!
+    @IBAction func showMyWayPointsOnly(_ sender: UISwitch) {
+        if !showMyWayPoints {
+            showMyWayPointsLabel.text = "My WayPoints"
+            showMyWayPoints = true
+        }
+        else {
+            showMyWayPointsLabel.text = "All WayPoints"
+            showMyWayPoints = false
+        }
+        getWayPointsFromDatabase()
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpCustomHistory()
         setDateRanges()
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disableLocationServices()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        showMyWayPointsSwitch.backgroundColor = UIColor.gray
+        showMyWayPointsSwitch.layer.cornerRadius = 16.0;
+        
+        locationManager.delegate = self
         print("MAP VIEW, user = \(signedInUser)")
 
         let defaultLatitude = 40.0
@@ -413,10 +441,33 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
                 let imageAspect = userDict["imageAspect"] as? String ?? "0"
                 let userID = userDict["userID"] as? String ?? ""
                 let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect: imageAspect, id: id, userID: userID)
-                self?.waypoints.append(wayPointToBeAdded) 
-                self?.mapView.addAnnotation(wayPointToBeAdded)
+                // add and show the waypoint if current user's or we are just showing all the waypoints
+                let addToMap = self?.shouldAddWaypointToMap(showOnlyMine: self?.showMyWayPoints, userID: userID)
+                if addToMap == true {
+                    self?.waypoints.append(wayPointToBeAdded)
+                    self?.mapView.addAnnotation(wayPointToBeAdded)
+                }
+                /*else {
+                    self?.excludedWaypoints.append(wayPointToBeAdded)
+                }*/
+                
             }
         })
+    }
+    
+    private func shouldAddWaypointToMap(showOnlyMine: Bool?, userID: String) -> Bool {
+        if showOnlyMine == nil {
+            return true
+        }
+        if showOnlyMine! && userID==signedInUser {
+            return true
+        }
+        else if !showOnlyMine! {
+            return true
+        }
+        else {
+            return false
+        }
     }
     
     private func populateTestData() {
@@ -460,6 +511,42 @@ class MapViewViewController: UIViewController, MKMapViewDelegate {
        
         
     }
+    
+    @IBAction func showLocationAndDisableLocationServices(_ sender: UIButton) {
+        DispatchQueue.global().async { [weak self] in
+            self?.setupCoreLocation()
+        }
+    }
+    func setupCoreLocation() {
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            break
+        case .authorizedAlways, .authorizedWhenInUse:
+            enableLocationServices()
+        default:
+            break
+        }
+    }
+    
+    func enableLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func disableLocationServices() {
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last!
+        let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 100000, 100000)
+        mapView.setRegion(region, animated: true)
+        disableLocationServices()
+    }
+    
+    
     
    
   
