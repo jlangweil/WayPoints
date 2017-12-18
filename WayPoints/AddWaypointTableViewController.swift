@@ -84,9 +84,11 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             DispatchQueue.global().async { [weak self] in
                 self?.setupCoreLocation()
             }
+            
         }
         else
         {
+            disableLocationServices()
             coordinatesLabel.text = "\(String(format: "%.5f", wayPointCoordinate!.latitude)), \(String(format: "%.5f", wayPointCoordinate!.longitude))"
             altitudeLabel.text = "0 ft"
             altitudeStepper.isHidden = false
@@ -245,7 +247,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse, .authorizedAlways:
-            setupCoreLocation()
+            //setupCoreLocation()
+            print("authorized")
         case .denied, .restricted:
             disableLocationServices()
         default:
