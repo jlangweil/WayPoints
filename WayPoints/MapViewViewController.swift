@@ -85,7 +85,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         super.viewDidLoad()
         
         showMyWayPointsSwitch.backgroundColor = UIColor.gray
-        showMyWayPointsSwitch.layer.cornerRadius = 16.0;
+        showMyWayPointsSwitch.layer.cornerRadius = 16.0
         
         locationManager.delegate = self
         print("MAP VIEW, user = \(signedInUser)")
@@ -125,6 +125,17 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             //populateTestData()
             getWayPointsFromDatabase()  // the listener set up here will be moved to the sign on or an earlier page later.
         }
+        
+        let navWidth = self.navigationController!.navigationBar.frame.size.width
+        let navHeight = self.navigationController!.navigationBar.frame.size.height
+        print("navwidth = \(navWidth) navheight = \(navHeight)")
+        self.timeFilter.frame = CGRect(x: 16, y: 16, width: navWidth-32, height: navHeight-16)
+        print(self.timeFilter.frame)
+        
+        print(self.timeFilter.bounds.width)
+        ///let widthConstraint = self.timeFilter.widthAnchor.constraint(equalToConstant: self.view.bounds.width)
+        //widthConstraint.isActive = true
+        
     }
     
     func setUpCustomHistory() {
