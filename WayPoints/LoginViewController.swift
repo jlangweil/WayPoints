@@ -62,6 +62,10 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
         self.present(authViewController!, animated: true, completion: nil)
     }
     
+    @IBAction func logoutUnwind(segue: UIStoryboardSegue){
+        
+    }
+    
 
     /*
     // MARK: - Navigation

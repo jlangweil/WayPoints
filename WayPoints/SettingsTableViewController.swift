@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuthUI
 
 class SettingsTableViewController: UITableViewController {
 
@@ -19,7 +20,6 @@ class SettingsTableViewController: UITableViewController {
         defaults.set(saveMapPositionSwitch.isOn, forKey: "saveMapPosition")
         defaults.synchronize()
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,14 +108,26 @@ class SettingsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "unwind" {
+            do {
+                let authUI = FUIAuth.defaultAuthUI()
+                try authUI!.signOut()
+                return true
+            }
+            catch {
+                print("Could not logout")
+                return false
+            }
+        }
+        else {
+            return true
+        }
     }
-    */
+    
 
 }
