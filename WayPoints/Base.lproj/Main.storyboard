@@ -1140,17 +1140,17 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h2i-l6-4Wy">
                                 <rect key="frame" x="16" y="64" width="288" height="347"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Welcome to WayPoints, the new and improved social pirep tool!  
+                                <mutableString key="text">Welcome to WayPoints, the new and improved social pirep tool!  
 
 Whether you are just looking to geolocate your own adventures, or check what conditions or the view looks like from other pilots in your area or around the world, WayPoints has you covered.
 
-Using a cloud database that works if you are online or not, upload your info and images and they will be synched to our databases as soon as your network connection becomes available.
+Using a cloud database that works if you are online or not, upload your info and images and they will be synched as soon as your network connection becomes available.
 
-Uses your GPS to locate your for a report, or, if you forget and want to add a report later, simply long tap anywhere on the map to add a waypoint report at that location.
+Uses your GPS location for a report, or, if you forget and want to add a report later, simply long tap anywhere on the map to add a waypoint report at that location.
 
 For support contact: waypoints@gmail.com
 
-Happy flying!</string>
+Happy flying!</mutableString>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
