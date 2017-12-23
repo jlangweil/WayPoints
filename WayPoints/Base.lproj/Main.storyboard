@@ -255,12 +255,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="RYS-3C-cem">
-                                                    <rect key="frame" x="0.0" y="-0.5" width="320" height="39.5"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-Ks-y3n">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                                                    <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aircraft Registration:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqk-Y8-Bdw">
                                                     <rect key="frame" x="8" y="9" width="158" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -269,12 +269,12 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="RYS-3C-cem" firstAttribute="top" secondItem="9qL-3H-BfD" secondAttribute="top" id="HxU-yB-IKM"/>
+                                                <constraint firstItem="gZq-Ks-y3n" firstAttribute="top" secondItem="9qL-3H-BfD" secondAttribute="top" id="61n-on-TtT"/>
+                                                <constraint firstItem="gZq-Ks-y3n" firstAttribute="leading" secondItem="9qL-3H-BfD" secondAttribute="leading" id="Ib2-bk-AWX"/>
                                                 <constraint firstItem="zqk-Y8-Bdw" firstAttribute="leading" secondItem="9qL-3H-BfD" secondAttribute="leading" constant="8" id="Ugy-JC-FXh"/>
-                                                <constraint firstAttribute="trailing" secondItem="RYS-3C-cem" secondAttribute="trailing" id="Xrz-Lj-Gjx"/>
+                                                <constraint firstAttribute="bottom" secondItem="gZq-Ks-y3n" secondAttribute="bottom" id="cQ6-Yk-Tko"/>
                                                 <constraint firstItem="zqk-Y8-Bdw" firstAttribute="centerY" secondItem="9qL-3H-BfD" secondAttribute="centerY" id="hkd-Vd-37t"/>
-                                                <constraint firstAttribute="bottom" secondItem="RYS-3C-cem" secondAttribute="bottom" id="iwd-Av-jrn"/>
-                                                <constraint firstItem="RYS-3C-cem" firstAttribute="leading" secondItem="9qL-3H-BfD" secondAttribute="leading" id="zHT-Gb-Ez2"/>
+                                                <constraint firstAttribute="trailing" secondItem="gZq-Ks-y3n" secondAttribute="trailing" id="nXx-Kx-Etv"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -285,12 +285,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="bgl-hR-goI">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Per-O2-rbo">
                                                     <rect key="frame" x="0.0" y="-0.5" width="320" height="39.5"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aircraft Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDc-Jd-N5p">
                                                     <rect key="frame" x="8" y="9.5" width="103" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -299,11 +299,11 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="bgl-hR-goI" firstAttribute="leading" secondItem="mQ3-BF-pS3" secondAttribute="leading" id="4ff-WR-cVx"/>
-                                                <constraint firstAttribute="trailing" secondItem="bgl-hR-goI" secondAttribute="trailing" id="EY6-Kh-594"/>
-                                                <constraint firstItem="bgl-hR-goI" firstAttribute="top" secondItem="mQ3-BF-pS3" secondAttribute="top" id="Upa-G0-xV5"/>
+                                                <constraint firstAttribute="bottom" secondItem="Per-O2-rbo" secondAttribute="bottom" id="LFX-at-pal"/>
+                                                <constraint firstItem="Per-O2-rbo" firstAttribute="top" secondItem="mQ3-BF-pS3" secondAttribute="top" id="P4k-Gs-5HA"/>
+                                                <constraint firstAttribute="trailing" secondItem="Per-O2-rbo" secondAttribute="trailing" id="Zvg-2t-Dh3"/>
                                                 <constraint firstItem="NDc-Jd-N5p" firstAttribute="centerY" secondItem="mQ3-BF-pS3" secondAttribute="centerY" id="bm2-3B-aCC"/>
-                                                <constraint firstAttribute="bottom" secondItem="bgl-hR-goI" secondAttribute="bottom" id="h6J-xV-5yu"/>
+                                                <constraint firstItem="Per-O2-rbo" firstAttribute="leading" secondItem="mQ3-BF-pS3" secondAttribute="leading" id="lai-Lj-t8r"/>
                                                 <constraint firstItem="NDc-Jd-N5p" firstAttribute="leading" secondItem="mQ3-BF-pS3" secondAttribute="leading" constant="8" id="meY-sD-qSh"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -564,7 +564,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="aircraftTypeTextView" destination="bgl-hR-goI" id="d25-2d-RYN"/>
+                        <outlet property="aircraftTypeTextField" destination="Per-O2-rbo" id="nFP-9u-I2D"/>
                         <outlet property="altitudeLabel" destination="38Z-Gr-VER" id="a4i-Ru-IDI"/>
                         <outlet property="altitudeStepper" destination="YwE-C0-Sp5" id="0z7-zm-OYG"/>
                         <outlet property="charactersRemainingLabel" destination="B3k-5a-4xu" id="qGs-B1-aHE"/>
@@ -575,7 +575,7 @@
                         <outlet property="imageView" destination="1ad-m8-gGx" id="3OW-05-jFV"/>
                         <outlet property="imageViewCell" destination="SBN-eg-aaM" id="YVS-em-sxc"/>
                         <outlet property="precipitationSelection" destination="u5Q-q8-wSa" id="heR-rh-rhb"/>
-                        <outlet property="registrationTextView" destination="RYS-3C-cem" id="56L-In-cGn"/>
+                        <outlet property="registrationTextField" destination="gZq-Ks-y3n" id="8Us-js-a7W"/>
                         <outlet property="turbulenceSelection" destination="9eC-xR-xd0" id="Hd6-kf-VpG"/>
                         <outlet property="urgentSwitch" destination="HAE-kt-p4S" id="cv8-EJ-eX4"/>
                         <outlet property="wayPointDescription" destination="JFp-1E-UvU" id="Jav-RM-Ic2"/>

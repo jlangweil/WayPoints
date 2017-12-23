@@ -11,7 +11,7 @@ import MapKit
 import Firebase
 
 
-class AddWaypointTableViewController: UITableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
+class AddWaypointTableViewController: UITableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
 
     var locationIdentified = false
     var locationManager = CLLocationManager()
@@ -33,8 +33,10 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         }
     }
    
-    @IBOutlet weak var aircraftTypeTextView: UITextView!
-    @IBOutlet weak var registrationTextView: UITextView!
+    //@IBOutlet weak var aircraftTypeTextView: UITextView!
+    @IBOutlet weak var aircraftTypeTextField: UITextField!
+    //@IBOutlet weak var registrationTextView: UITextView!
+    @IBOutlet weak var registrationTextField: UITextField!
     @IBOutlet weak var coordinatesLabel: UILabel!
     @IBOutlet weak var cityStateLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
@@ -66,18 +68,18 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         altitudeLabel.text = "NO GPS POSITION"
         coordinatesLabel.text = "NO GPS POSITION"
         if let reg=defaults.string(forKey: "defaultAircraftRegistration") {
-            registrationTextView.text = reg
+            registrationTextField.text = reg
         }
         if let acType=defaults.string(forKey: "defaultAircraftType") {
-            aircraftTypeTextView.text = acType
+            aircraftTypeTextField.text = acType
         }
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         // set delgates
         gestureRecognizer.delegate = self
         self.view.addGestureRecognizer(gestureRecognizer)
         self.wayPointDescription.delegate=self
-        self.aircraftTypeTextView.delegate=self
-        self.registrationTextView.delegate=self
+        self.aircraftTypeTextField.delegate=self
+        self.registrationTextField.delegate=self
         locationManager.delegate=self
         // get location
         if !manual {
@@ -156,8 +158,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         //let city = wayPointPlaceMark?.locality
         //let state = wayPointPlaceMark?.administrativeArea
         
-        let aircraftType = aircraftTypeTextView.text ?? ""
-        let aircraftRegistration = registrationTextView.text ?? ""
+        let aircraftType = aircraftTypeTextField.text ?? ""
+        let aircraftRegistration = registrationTextField.text ?? ""
         
         var imageAspect: String?
         if imageAttached {
@@ -231,6 +233,8 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     
     @objc func dismissKeyboard() {
         wayPointDescription.resignFirstResponder()
+        aircraftTypeTextField.resignFirstResponder()
+        registrationTextField.resignFirstResponder()
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
@@ -297,24 +301,41 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         dismiss(animated: true, completion: nil)
     }
     
-    // MARK textView delegate methods
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    
+    // MARK textField delegate methods
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString text: String) -> Bool {
         
-        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
-        let numberOfChars = newText.count
-        
-        if textView == registrationTextView {
-            return numberOfChars < 7
-        }
-        else if textView == aircraftTypeTextView {
-            return numberOfChars < 5
+        if textField.text != nil
+        {
+            let newText = (textField.text! as NSString).replacingCharacters(in: range, with: text)
+            let numberOfChars = newText.count
+            
+            if textField == registrationTextField {
+                return numberOfChars < 7
+            }
+            else if textField == aircraftTypeTextField {
+                return numberOfChars < 5
+            }
+            else {
+                return true
+            }
         }
         else {
-            if numberOfChars < 281 {
-                charactersRemainingLabel .text = String(280-numberOfChars)
-            }
-            return numberOfChars < 281;
+            return true
         }
+    }
+    
+    // MARK textView delegate methods
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    
+        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        let numberOfChars = newText.count
+    
+        if numberOfChars < 281 {
+            charactersRemainingLabel .text = String(280-numberOfChars)
+        }
+        return numberOfChars < 281;
+
        
     }
 
