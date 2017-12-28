@@ -82,7 +82,12 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     
     func getLocation() -> String {
         if city != nil && state != nil {
-            return "\(city!), \(state!)"
+            if city!.count > 0 && state!.count > 0 {
+                return "\(city!), \(state!)"
+            }
+            else {
+                return "\(city!) \(state!)"
+            }
         }
         else {
             return ""
