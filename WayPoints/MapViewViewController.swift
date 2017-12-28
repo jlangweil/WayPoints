@@ -196,7 +196,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             timeDisplay.text = "All available data"
         }
         else {
-            timeDisplay.text = "\(startingDate.preciseGMTDateTime)Z - \(endingDate.preciseGMTDateTime)Z"
+            if datePickerContainer.isHidden==true {
+                timeDisplay.text = "\(startingDate.preciseGMTDateTime)Z - \(endingDate.preciseGMTDateTime)Z"
+            }
         }
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
     }
@@ -242,7 +244,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(dateChanged), for: UIControlEvents.valueChanged)
         datePickerContainer.addSubview(datePicker)
-        
         let doneButton = UIButton()
         doneButton.setTitle("Done", for: UIControlState.normal)
         doneButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
@@ -256,6 +257,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     func showDatePicker() {
         datePickerContainer.isHidden=false
+        if let datePicker = datePickerContainer.subviews[0] as? UIDatePicker {
+            let datePickerDate = datePicker.date
+            setDatePickerDate(dateToSet: datePickerDate)
+        }
     }
     
     @objc func dismissPicker(sender: UIButton) {
@@ -272,6 +277,15 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         self.endDate = endingDate.toFirebaseTimestamp()
         timeDisplay.text = "\(startingDate.currentDate)"
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
+    }
+    
+    func setDatePickerDate(dateToSet: Date) {
+        let calendar = Calendar.current
+        startingDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: dateToSet)!
+        endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: dateToSet)!
+        self.startDate = startingDate.toFirebaseTimestamp()
+        self.endDate = endingDate.toFirebaseTimestamp()
+        timeDisplay.text = "\(startingDate.currentDate)"
     }
 
     @IBOutlet weak var mapView: MKMapView!
