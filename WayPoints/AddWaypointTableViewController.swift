@@ -215,12 +215,23 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             // Upload the file to the path "images/rivers.jpg"
-            imagesRef.putData(data, metadata: metadata) { (metadata, error) in
+            let uploadTask = imagesRef.putData(data, metadata: metadata)
+            /*{ (metadata, error) in
                 guard metadata != nil else {
                     // Uh-oh, an error occurred!
                     print("Error uploading file \(key)\(ext).jpg: \(error.debugDescription)")
                     return
-                }
+                }*/
+            
+            // write file to disk
+            
+            // write filename to userdefaults
+            
+            uploadTask.observe(.success) { snapshot in
+               print ("SUCESSS UPLOAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                // delete from disk
+                
+                // delete from userdefaults
             }
         }
     }

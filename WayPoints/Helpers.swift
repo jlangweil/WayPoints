@@ -236,6 +236,54 @@ extension String {
     }
 }
 
+func reUploadImageToDatabase(image:UIImage, key:String, thumbnail:Bool) {
+    let storage = Storage.storage()
+    let storageRef = storage.reference()
+    //let keyRef = storageRef.child("\(key).jpg")
+    var ext = ""
+    if thumbnail {
+        ext = "_thumb"
+    }
+    let imagesRef = storageRef.child("images/\(key)\(ext).jpg")
+    // Data in memory
+    if let data = UIImageJPEGRepresentation(image, 0.5) as Data? {
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        // Upload the file to the path "images/rivers.jpg"
+        let uploadTask = imagesRef.putData(data, metadata: metadata)
+        
+        // write file to disk
+        
+        // write filename to userdefaults
+        
+        uploadTask.observe(.success) { snapshot in
+            print ("SUCESSS UPLOAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            // delete from disk
+            
+            // delete from userdefaults
+        }
+    }
+}
+
+func getDocumentsDirectory() -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    return paths[0]
+}
+
+func saveImageToDisc(data: Data, imageName: String) {
+    let filename = getDocumentsDirectory().appendingPathComponent(imageName)
+    try? data.write(to: filename)
+}
+
+func deleteImage(imageName: String) {
+    do {
+        let url = getDocumentsDirectory().appendingPathComponent(imageName)
+        try FileManager.default.removeItem(at: url)
+    } catch let error as NSError {
+        print("Error: \(error.domain)")
+    }
+}
+
 
 
 
