@@ -202,6 +202,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     }
     
     func saveImageToDatabase(image:UIImage, key:String, thumbnail:Bool) {
+        pendingUploads += 1
         let storage = Storage.storage()
         let storageRef = storage.reference()
         //let keyRef = storageRef.child("\(key).jpg")
@@ -233,7 +234,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
                print ("SUCESSS UPLOAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 // delete from disk
                 deleteImage(imageName: imageNameWithoutFolder)
-                // delete from userdefaults
+                pendingUploads -= 1
             }
         }
     }

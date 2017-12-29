@@ -164,11 +164,22 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
             wayPointCell.aircraftTypeLabel.text=waypoints[indexPath.row].aircraftType
             
             if imageExists {
-                let storage = Storage.storage()
-                let storageRef = storage.reference()
-                let reference = storageRef.child("images/\(id!)_thumb.jpg")
-                let placeholder = UIImage(named: "placeholder")
-                wayPointCell.wayPointImageView.sd_setImage(with: reference, placeholderImage: placeholder)
+                // check if exists locally first, use that, as image may not have saved yet
+                let imagesPath = getDocumentsDirectory().appendingPathComponent("images")
+                let url = imagesPath.appendingPathComponent("\(id!)_thumb.jpg")
+                if fileExistsAtPath(url.path)
+                {
+                     print("File still exists locally!!!!!!!")
+                     let localImage = UIImage(contentsOfFile: url.path)
+                     wayPointCell.wayPointImageView.image = localImage
+                }
+                else {
+                    let storage = Storage.storage()
+                    let storageRef = storage.reference()
+                    let reference = storageRef.child("images/\(id!)_thumb.jpg")
+                    let placeholder = UIImage(named: "placeholder")
+                    wayPointCell.wayPointImageView.sd_setImage(with: reference, placeholderImage: placeholder)
+                }
                 let handler = #selector(self.openImage(byReactingTo:))
                 let tapRecognizer = UITapGestureRecognizer(target: self, action: handler)
                 tapRecognizer.numberOfTapsRequired=1

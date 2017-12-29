@@ -73,6 +73,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         super.viewWillAppear(animated)
         setUpCustomHistory()
         setDateRanges()
+        print("Number of pending uploads = \(pendingUploads)")
     }
     
     
@@ -365,14 +366,25 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 
         if imageExists {
             // Reference to an image file in Firebase Storage
-            let storage = Storage.storage()
-            let storageRef = storage.reference()
-            let reference = storageRef.child("images/\(wayPointAnnotation.id!)_thumb.jpg")
-            let placeholder = UIImage(named: "placeholder")
-            calloutView.spinner.startAnimating()
-            calloutView.wayPointImage.contentMode = .scaleAspectFit
-            calloutView.wayPointImage.sd_setImage(with: reference, placeholderImage: placeholder)
-            calloutView.spinner.stopAnimating()
+            let imagesPath = getDocumentsDirectory().appendingPathComponent("images")
+            let url = imagesPath.appendingPathComponent("\(wayPointAnnotation.id!)_thumb.jpg")
+            if fileExistsAtPath(url.path)
+            {
+                print("File still exists locally!!!!!!!")
+                let localImage = UIImage(contentsOfFile: url.path)
+                calloutView.wayPointImage.contentMode = .scaleAspectFit
+                calloutView.wayPointImage.image = localImage
+            }
+            else {
+                let storage = Storage.storage()
+                let storageRef = storage.reference()
+                let reference = storageRef.child("images/\(wayPointAnnotation.id!)_thumb.jpg")
+                let placeholder = UIImage(named: "placeholder")
+                calloutView.spinner.startAnimating()
+                calloutView.wayPointImage.contentMode = .scaleAspectFit
+                calloutView.wayPointImage.sd_setImage(with: reference, placeholderImage: placeholder)
+                calloutView.spinner.stopAnimating()
+            }
         }
         
         // Resize callout relative to screen width

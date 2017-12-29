@@ -25,6 +25,7 @@ var signedInUser : String {
         }
     }
 }
+var pendingUploads: Int = 0
 
 
 
@@ -247,6 +248,7 @@ func reUploadImageToDatabase(data:Data, fileName: String) {
         print ("SUCESSS UPLOAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         // delete from disk
         deleteImage(imageName: fileName)
+        pendingUploads -= 1
     }
     
 }
@@ -279,6 +281,12 @@ func directoryExistsAtPath(_ path: String) -> Bool {
     return exists && isDirectory.boolValue
 }
 
+func fileExistsAtPath(_ path: String) -> Bool {
+    var isDirectory = ObjCBool(false)
+    let exists = FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
+    return exists && !isDirectory.boolValue
+}
+
 func deleteImage(imageName: String) {
     do {
         let imagesPath = getDocumentsDirectory().appendingPathComponent("images")
@@ -296,6 +304,7 @@ func retryImageUploads() {
         let files = filemanager.enumerator(atPath: imagesPath.path)
         while let file = files?.nextObject() {
             print(file)
+            pendingUploads += 1
             let fileNamePath = imagesPath.appendingPathComponent("\(file)")
             let data = try Data.init(contentsOf: fileNamePath)
             reUploadImageToDatabase(data: data, fileName: "\(file)")
