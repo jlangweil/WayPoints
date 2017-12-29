@@ -236,33 +236,19 @@ extension String {
     }
 }
 
-func reUploadImageToDatabase(image:UIImage, key:String, thumbnail:Bool) {
+func reUploadImageToDatabase(data:Data, fileName: String) {
     let storage = Storage.storage()
     let storageRef = storage.reference()
-    //let keyRef = storageRef.child("\(key).jpg")
-    var ext = ""
-    if thumbnail {
-        ext = "_thumb"
+    let imagesRef = storageRef.child("images/\(fileName)")
+    let metadata = StorageMetadata()
+    metadata.contentType = "image/jpeg"
+    let uploadTask = imagesRef.putData(data, metadata: metadata)
+    uploadTask.observe(.success) { snapshot in
+        print ("SUCESSS UPLOAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        // delete from disk
+        deleteImage(imageName: fileName)
     }
-    let imagesRef = storageRef.child("images/\(key)\(ext).jpg")
-    // Data in memory
-    if let data = UIImageJPEGRepresentation(image, 0.5) as Data? {
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        // Upload the file to the path "images/rivers.jpg"
-        let uploadTask = imagesRef.putData(data, metadata: metadata)
-        
-        // write file to disk
-        
-        // write filename to userdefaults
-        
-        uploadTask.observe(.success) { snapshot in
-            print ("SUCESSS UPLOAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            // delete from disk
-            
-            // delete from userdefaults
-        }
-    }
+    
 }
 
 func getDocumentsDirectory() -> URL {
@@ -272,15 +258,51 @@ func getDocumentsDirectory() -> URL {
 
 func saveImageToDisc(data: Data, imageName: String) {
     let filename = getDocumentsDirectory().appendingPathComponent(imageName)
-    try? data.write(to: filename)
+    do {
+        var imageFolderExists = false
+        imageFolderExists = directoryExistsAtPath("images")
+        if imageFolderExists == false {
+            let imagesPath = getDocumentsDirectory().appendingPathComponent("images")
+            try FileManager.default.createDirectory(atPath: imagesPath.path, withIntermediateDirectories: true, attributes: nil)
+            imageFolderExists = directoryExistsAtPath("images")
+        }
+        try data.write(to: filename)
+    }
+    catch let error as NSError {
+        print("Error: \(error.localizedDescription)")
+    }
+}
+
+func directoryExistsAtPath(_ path: String) -> Bool {
+    var isDirectory = ObjCBool(true)
+    let exists = FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
+    return exists && isDirectory.boolValue
 }
 
 func deleteImage(imageName: String) {
     do {
-        let url = getDocumentsDirectory().appendingPathComponent(imageName)
+        let imagesPath = getDocumentsDirectory().appendingPathComponent("images")
+        let url = imagesPath.appendingPathComponent(imageName)
         try FileManager.default.removeItem(at: url)
     } catch let error as NSError {
-        print("Error: \(error.domain)")
+        print("Error: \(error.localizedDescription)")
+    }
+}
+
+func retryImageUploads() {
+    do {
+        let filemanager = FileManager()
+        let imagesPath = getDocumentsDirectory().appendingPathComponent("images")
+        let files = filemanager.enumerator(atPath: imagesPath.path)
+        while let file = files?.nextObject() {
+            print(file)
+            let fileNamePath = imagesPath.appendingPathComponent("\(file)")
+            let data = try Data.init(contentsOf: fileNamePath)
+            reUploadImageToDatabase(data: data, fileName: "\(file)")
+        }
+    }
+    catch let error as NSError {
+        print("Error: \(error.localizedDescription)")
     }
 }
 

@@ -209,9 +209,13 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         if thumbnail {
             ext = "_thumb"
         }
-        let imagesRef = storageRef.child("images/\(key)\(ext).jpg")
+        let imageName = "images/\(key)\(ext).jpg"
+        let imageNameWithoutFolder = "\(key)\(ext).jpg"
+        let imagesRef = storageRef.child(imageName)
         // Data in memory
         if let data = UIImageJPEGRepresentation(image, 0.5) as Data? {
+            // Write to disc first
+            saveImageToDisc(data: data, imageName: imageName)
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             // Upload the file to the path "images/rivers.jpg"
@@ -223,14 +227,12 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
                     return
                 }*/
             
-            // write file to disk
-            
-            // write filename to userdefaults
+           // write filename to userdefaults
             
             uploadTask.observe(.success) { snapshot in
                print ("SUCESSS UPLOAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 // delete from disk
-                
+                deleteImage(imageName: imageNameWithoutFolder)
                 // delete from userdefaults
             }
         }
