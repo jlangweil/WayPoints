@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         Database.database().isPersistenceEnabled = true
         Twitter.sharedInstance().start(withConsumerKey:"4t7qrzx1cLd4f6Ki1hoFsF3l8",
                                        consumerSecret:"gwm7VKYZfGwUn395ACwQPovLZqHp5TER4fLjUYvtgH09T6gQu3")
+        loadAirports()
         return true
     }
     

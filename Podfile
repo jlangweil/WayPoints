@@ -11,4 +11,5 @@ target 'WayPoints' do
     pod 'Firebase/Storage'
     pod 'FirebaseUI' 
     pod 'FirebaseUI/Storage'
+    pod 'SwiftyJSON'
 end

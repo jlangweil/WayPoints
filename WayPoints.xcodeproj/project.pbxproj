@@ -30,6 +30,7 @@
 		189EB9E41F95471D00BBDF90 /* WayPoints.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 189EB9E21F95471D00BBDF90 /* WayPoints.xcdatamodeld */; };
 		189EB9E61F95471D00BBDF90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 189EB9E51F95471D00BBDF90 /* Assets.xcassets */; };
 		189EB9E91F95471D00BBDF90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 189EB9E71F95471D00BBDF90 /* LaunchScreen.storyboard */; };
+		18CF41631FF7F846001F9668 /* airports.json in Resources */ = {isa = PBXBuildFile; fileRef = 18CF41621FF7F846001F9668 /* airports.json */; };
 		18D7AF081F9945500087B9E6 /* MapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7AF071F9945500087B9E6 /* MapViewViewController.swift */; };
 		18D7AF0C1F9A6C1C0087B9E6 /* WayPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7AF0B1F9A6C1C0087B9E6 /* WayPointAnnotation.swift */; };
 		1DA68FCDA61D9C67C88A0B02 /* Pods_WayPoints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEBC445BA4A3A4B197994E2 /* Pods_WayPoints.framework */; };
@@ -63,6 +64,7 @@
 		189EB9E51F95471D00BBDF90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		189EB9E81F95471D00BBDF90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		189EB9EA1F95471D00BBDF90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18CF41621FF7F846001F9668 /* airports.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = airports.json; sourceTree = "<group>"; };
 		18D7AF071F9945500087B9E6 /* MapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewController.swift; sourceTree = "<group>"; };
 		18D7AF0B1F9A6C1C0087B9E6 /* WayPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointAnnotation.swift; sourceTree = "<group>"; };
 		61741BB6FC7704E33566E738 /* Pods-WayPoints.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayPoints.release.xcconfig"; path = "Pods/Target Support Files/Pods-WayPoints/Pods-WayPoints.release.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 		189EB9DA1F95471D00BBDF90 /* WayPoints */ = {
 			isa = PBXGroup;
 			children = (
+				18CF41621FF7F846001F9668 /* airports.json */,
 				1806DD931FE4566200F552EB /* WayPoints.entitlements */,
 				184D234F1FBBA090005D0BA8 /* GoogleService-Info.plist */,
 				180500281FA901CF00644FF4 /* AnnotationView.swift */,
@@ -233,6 +236,7 @@
 				184D23501FBBA091005D0BA8 /* GoogleService-Info.plist in Resources */,
 				189EB9E61F95471D00BBDF90 /* Assets.xcassets in Resources */,
 				189EB9E11F95471D00BBDF90 /* Main.storyboard in Resources */,
+				18CF41631FF7F846001F9668 /* airports.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +277,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
@@ -291,6 +296,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
@@ -310,11 +316,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-WayPoints/Pods-WayPoints-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",

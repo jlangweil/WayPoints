@@ -10,6 +10,7 @@ import Foundation
 import MapKit
 import Firebase
 import FirebaseAuthUI
+import SwiftyJSON
 
 //let imageCache = NSCache<NSString, UIImage>()
 let defaults = UserDefaults.standard
@@ -25,11 +26,78 @@ var signedInUser : String {
         }
     }
 }
+var airports: [Airport] = []
 var pendingUploads: Int = 0
 
+func loadAirports() {
+    do {
+        airports.removeAll()
+        let url = Bundle.main.url(forResource: "airports", withExtension: "json")
+        let data = try Data(contentsOf: url!)
+        let json = try JSON(data: data)
+        for (index,subJson):(String, JSON) in json {
+            let iata = subJson["iata"].string
+            let lon = subJson["lon"].string
+            let lat = subJson["lat"].string
+            if iata != nil && lon != nil && lat != nil {
+                let airport = Airport(iata: iata!, lat: lat!, lon: lon!)
+                airports.append(airport)
+            }
+        }
+    }
+    catch let error as NSError {
+        print("Error: \(error.localizedDescription)")
+    }
+    
+    //test
+    /*
+    let myLocation = CLLocation(latitude: 40.85273, longitude: -74.483)
+    let closestAirport = getClosestAirport(location: myLocation)
+    let distance = myLocation.distance(from: closestAirport!.coordinate) * 0.000539957
+    print("distance = \(distance)nm")
+    let bearing = getBearing(fromPoint: closestAirport!.coordinate, toPoint: myLocation)
+    print("bearing = \(bearing) degrees")
+    let direction = getCompassDirection(bearing: bearing)
+    print("direction = \(direction)")
+    var i=0
+     */
+}
 
+func getClosestAirport(location: CLLocation) -> Airport? {
+    if let closestLocation = airports.min(by: { location.distance(from: $0.coordinate) < location.distance(from: $1.coordinate) }) {
+        print("closest location: \(closestLocation), distance: \(location.distance(from: closestLocation.coordinate))")
+        return closestLocation
+    } else {
+        print("coordinates is empty")
+        return nil
+    }
+}
 
-// Utils
+func getBearing(fromPoint a: CLLocation, toPoint b: CLLocation) -> Int {
+    func ToRad(_ degrees: Double) -> Double { return degrees * Double.pi / 180.0 }
+    func ToDegrees(_ radians: Double) -> Double { return radians * 180.0 / Double.pi }
+
+    let lat1 = a.coordinate.latitude
+    let lat2 = b.coordinate.latitude
+    let lon1 = a.coordinate.longitude
+    let lon2 = b.coordinate.longitude
+    
+    var dLon = ToRad(lon2-lon1)
+    let dPhi = log(tan(ToRad(lat2)/2+Double.pi/4)/tan(ToRad(lat1)/2+Double.pi/4))
+    if (abs(dLon) > Double.pi) {
+        dLon = dLon > 0 ? -(2*Double.pi-dLon) : (2*Double.pi+dLon)
+    }
+    //return ToBearing(atan2(dLon, dPhi))
+    let angle = atan2(dLon, dPhi)
+    let angleInDegrees = ToDegrees(angle)
+    return (Int(angleInDegrees) + 360) % 360
+}
+
+func getCompassDirection(bearing: Int) -> String {
+    let directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
+    let position = (bearing / 45) % 8
+    return directions[position]
+}
 
 func getBackgroundColorForSeverity(severity: Severity? ) -> UIColor {
     guard severity != nil else {
@@ -111,6 +179,13 @@ extension String {
             }
         }
         return retVal
+    }
+    
+    func contains(find: String) -> Bool{
+        return self.range(of: find) != nil
+    }
+    func containsIgnoringCase(find: String) -> Bool{
+        return self.range(of: find, options: .caseInsensitive) != nil
     }
     
 }
@@ -224,17 +299,6 @@ extension UIImage {
         }
         return CGSize(width: newWidth, height: newHeight)
     }
-
-}
-
-extension String {
-    
-    func contains(find: String) -> Bool{
-        return self.range(of: find) != nil
-    }
-    func containsIgnoringCase(find: String) -> Bool{
-        return self.range(of: find, options: .caseInsensitive) != nil
-    }
 }
 
 func reUploadImageToDatabase(data:Data, fileName: String) {
@@ -312,6 +376,20 @@ func retryImageUploads() {
     }
     catch let error as NSError {
         print("Error: \(error.localizedDescription)")
+    }
+}
+
+class Airport {
+    var iata: String
+    var lat: String
+    var lon: String
+    var coordinate: CLLocation
+    
+    init(iata:String, lat:String, lon:String) {
+        self.iata = iata
+        self.lat = lat
+        self.lon = lon
+        self.coordinate = CLLocation(latitude: Double(lat)!, longitude: Double(lon)!)
     }
 }
 
