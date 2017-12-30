@@ -23,6 +23,8 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.estimatedRowHeight=50
+        tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.tableFooterView = UIView()
         let saveMapPositionDefault = defaults.bool(forKey: "saveMapPosition")
         saveMapPositionSwitch.isOn = saveMapPositionDefault
