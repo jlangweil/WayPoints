@@ -36,11 +36,11 @@ func loadAirports() {
         let data = try Data(contentsOf: url!)
         let json = try JSON(data: data)
         for (index,subJson):(String, JSON) in json {
-            let iata = subJson["iata"].string
-            let lon = subJson["lon"].string
-            let lat = subJson["lat"].string
-            if iata != nil && lon != nil && lat != nil {
-                let airport = Airport(iata: iata!, lat: lat!, lon: lon!)
+            let icao = subJson["icao"].string
+            let lon = subJson["lon"].double
+            let lat = subJson["lat"].double
+            if icao != nil && lon != nil && lat != nil {
+                let airport = Airport(icao: icao!, lat: lat!, lon: lon!)
                 airports.append(airport)
             }
         }
@@ -199,13 +199,13 @@ extension Formatter {
     }()
     static let preciseGMTTime: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
     static let preciseGMTDateTime: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "MM/dd/YYYY HH:mm"
         return formatter
     }()
@@ -215,27 +215,40 @@ extension Formatter {
         return formatter
     }()
 }
+
 extension Date {
     
     func toFirebaseTimestamp() -> Int {
         return Int(self.timeIntervalSince1970) * 1000
     }
     
+    func convertToUTC() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy HH:mm"
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        return formatter.string(from: self)
+    }
+    
     // you can create a read-only computed property to return just the nanoseconds from your date time
-    var nanosecond: Int { return Calendar.current.component(.nanosecond,  from: self)   }
+    //var nanosecond: Int { return Calendar.current.component(.nanosecond,  from: self)   }
     // the same for your local time
-    var preciseLocalTime: String {
-        return Formatter.preciseLocalTime.string(for: self) ?? ""
-    }
+    //var preciseLocalTime: String {
+    //    return Formatter.preciseLocalTime.string(for: self) ?? ""
+    //}
     // or GMT time
-    var preciseGMTTime: String {
-        return Formatter.preciseGMTTime.string(for: self) ?? ""
-    }
+    //var preciseGMTTime: String {
+    //    return Formatter.preciseGMTTime.string(for: self) ?? ""
+    //}
     var preciseGMTDateTime: String {
-        return Formatter.preciseGMTDateTime.string(for: self) ?? ""
+        /*print(self)
+        let test = Formatter.preciseGMTDateTime.string(for: self) ?? ""
+        print(test)
+        let test2 = self.convertToUTC()
+        print(test2)*/
+        return self.convertToUTC()
     }
     var currentDate: String {
-        return Formatter.USDate.string(for: self) ?? ""
+       return Formatter.USDate.string(for: self) ?? ""
     }
 }
 
@@ -380,16 +393,16 @@ func retryImageUploads() {
 }
 
 class Airport {
-    var iata: String
-    var lat: String
-    var lon: String
+    var icao: String
+    var lat: Double
+    var lon: Double
     var coordinate: CLLocation
     
-    init(iata:String, lat:String, lon:String) {
-        self.iata = iata
+    init(icao:String, lat:Double, lon:Double) {
+        self.icao = icao
         self.lat = lat
         self.lon = lon
-        self.coordinate = CLLocation(latitude: Double(lat)!, longitude: Double(lon)!)
+        self.coordinate = CLLocation(latitude: lat, longitude: lon)
     }
 }
 

@@ -30,10 +30,11 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var aircraftType:String
     var imageAspect:String?
     var userID:String?
+    var nearestAirport: String?
     
     //var uploaded:Bool = false
     
-    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, clouds: String, urgent: Bool, city: String?, state: String?, altitude: String, aircraftRegistration: String, aircraftType:String, imageAspect:String?, id: String?, userID: String?){
+    init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, clouds: String, urgent: Bool, city: String?, state: String?, altitude: String, aircraftRegistration: String, aircraftType:String, imageAspect:String?, id: String?, userID: String?, nearestAirport: String?){
         self.id=id
         self.coordinate = coordinate
         self.title = title
@@ -54,6 +55,7 @@ class WayPointAnnotation: NSObject, MKAnnotation {
         self.aircraftRegistration = aircraftRegistration
         self.imageAspect = imageAspect
         self.userID = userID
+        self.nearestAirport = nearestAirport
     }
     
     func getDictionaryForDatabase(_ key:String) -> [String:Any] {
@@ -74,7 +76,8 @@ class WayPointAnnotation: NSObject, MKAnnotation {
                         "aircraft": aircraftRegistration,
                         "aircrafttype": aircraftType,
                         "imageAspect": imageAspect ?? "0" as String,
-                        "userID": userID ?? "" as String
+                        "userID": userID ?? "" as String,
+                        "nearestAirport" : nearestAirport ?? "" as String
             ] as [String : Any]
         
         return waypoint

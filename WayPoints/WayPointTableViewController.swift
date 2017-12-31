@@ -84,7 +84,8 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
                 let imageAspect = userDict["imageAspect"] as? String ?? "0"
                 let userID = userDict["userID"] as? String ?? ""
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: id, userID: userID)
+                let nearestAirport = userDict["nearestAirport"] as? String ?? ""
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: id, userID: userID, nearestAirport: nearestAirport)
                 if (self?.waypoints.contains(where: { (annotation) -> Bool in
                     if id==annotation.id {
                         return true
@@ -121,9 +122,10 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "wayPointCell", for: indexPath)
         let id = waypoints[indexPath.row].id
         let description = waypoints[indexPath.row].subtitle
-        var location = waypoints[indexPath.row].getLocation()
+        let citystate = waypoints[indexPath.row].getLocation()
+        var location = waypoints[indexPath.row].nearestAirport
         if waypoints[indexPath.row].urgent {
-            location = "\(location) 🚨"
+            location = "\(location!) 🚨"
         }
         let time = waypoints[indexPath.row].time
         let altitude = waypoints[indexPath.row].altitude
@@ -158,11 +160,19 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
             wayPointCell.imageID = id
             //wayPointCell.spinner.startAnimating()
             let placeholder = UIImage(named: "placeholder")
-            wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: placeholder, time: time, location: location, description: description)
+            //wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: placeholder, time: time, location: location, description: description)
+            wayPointCell.wayPointImageView.image = placeholder
+            wayPointCell.wayPointTitleLabel.text = location
+            wayPointCell.wayPointDescriptionLabel.text = description
             wayPointCell.conditionsLabel.text = conditions
             wayPointCell.aircraftLabel.text=waypoints[indexPath.row].aircraftRegistration
             wayPointCell.aircraftTypeLabel.text=waypoints[indexPath.row].aircraftType
-            
+            if citystate.trimmingCharacters(in: NSCharacterSet.whitespaces) == "" {
+                wayPointCell.citystate.text = time
+            }
+            else {
+                wayPointCell.citystate.text = "\(citystate) 𐄁 \(time)"
+            }
             if imageExists {
                 // check if exists locally first, use that, as image may not have saved yet
                 let imagesPath = getDocumentsDirectory().appendingPathComponent("images")

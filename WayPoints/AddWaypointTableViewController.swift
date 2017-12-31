@@ -50,6 +50,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
     @IBOutlet weak var imageViewCell: UITableViewCell!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var altitudeStepper: UIStepper!
+    @IBOutlet weak var nearestAirport: UILabel!
     
     @IBAction func altitudeChanged(_ sender: UIStepper) {
         let altitude = Int(sender.value)
@@ -96,6 +97,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             altitudeStepper.isHidden = false
             let location = CLLocation(latitude: wayPointCoordinate!.latitude, longitude: wayPointCoordinate!.longitude)
             setLocationUsingGeoCoder(location: location)
+            nearestAirport.text = getAirportString(location: location)
         }
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -142,7 +144,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let precipitation = Precip(rawValue: precipitationSelection.titleForSegment(at: precipitationSelection.selectedSegmentIndex)!)
         let clouds = cloudSelection.titleForSegment(at: cloudSelection.selectedSegmentIndex)
         let urgent = urgentSwitch.isOn
-        let utcTime = "\(Date().currentDate) \(Date().preciseGMTTime)Z"
+        let utcTime = "\(Date().preciseGMTDateTime)Z"
         var altitude: String
         if manual {
             altitude = "\(Int(altitudeStepper.value))"
@@ -167,7 +169,10 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             let ratio = thumbnailSize.width / thumbnailSize.height
             imageAspect = "\(ratio)"
         }
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: cityLocation, state: stateLocation, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: nil, userID: signedInUser)
+        
+        let closestAirport = nearestAirport.text
+        
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: cityLocation, state: stateLocation, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: nil, userID: signedInUser, nearestAirport: closestAirport)
         // save to database
         let key = saveAnnotationToDatabase(annotation)
         if imageAttached {
@@ -282,9 +287,23 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let altitudeInFeet = Int(wayPointAltitudeInFeet!)
         coordinatesLabel.text = "\(String(format: "%.5f", wayPointCoordinate!.latitude)), \(String(format: "%.5f", wayPointCoordinate!.longitude))"
         altitudeLabel.text = "\(altitudeInFeet) feet"
+        // GET position from closet airport
+        nearestAirport.text = getAirportString(location: location)
         if !reverseGeoCodeSucceeded {
             setLocationUsingGeoCoder(location: location)
         }
+    }
+    
+    func getAirportString(location: CLLocation) -> String {
+        let closestAirport = getClosestAirport(location: location)
+        let closestAirportName = closestAirport?.icao
+        let distance = location.distance(from: closestAirport!.coordinate) * 0.000539957
+        print("distance = \(distance)nm")
+        let bearing = getBearing(fromPoint: closestAirport!.coordinate, toPoint: location)
+        print("bearing = \(bearing) degrees")
+        let direction = getCompassDirection(bearing: bearing)
+        let airportString = "\(String(format: "%.1f", distance))nm \(direction) of \(closestAirportName!)"
+        return airportString
     }
     
     func setLocationUsingGeoCoder(location: CLLocation) {

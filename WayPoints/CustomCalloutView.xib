@@ -37,25 +37,25 @@
                     <color key="color" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </activityIndicatorView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcz-Kz-RfC">
-                    <rect key="frame" x="151" y="27" width="242.5" height="12"/>
+                    <rect key="frame" x="151" y="27" width="237.5" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Vrg-Rh-sjO">
-                    <rect key="frame" x="151.5" y="10" width="242.5" height="17"/>
+                    <rect key="frame" x="151.5" y="10" width="237.5" height="17"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nA-Ao-NJD">
-                    <rect key="frame" x="54.5" y="111" width="43.5" height="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="airplane" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nA-Ao-NJD">
+                    <rect key="frame" x="50.5" y="111" width="51.5" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location2" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HF6-1M-H5a">
-                    <rect key="frame" x="44.5" y="130" width="64" height="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="altitude" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HF6-1M-H5a">
+                    <rect key="frame" x="51.5" y="130" width="48.5" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -152,11 +152,11 @@
                 <constraint firstItem="08t-aW-Ig0" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.6" id="M9T-yO-hwY"/>
                 <constraint firstItem="8zu-Ro-CQz" firstAttribute="centerY" secondItem="wDS-In-vgg" secondAttribute="centerY" id="PdV-yq-59n"/>
                 <constraint firstItem="HF6-1M-H5a" firstAttribute="top" secondItem="3nA-Ao-NJD" secondAttribute="bottom" constant="2" id="PrM-6l-a7S"/>
+                <constraint firstItem="Vrg-Rh-sjO" firstAttribute="trailing" secondItem="UR2-Mb-L0T" secondAttribute="trailing" id="QRL-mX-4aW"/>
                 <constraint firstItem="jUG-x7-dGC" firstAttribute="centerY" secondItem="08t-aW-Ig0" secondAttribute="centerY" id="WEF-eE-wTr"/>
                 <constraint firstItem="D05-oA-Y3j" firstAttribute="leading" secondItem="7xL-df-VXH" secondAttribute="trailing" constant="7.5" id="aCp-Je-Fnw"/>
                 <constraint firstItem="7xL-df-VXH" firstAttribute="leading" secondItem="Vrg-Rh-sjO" secondAttribute="leading" id="ahY-jr-nMI"/>
                 <constraint firstItem="1D1-3a-rnk" firstAttribute="width" secondItem="D05-oA-Y3j" secondAttribute="width" id="eY5-hX-Yzs"/>
-                <constraint firstAttribute="trailing" secondItem="Vrg-Rh-sjO" secondAttribute="trailing" constant="5" id="fJc-xn-xWz"/>
                 <constraint firstItem="Xcz-Kz-RfC" firstAttribute="trailing" secondItem="Vrg-Rh-sjO" secondAttribute="trailing" id="fb7-vZ-k3k"/>
                 <constraint firstItem="D05-oA-Y3j" firstAttribute="height" secondItem="7xL-df-VXH" secondAttribute="height" multiplier="0.5" id="hIW-XJ-RFb"/>
                 <constraint firstAttribute="trailing" secondItem="UR2-Mb-L0T" secondAttribute="trailing" constant="10" id="jcT-tB-gwm"/>
@@ -188,10 +188,5 @@
             </connections>
             <point key="canvasLocation" x="135" y="148"/>
         </view>
-        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6Ab-HZ-dT4">
-            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <point key="canvasLocation" x="499.5" y="400.5"/>
-        </imageView>
     </objects>
 </document>

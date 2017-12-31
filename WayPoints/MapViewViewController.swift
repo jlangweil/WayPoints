@@ -319,8 +319,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             annotationView?.image = UIImage(named: "wayPointPinDefaultSmall")
         }
         
-       
-        // TODO: Make sure pin is transparent
         return annotationView
     }
     
@@ -340,7 +338,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         calloutView.wayPointDescription.layer.borderWidth = 1
         calloutView.wayPointDescription.layer.borderColor = UIColor.black.cgColor
         calloutView.timeLabel.text = wayPointAnnotation.time
-        calloutView.location.text = wayPointAnnotation.getLocation()
+        //calloutView.location.text = wayPointAnnotation.getLocation()
+        calloutView.location.text = wayPointAnnotation.nearestAirport!
         if wayPointAnnotation.urgent {
             calloutView.location.text = "\(calloutView.location.text!) 🚨"
         }
@@ -385,6 +384,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
                 calloutView.wayPointImage.sd_setImage(with: reference, placeholderImage: placeholder)
                 calloutView.spinner.stopAnimating()
             }
+        }
+        else {
+            calloutView.wayPointImage.contentMode = .scaleAspectFit
+            calloutView.wayPointImage.image = UIImage(named: "noimage")
         }
         
         // Resize callout relative to screen width
@@ -477,17 +480,13 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
                 let coordinateOfNewWayPoint = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
                 let imageAspect = userDict["imageAspect"] as? String ?? "0"
                 let userID = userDict["userID"] as? String ?? ""
-                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect: imageAspect, id: id, userID: userID)
-                // add and show the waypoint if current user's or we are just showing all the waypoints
+                let nearestAirport = userDict["nearestAirport"] as? String ?? ""
+                let wayPointToBeAdded = WayPointAnnotation(coordinate: coordinateOfNewWayPoint, title: nil, subtitle: description, photo: nil, time: time, turbulence: Severity(rawValue: turbulence)!, icing: Severity(rawValue: icing)!, precipitation: Precip(rawValue: precipitation)!, clouds: clouds, urgent: urgent, city: city, state: state, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect: imageAspect, id: id, userID: userID, nearestAirport: nearestAirport)
                 let addToMap = self?.shouldAddWaypointToMap(showOnlyMine: self?.showMyWayPoints, userID: userID)
                 if addToMap == true {
                     self?.waypoints.append(wayPointToBeAdded)
                     self?.mapView.addAnnotation(wayPointToBeAdded)
                 }
-                /*else {
-                    self?.excludedWaypoints.append(wayPointToBeAdded)
-                }*/
-                
             }
         })
     }
