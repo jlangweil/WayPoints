@@ -142,7 +142,10 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let turbulence = Severity(rawValue: turbulenceSelection.titleForSegment(at: turbulenceSelection.selectedSegmentIndex)!)
         let icing = Severity(rawValue: icingSelection.titleForSegment(at: icingSelection.selectedSegmentIndex)!)
         let precipitation = Precip(rawValue: precipitationSelection.titleForSegment(at: precipitationSelection.selectedSegmentIndex)!)
-        let clouds = cloudSelection.titleForSegment(at: cloudSelection.selectedSegmentIndex)
+        var clouds = ""
+        if cloudSelection.selectedSegmentIndex != -1 {
+            clouds = cloudSelection.titleForSegment(at: cloudSelection.selectedSegmentIndex)!
+        }
         let urgent = urgentSwitch.isOn
         let utcTime = "\(Date().preciseGMTDateTime)Z" //switch to timestamp?
         var altitude: String
@@ -172,7 +175,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         
         let closestAirport = nearestAirport.text
         
-        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds!, urgent: urgent, city: cityLocation, state: stateLocation, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: nil, userID: signedInUser, nearestAirport: closestAirport)
+        let annotation = WayPointAnnotation(coordinate: wayPointCoordinate!, title: "", subtitle: wayPointDescription.text, photo: imageView.image, time:utcTime, turbulence: turbulence!, icing: icing!, precipitation: precipitation!, clouds: clouds, urgent: urgent, city: cityLocation, state: stateLocation, altitude: altitude, aircraftRegistration: aircraftRegistration, aircraftType: aircraftType, imageAspect:imageAspect, id: nil, userID: signedInUser, nearestAirport: closestAirport)
         // save to database
         let key = saveAnnotationToDatabase(annotation)
         if imageAttached {
