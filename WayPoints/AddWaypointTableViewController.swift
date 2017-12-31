@@ -144,7 +144,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         let precipitation = Precip(rawValue: precipitationSelection.titleForSegment(at: precipitationSelection.selectedSegmentIndex)!)
         let clouds = cloudSelection.titleForSegment(at: cloudSelection.selectedSegmentIndex)
         let urgent = urgentSwitch.isOn
-        let utcTime = "\(Date().preciseGMTDateTime)Z"
+        let utcTime = "\(Date().preciseGMTDateTime)Z" //switch to timestamp?
         var altitude: String
         if manual {
             altitude = "\(Int(altitudeStepper.value))"

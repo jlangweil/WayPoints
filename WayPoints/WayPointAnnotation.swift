@@ -31,6 +31,7 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var imageAspect:String?
     var userID:String?
     var nearestAirport: String?
+    var timeTaken: String?  // will get the time string value from db
     
     //var uploaded:Bool = false
     

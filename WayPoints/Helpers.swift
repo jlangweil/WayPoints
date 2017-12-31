@@ -139,7 +139,7 @@ func getImageName(precip: Precip? ) -> String? {
         return fileName
     }
     else {
-        return nil
+        return "sunny"
     }
 }
 
@@ -184,11 +184,46 @@ extension String {
     func contains(find: String) -> Bool{
         return self.range(of: find) != nil
     }
+    
     func containsIgnoringCase(find: String) -> Bool{
         return self.range(of: find, options: .caseInsensitive) != nil
     }
     
+    func timeSinceString() -> String {
+        // will return time since in sec, min, or hours, if less than a day, else returns full date
+        let currentDate = Date()
+        let selfAsInt = Int(self)
+        
+        if selfAsInt != nil {
+            let timestamp = Double(selfAsInt!/1000)
+            let reportDate = Date(timeIntervalSince1970: timestamp)
+            let defaultDate = "\(reportDate.preciseGMTDateTime)Z"
+            let interval = currentDate.timeIntervalSince(reportDate)
+            let seconds = Int(interval) % 60
+            let minutes = Int(interval/60) % 60
+            let hours = Int(interval) / 3600
+            if hours >= 24 {
+                return defaultDate
+            }
+            else if hours > 0 && hours < 24 {
+                return "\(hours) hours ago"
+            }
+            else if minutes > 1 {
+                return "\(minutes) min ago"
+            }
+            else {
+                return "Just now"
+            }
+        }
+        else {
+            // invalid date or timestamp
+            return ""
+        }
+
+    }
+    
 }
+
 
 extension Formatter {
     // create static date formatters for your date representations
@@ -229,24 +264,10 @@ extension Date {
         return formatter.string(from: self)
     }
     
-    // you can create a read-only computed property to return just the nanoseconds from your date time
-    //var nanosecond: Int { return Calendar.current.component(.nanosecond,  from: self)   }
-    // the same for your local time
-    //var preciseLocalTime: String {
-    //    return Formatter.preciseLocalTime.string(for: self) ?? ""
-    //}
-    // or GMT time
-    //var preciseGMTTime: String {
-    //    return Formatter.preciseGMTTime.string(for: self) ?? ""
-    //}
     var preciseGMTDateTime: String {
-        /*print(self)
-        let test = Formatter.preciseGMTDateTime.string(for: self) ?? ""
-        print(test)
-        let test2 = self.convertToUTC()
-        print(test2)*/
         return self.convertToUTC()
     }
+    
     var currentDate: String {
        return Formatter.USDate.string(for: self) ?? ""
     }
@@ -405,6 +426,7 @@ class Airport {
         self.coordinate = CLLocation(latitude: lat, longitude: lon)
     }
 }
+
 
 
 

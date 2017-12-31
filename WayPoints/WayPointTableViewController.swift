@@ -76,7 +76,8 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
                 let longitude = userDict["longitude"] as! String
                 let precipitation = userDict["precipitation"] as! String
                 let clouds = userDict["clouds"] as? String ?? ""
-                let time = userDict["time"] as! String
+                let timestamp = userDict["timestamp"] as! Int
+                let time = String(timestamp)
                 let turbulence = userDict["turbulence"] as! String
                 let urgent = userDict["urgent"] as! Bool
                 let aircraftRegistration = userDict["aircraft"] as? String ?? ""
@@ -127,7 +128,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         if waypoints[indexPath.row].urgent {
             location = "\(location!) 🚨"
         }
-        let time = waypoints[indexPath.row].time
+        let time = waypoints[indexPath.row].time.timeSinceString()
         let altitude = waypoints[indexPath.row].altitude
         var conditions = ""
         if altitude != "" {

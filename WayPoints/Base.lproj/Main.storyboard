@@ -1330,10 +1330,10 @@ Happy flying!</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLx-Dn-Btj">
-                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="YMa-d1-Peh">
-                                <rect key="frame" x="141" y="229" width="37" height="37"/>
+                                <rect key="frame" x="141" y="207" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1617,7 +1617,7 @@ Happy flying!</string>
         <image name="satellite" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gvT-uu-C8Z"/>
-        <segue reference="1Ud-bt-60B"/>
+        <segue reference="TIi-Ww-qUW"/>
+        <segue reference="bFj-le-En0"/>
     </inferredMetricsTieBreakers>
 </document>
