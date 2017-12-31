@@ -76,7 +76,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         print("Number of pending uploads = \(pendingUploads)")
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         disableLocationServices()
@@ -337,6 +336,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         calloutView.wayPointDescription.text = wayPointAnnotation.subtitle
         calloutView.wayPointDescription.layer.borderWidth = 1
         calloutView.wayPointDescription.layer.borderColor = UIColor.black.cgColor
+        calloutView.wayPointDescription.contentOffset.y = -100
         calloutView.timeLabel.text = wayPointAnnotation.time
         //calloutView.location.text = wayPointAnnotation.getLocation()
         calloutView.location.text = wayPointAnnotation.nearestAirport!
