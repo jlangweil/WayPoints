@@ -330,14 +330,14 @@ extension Formatter {
     static let preciseGMTDateTime: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "UTC")
-        formatter.dateFormat = "MM/dd/YYYY HH:mm"
+        formatter.dateFormat = "MM/dd/yyyy HH:mm"
         return formatter
     }()
-    static let USDate: DateFormatter = {
+    /*static let USDate: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/YYYY"
+        formatter.dateFormat = "MM/dd/yyyy"
         return formatter
-    }()
+    }()*/
 }
 
 extension Date {
@@ -358,7 +358,9 @@ extension Date {
     }
     
     var currentDate: String {
-        return Formatter.USDate.string(for: self) ?? ""
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        return formatter.string(from: self)
     }
 }
 
