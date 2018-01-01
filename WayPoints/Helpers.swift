@@ -287,14 +287,18 @@ extension String {
             let reportDate = Date(timeIntervalSince1970: timestamp)
             let defaultDate = "\(reportDate.preciseGMTDateTime)Z"
             let interval = currentDate.timeIntervalSince(reportDate)
-            let seconds = Int(interval) % 60
+            //let seconds = Int(interval) % 60
             let minutes = Int(interval/60) % 60
             let hours = Int(interval) / 3600
             if hours >= 24 {
                 return defaultDate
             }
             else if hours > 0 && hours < 24 {
-                return "\(hours) hours ago"
+                var unit = "hours"
+                if hours == 1 {
+                    unit = "hour"
+                }
+                return "\(hours) \(unit) ago"
             }
             else if minutes > 1 {
                 return "\(minutes) min ago"
