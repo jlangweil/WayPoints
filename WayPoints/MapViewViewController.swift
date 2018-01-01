@@ -365,7 +365,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         calloutView.wayPointDescription.layer.borderWidth = 1
         calloutView.wayPointDescription.layer.borderColor = UIColor.black.cgColor
         calloutView.wayPointDescription.contentOffset.y = -100
-        calloutView.timeLabel.text = wayPointAnnotation.time.timeSinceString()
+        calloutView.timeLabel.text = wayPointAnnotation.time
         //calloutView.location.text = wayPointAnnotation.getLocation()
         calloutView.location.text = wayPointAnnotation.nearestAirport!
         if wayPointAnnotation.urgent {
@@ -500,8 +500,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
                 let latitude = userDict["latitude"] as! String
                 let longitude = userDict["longitude"] as! String
                 let precipitation = userDict["precipitation"] as! String
-                let timestamp = userDict["timestamp"] as! Int
-                let time = String(timestamp)
+                let time = userDict["time"] as? String ?? ""
+                //let time = String(timestamp)
                 let turbulence = userDict["turbulence"] as! String
                 let urgent = userDict["urgent"] as! Bool
                 let aircraftRegistration = userDict["aircraft"] as? String ?? ""
