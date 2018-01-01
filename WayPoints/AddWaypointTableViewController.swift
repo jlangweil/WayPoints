@@ -238,6 +238,14 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
                     activeUploads.remove(at: indexToRemove)
                 }
             }
+            uploadTask.observe(.failure) { snapshot in
+                print ("UPLOAD FAILED!!!!!")
+                pendingUploads -= 1
+                if let indexToRemove = activeUploads.index(of: imageNameWithoutFolder) {
+                    activeUploads.remove(at: indexToRemove)
+                // Upload will be retried from disc when app becomes active
+                }
+            }
         }
     }
     
