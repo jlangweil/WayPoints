@@ -68,12 +68,29 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         getWayPointsFromDatabase()
     }
     
+    @IBOutlet weak var pendingUploadView: UIView!
+    @IBOutlet weak var pendingUploadLabel: UILabel!
+    private var pendingUploadObserver: NSObjectProtocol!
+    
+    func updatePendingUploadsLabel() {
+        if pendingUploads == 0 {
+            pendingUploadView.isHidden=true
+        }
+        else {
+            pendingUploadLabel.text = "\(pendingUploads) Pending Upload"
+            if pendingUploads > 1 {
+                pendingUploadLabel.text = "\(pendingUploadLabel.text!)s"
+            }
+            pendingUploadView.isHidden=false
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpCustomHistory()
         setDateRanges()
         print("Number of pending uploads = \(pendingUploads)")
+        updatePendingUploadsLabel()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,6 +115,13 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         print ("RestoreMapPosition=\(restoreMapPosition)")
         
         self.mapView.delegate=self
+        
+        // set up notification of pending uploads
+        
+        pendingUploadObserver = NotificationCenter.default.addObserver(forName: .pendingUploadsChanged, object: nil, queue: .main) { [weak self] notification in
+            self?.updatePendingUploadsLabel()
+        }
+        
         let calendar = Calendar.current
         endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: Date())!
         setUpDatePicker()
@@ -136,6 +160,10 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         ///let widthConstraint = self.timeFilter.widthAnchor.constraint(equalToConstant: self.view.bounds.width)
         //widthConstraint.isActive = true
         
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(pendingUploadObserver)
     }
     
     func setUpCustomHistory() {

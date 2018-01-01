@@ -227,22 +227,16 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
             saveImageToDisc(data: data, imageName: imageName)
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
-            // Upload the file to the path "images/rivers.jpg"
             let uploadTask = imagesRef.putData(data, metadata: metadata)
-            /*{ (metadata, error) in
-                guard metadata != nil else {
-                    // Uh-oh, an error occurred!
-                    print("Error uploading file \(key)\(ext).jpg: \(error.debugDescription)")
-                    return
-                }*/
-            
-           // write filename to userdefaults
-            
+            activeUploads.append(imageNameWithoutFolder)
             uploadTask.observe(.success) { snapshot in
                print ("SUCESSS UPLOAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 // delete from disk
                 deleteImage(imageName: imageNameWithoutFolder)
                 pendingUploads -= 1
+                if let indexToRemove = activeUploads.index(of: imageNameWithoutFolder) {
+                    activeUploads.remove(at: indexToRemove)
+                }
             }
         }
     }

@@ -27,7 +27,14 @@ var signedInUser : String {
     }
 }
 var airports: [Airport] = []
-var pendingUploads: Int = 0
+var pendingUploads: Int = 0 {
+    didSet {
+        NotificationCenter.default.post(name: .pendingUploadsChanged, object: nil)
+    }
+}
+//store active uploads so they are not retried when application becomes active
+var activeUploads : [String] = []
+
 
 func loadAirports() {
     do {
@@ -163,178 +170,6 @@ func getWaypointPinName(conditions: [String?], urgent: Bool) -> String {
     }
 }
 
-// Extension methods
-
-extension String {
-    
-    func getAltitudeAsInteger() -> Int {
-        if let intValue = Int(self) {
-            return intValue
-        }
-        var retVal = 0
-        if let range = self.range(of: ".") {
-            let firstPart = self[(self.startIndex)..<range.lowerBound]
-            if let altitude = Int(firstPart) {
-                retVal = altitude
-            }
-        }
-        return retVal
-    }
-    
-    func contains(find: String) -> Bool{
-        return self.range(of: find) != nil
-    }
-    
-    func containsIgnoringCase(find: String) -> Bool{
-        return self.range(of: find, options: .caseInsensitive) != nil
-    }
-    
-    func timeSinceString() -> String {
-        // will return time since in sec, min, or hours, if less than a day, else returns full date
-        let currentDate = Date()
-        let selfAsInt = Int(self)
-        
-        if selfAsInt != nil {
-            let timestamp = Double(selfAsInt!/1000)
-            let reportDate = Date(timeIntervalSince1970: timestamp)
-            let defaultDate = "\(reportDate.preciseGMTDateTime)Z"
-            let interval = currentDate.timeIntervalSince(reportDate)
-            let seconds = Int(interval) % 60
-            let minutes = Int(interval/60) % 60
-            let hours = Int(interval) / 3600
-            if hours >= 24 {
-                return defaultDate
-            }
-            else if hours > 0 && hours < 24 {
-                return "\(hours) hours ago"
-            }
-            else if minutes > 1 {
-                return "\(minutes) min ago"
-            }
-            else {
-                return "Just now"
-            }
-        }
-        else {
-            // invalid date or timestamp
-            return ""
-        }
-
-    }
-    
-}
-
-
-extension Formatter {
-    // create static date formatters for your date representations
-    static let preciseLocalTime: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss.SSS"
-        return formatter
-    }()
-    static let preciseGMTTime: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(identifier: "UTC")
-        formatter.dateFormat = "HH:mm"
-        return formatter
-    }()
-    static let preciseGMTDateTime: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(identifier: "UTC")
-        formatter.dateFormat = "MM/dd/YYYY HH:mm"
-        return formatter
-    }()
-    static let USDate: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/YYYY"
-        return formatter
-    }()
-}
-
-extension Date {
-    
-    func toFirebaseTimestamp() -> Int {
-        return Int(self.timeIntervalSince1970) * 1000
-    }
-    
-    func convertToUTC() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy HH:mm"
-        formatter.timeZone = TimeZone(identifier: "UTC")
-        return formatter.string(from: self)
-    }
-    
-    var preciseGMTDateTime: String {
-        return self.convertToUTC()
-    }
-    
-    var currentDate: String {
-       return Formatter.USDate.string(for: self) ?? ""
-    }
-}
-
-extension UIImage {
-    
-    func resizeImage(targetSize: CGSize) -> UIImage {
-        let size = self.size
-        
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
-        
-        // Figure out what our orientation is, and use that to form the rectangle
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
-        }
-        
-        // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        self.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage!
-    }
-    
-
-    func normalizedImage() -> UIImage {
-        
-        if (self.imageOrientation == UIImageOrientation.up) {
-            return self;
-        }
-        
-        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale);
-        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
-        self.draw(in: rect)
-        
-        let normalizedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext();
-        return normalizedImage;
-    }
-    
-    func getThumbnailSize() -> CGSize {
-        let originalWidth = Int(self.size.width)
-        let originalHeight = Int(self.size.height)
-        var newWidth: Int
-        var newHeight: Int
-        let maxResolution = 960
-        if originalWidth > originalHeight {
-            newWidth = maxResolution
-            newHeight = Int((maxResolution * originalHeight) / originalWidth)
-        }
-        else {
-            newHeight = maxResolution
-            newWidth = Int ((maxResolution * originalWidth) / originalHeight)
-        }
-        return CGSize(width: newWidth, height: newHeight)
-    }
-}
-
 func reUploadImageToDatabase(data:Data, fileName: String) {
     let storage = Storage.storage()
     let storageRef = storage.reference()
@@ -391,7 +226,7 @@ func deleteImage(imageName: String) {
         let url = imagesPath.appendingPathComponent(imageName)
         try FileManager.default.removeItem(at: url)
     } catch let error as NSError {
-        print("Error: \(error.localizedDescription)")
+        print("Error: \(error.localizedDescription).")
     }
 }
 
@@ -402,10 +237,13 @@ func retryImageUploads() {
         let files = filemanager.enumerator(atPath: imagesPath.path)
         while let file = files?.nextObject() {
             print(file)
-            pendingUploads += 1
-            let fileNamePath = imagesPath.appendingPathComponent("\(file)")
-            let data = try Data.init(contentsOf: fileNamePath)
-            reUploadImageToDatabase(data: data, fileName: "\(file)")
+            // Retry only if add waypoint uploads isn't already in the process of trying.
+            if !activeUploads.contains("\(file)") {
+                pendingUploads += 1
+                let fileNamePath = imagesPath.appendingPathComponent("\(file)")
+                let data = try Data.init(contentsOf: fileNamePath)
+                reUploadImageToDatabase(data: data, fileName: "\(file)")
+            }
         }
     }
     catch let error as NSError {
@@ -413,16 +251,191 @@ func retryImageUploads() {
     }
 }
 
+// MARK: Extension methods
+
+extension String {
+    
+    func getAltitudeAsInteger() -> Int {
+        if let intValue = Int(self) {
+            return intValue
+        }
+        var retVal = 0
+        if let range = self.range(of: ".") {
+            let firstPart = self[(self.startIndex)..<range.lowerBound]
+            if let altitude = Int(firstPart) {
+                retVal = altitude
+            }
+        }
+        return retVal
+    }
+    
+    func contains(find: String) -> Bool{
+        return self.range(of: find) != nil
+    }
+    
+    func containsIgnoringCase(find: String) -> Bool{
+        return self.range(of: find, options: .caseInsensitive) != nil
+    }
+    
+    func timeSinceString() -> String {
+        // will return time since in sec, min, or hours, if less than a day, else returns full date
+        let currentDate = Date()
+        let selfAsInt = Int(self)
+        
+        if selfAsInt != nil {
+            let timestamp = Double(selfAsInt!/1000)
+            let reportDate = Date(timeIntervalSince1970: timestamp)
+            let defaultDate = "\(reportDate.preciseGMTDateTime)Z"
+            let interval = currentDate.timeIntervalSince(reportDate)
+            let seconds = Int(interval) % 60
+            let minutes = Int(interval/60) % 60
+            let hours = Int(interval) / 3600
+            if hours >= 24 {
+                return defaultDate
+            }
+            else if hours > 0 && hours < 24 {
+                return "\(hours) hours ago"
+            }
+            else if minutes > 1 {
+                return "\(minutes) min ago"
+            }
+            else {
+                return "Just now"
+            }
+        }
+        else {
+            // invalid date or timestamp
+            return ""
+        }
+    }
+}
+
+extension Formatter {
+    // create static date formatters for your date representations
+    static let preciseLocalTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss.SSS"
+        return formatter
+    }()
+    static let preciseGMTTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+    static let preciseGMTDateTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.dateFormat = "MM/dd/YYYY HH:mm"
+        return formatter
+    }()
+    static let USDate: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/YYYY"
+        return formatter
+    }()
+}
+
+extension Date {
+    
+    func toFirebaseTimestamp() -> Int {
+        return Int(self.timeIntervalSince1970) * 1000
+    }
+    
+    func convertToUTC() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy HH:mm"
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        return formatter.string(from: self)
+    }
+    
+    var preciseGMTDateTime: String {
+        return self.convertToUTC()
+    }
+    
+    var currentDate: String {
+        return Formatter.USDate.string(for: self) ?? ""
+    }
+}
+
+extension UIImage {
+    
+    func resizeImage(targetSize: CGSize) -> UIImage {
+        let size = self.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
+    
+    func normalizedImage() -> UIImage {
+        
+        if (self.imageOrientation == UIImageOrientation.up) {
+            return self;
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale);
+        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+        self.draw(in: rect)
+        
+        let normalizedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext();
+        return normalizedImage;
+    }
+    
+    func getThumbnailSize() -> CGSize {
+        let originalWidth = Int(self.size.width)
+        let originalHeight = Int(self.size.height)
+        var newWidth: Int
+        var newHeight: Int
+        let maxResolution = 960
+        if originalWidth > originalHeight {
+            newWidth = maxResolution
+            newHeight = Int((maxResolution * originalHeight) / originalWidth)
+        }
+        else {
+            newHeight = maxResolution
+            newWidth = Int ((maxResolution * originalWidth) / originalHeight)
+        }
+        return CGSize(width: newWidth, height: newHeight)
+    }
+}
+
+extension Notification.Name {
+    static let pendingUploadsChanged = Notification.Name(Bundle.main.bundleIdentifier! + ".pendingUploads")
+}
+
+// MARK: Supporting Classes
+
 class Airport {
     var icao: String
-    var lat: Double
-    var lon: Double
+    //var lat: Double
+    //var lon: Double
     var coordinate: CLLocation
     
     init(icao:String, lat:Double, lon:Double) {
         self.icao = icao
-        self.lat = lat
-        self.lon = lon
+        //self.lat = lat
+        //self.lon = lon
         self.coordinate = CLLocation(latitude: lat, longitude: lon)
     }
 }

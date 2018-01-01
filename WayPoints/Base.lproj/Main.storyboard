@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -75,6 +76,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4m9-kz-jaT">
+                                <rect key="frame" x="101" y="367" width="118" height="20"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Pending Uploads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00Y-Ob-ecY">
+                                        <rect key="frame" x="5.5" y="2.5" width="107" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="00Y-Ob-ecY" firstAttribute="centerX" secondItem="4m9-kz-jaT" secondAttribute="centerX" id="51e-RW-bUi"/>
+                                    <constraint firstAttribute="height" constant="20" id="Fue-fK-WRq"/>
+                                    <constraint firstItem="00Y-Ob-ecY" firstAttribute="centerY" secondItem="4m9-kz-jaT" secondAttribute="centerY" id="IJL-Ue-LzR"/>
+                                    <constraint firstAttribute="width" secondItem="00Y-Ob-ecY" secondAttribute="width" multiplier="1.1" id="hz6-th-a7q"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -90,10 +109,12 @@
                             <constraint firstItem="7DL-ZD-2sr" firstAttribute="top" secondItem="73x-uc-T38" secondAttribute="bottom" constant="4" id="RuW-u3-ltp"/>
                             <constraint firstItem="PhB-jD-VYJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Unx-7D-xHI"/>
                             <constraint firstItem="7DL-ZD-2sr" firstAttribute="centerX" secondItem="73x-uc-T38" secondAttribute="centerX" id="Vlg-Ht-RSK"/>
+                            <constraint firstItem="4m9-kz-jaT" firstAttribute="centerX" secondItem="PhB-jD-VYJ" secondAttribute="centerX" id="WYD-hq-fub"/>
                             <constraint firstItem="Pue-aF-djE" firstAttribute="centerX" secondItem="PhB-jD-VYJ" secondAttribute="centerX" id="bVe-FO-TUw"/>
                             <constraint firstItem="73x-uc-T38" firstAttribute="centerX" secondItem="Pue-aF-djE" secondAttribute="centerX" id="bkj-X9-BKZ"/>
                             <constraint firstAttribute="trailing" secondItem="o0t-Sv-JNF" secondAttribute="trailing" constant="8" id="eWl-1L-NGH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="o0t-Sv-JNF" secondAttribute="bottom" constant="16" id="fQJ-PA-XLy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4m9-kz-jaT" secondAttribute="bottom" id="i81-7I-8Dt"/>
                             <constraint firstItem="PhB-jD-VYJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uPX-Pz-ykr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -121,6 +142,8 @@
                     <connections>
                         <outlet property="mapTypeButton" destination="DxO-QT-VLm" id="fe4-xK-Vhj"/>
                         <outlet property="mapView" destination="PhB-jD-VYJ" id="v73-Hk-lD9"/>
+                        <outlet property="pendingUploadLabel" destination="00Y-Ob-ecY" id="8lI-5g-eXh"/>
+                        <outlet property="pendingUploadView" destination="4m9-kz-jaT" id="fR4-sj-sJO"/>
                         <outlet property="showMyWayPointsLabel" destination="7DL-ZD-2sr" id="lIy-g1-MG0"/>
                         <outlet property="showMyWayPointsSwitch" destination="73x-uc-T38" id="W9X-L6-KZJ"/>
                         <outlet property="timeDisplay" destination="Pue-aF-djE" id="OrV-gg-Oeg"/>
