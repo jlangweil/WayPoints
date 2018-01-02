@@ -124,11 +124,11 @@
                         <nil key="title"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="KuK-jd-vqa">
                             <segmentedControl key="customView" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" id="gbO-5W-akh">
-                                <rect key="frame" x="30" y="7.5" width="274" height="29"/>
+                                <rect key="frame" x="8" y="7" width="296" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Today"/>
-                                    <segment title="24hrs"/>
+                                    <segment title="Yesterday"/>
                                     <segment title="1 week"/>
                                     <segment title="Day"/>
                                 </segments>

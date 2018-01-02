@@ -216,7 +216,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     }
     
     func setDateRanges() {
-        // 0 = Today, 1 = 24 hrs, 2 = 1 week 3 = custom
+        // 0 = Today, 1 = Yesterday, 2 = 1 week 3 = custom
         let selection = timeFilter.selectedSegmentIndex
         let calendar = Calendar.current
         var dateOption: String?
@@ -227,7 +227,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endingDate)!
             datePickerContainer.isHidden=true
         case 1:
-            startingDate = calendar.date(byAdding: Calendar.Component.hour, value: -24, to: endingDate)!
+            startingDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: endingDate)!
+            startingDate = calendar.date(byAdding: Calendar.Component.day, value: -1, to: startingDate)!
+            endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: startingDate)!
             datePickerContainer.isHidden=true
         case 2:
             // custom view based on default of 1 week, or selected option in settings
