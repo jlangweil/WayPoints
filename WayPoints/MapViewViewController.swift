@@ -23,6 +23,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     var endDate:Int?
     var startingDate = Date()
     var endingDate = Date()
+    var selectedAnnotation: MKAnnotationView?
     
     @IBOutlet weak var mapTypeButton: UIButton!
     @IBAction func changeMapType(_ sender: Any) {
@@ -98,6 +99,16 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         disableLocationServices()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AppDelegate.AppUtility.lockOrientation(.portrait)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        AppDelegate.AppUtility.lockOrientation(.all)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -162,12 +173,16 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         setSegmentedControlPosition(width: size.width)
+        /*if let width = selectedAnnotation?.subviews[0].frame.width {
+            var i = 0
+        }*/
     }
     
     func setSegmentedControlPosition(width: CGFloat) {
         //let navWidth = self.navigationController!.navigationBar.frame.size.width
         let height = self.navigationController!.navigationBar.frame.size.height
         self.timeFilter.frame = CGRect(x: 16, y: 16, width: width-32, height: height-16)
+
     }
     
     func setUpCustomHistory() {
@@ -360,7 +375,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         {
             return
         }
-        
+        selectedAnnotation = view
         let wayPointAnnotation = view.annotation as! WayPointAnnotation
         let views = Bundle.main.loadNibNamed("CustomCalloutView", owner: nil, options: nil)
         let calloutView = views?[0] as! CustomCalloutView
