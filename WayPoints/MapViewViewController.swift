@@ -173,12 +173,18 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         setSegmentedControlPosition(width: size.width)
+        coordinator.animate(alongsideTransition: nil, completion: { [weak self] _ in
+            self?.setUpDatePicker()
+            if self?.timeFilter.selectedSegmentIndex == 3 {
+                self?.showDatePicker()
+            }
+        })
         /*if let width = selectedAnnotation?.subviews[0].frame.width {
             var i = 0
         }*/
     }
     
-    func setSegmentedControlPosition(width: CGFloat) {
+    private func setSegmentedControlPosition(width: CGFloat) {
         //let navWidth = self.navigationController!.navigationBar.frame.size.width
         let height = self.navigationController!.navigationBar.frame.size.height
         self.timeFilter.frame = CGRect(x: 16, y: 16, width: width-32, height: height-16)
@@ -278,7 +284,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         return startingDate
     }
     
-    func setUpDatePicker() {
+    /*func setUpDatePicker() {
         let datePicker : UIDatePicker = UIDatePicker()
         let viewWidth = self.view.frame.width
         datePickerContainer.frame = CGRect(x:0, y:80, width:viewWidth, height:250)
@@ -298,6 +304,34 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         doneButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
         doneButton.addTarget(self, action: #selector(dismissPicker), for: UIControlEvents.touchUpInside)
         doneButton.frame = CGRect(x:viewWidth-70-5, y:5, width:70, height:44)
+        
+        datePickerContainer.addSubview(doneButton)
+        self.view.addSubview(datePickerContainer)
+        datePickerContainer.isHidden=true
+    }*/
+    
+    func setUpDatePicker() {
+        let datePicker : UIDatePicker = UIDatePicker()
+        let viewWidth = self.view.frame.width
+        let navHeight = CGFloat(self.navigationController!.navigationBar.frame.size.height) + UIApplication.shared.statusBarFrame.height
+        //datePickerContainer.frame = CGRect(x:0, y:navHeight, width:300, height:250)
+        datePickerContainer.frame = CGRect(x:viewWidth-300, y:navHeight, width:300, height:250)
+        datePickerContainer.backgroundColor = UIColor.white
+        
+        let pickerSize : CGSize = datePicker.sizeThatFits(CGSize.zero)
+        
+        
+        datePicker.frame = CGRect(x:0, y:50, width:pickerSize.width, height:200)
+        datePicker.setDate(Date(), animated: true)
+        datePicker.maximumDate = Date()
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(dateChanged), for: UIControlEvents.valueChanged)
+        datePickerContainer.addSubview(datePicker)
+        let doneButton = UIButton()
+        doneButton.setTitle("Done", for: UIControlState.normal)
+        doneButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
+        doneButton.addTarget(self, action: #selector(dismissPicker), for: UIControlEvents.touchUpInside)
+        doneButton.frame = CGRect(x:225, y:15, width:70, height:44)
         
         datePickerContainer.addSubview(doneButton)
         self.view.addSubview(datePickerContainer)
@@ -440,7 +474,11 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         }
         
         // Resize callout relative to screen width
-        let resizedWidth = mapView.frame.width * 0.9
+        var calloutPercent = CGFloat(0.9)
+        if UIDevice.current.orientation == .landscapeLeft ||  UIDevice.current.orientation == .landscapeRight {
+            calloutPercent = 0.55
+        }
+        let resizedWidth = mapView.frame.width * calloutPercent
         calloutView.frame.size = CGSize(width: resizedWidth, height: resizedWidth/2.418)
         calloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -calloutView.bounds.size.height*0.52)
         

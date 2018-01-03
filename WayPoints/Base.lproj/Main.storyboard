@@ -63,19 +63,24 @@
                                     <segue destination="Jwi-nC-SDG" kind="show" identifier="addNew" id="bFj-le-En0"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="73x-uc-T38">
-                                <rect key="frame" x="136" y="92.5" width="51" height="31"/>
-                                <color key="onTintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="showMyWayPointsOnly:" destination="BYZ-38-t0r" eventType="valueChanged" id="Pmo-UU-98D"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All WayPoints" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DL-ZD-2sr">
-                                <rect key="frame" x="120" y="127.5" width="82.5" height="14.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="e1O-2K-zUT">
+                                <rect key="frame" x="119" y="323.5" width="82.5" height="45.5"/>
+                                <subviews>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="73x-uc-T38">
+                                        <rect key="frame" x="17" y="0.0" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="showMyWayPointsOnly:" destination="BYZ-38-t0r" eventType="valueChanged" id="Pmo-UU-98D"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All WayPoints" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DL-ZD-2sr">
+                                        <rect key="frame" x="0.0" y="31" width="82.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4m9-kz-jaT">
                                 <rect key="frame" x="101" y="367" width="118" height="20"/>
                                 <subviews>
@@ -99,22 +104,20 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PhB-jD-VYJ" secondAttribute="bottom" id="1OD-Zf-4Ko"/>
                             <constraint firstItem="DxO-QT-VLm" firstAttribute="trailing" secondItem="o0t-Sv-JNF" secondAttribute="trailing" id="2ha-Z9-KiW"/>
-                            <constraint firstItem="73x-uc-T38" firstAttribute="top" secondItem="Pue-aF-djE" secondAttribute="bottom" constant="8" id="7XQ-9f-Yc7"/>
                             <constraint firstItem="DxO-QT-VLm" firstAttribute="top" secondItem="tBz-YV-8pb" secondAttribute="bottom" constant="8" id="9CI-qc-gXb"/>
                             <constraint firstAttribute="trailing" secondItem="PhB-jD-VYJ" secondAttribute="trailing" id="FE1-Rh-NFK"/>
                             <constraint firstItem="o0t-Sv-JNF" firstAttribute="top" secondItem="DxO-QT-VLm" secondAttribute="bottom" constant="8" id="FEM-5v-gCy"/>
                             <constraint firstItem="Pue-aF-djE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="H3Y-Zu-7iO"/>
                             <constraint firstItem="tBz-YV-8pb" firstAttribute="trailing" secondItem="DxO-QT-VLm" secondAttribute="trailing" id="N6q-gD-PDE"/>
                             <constraint firstItem="Pue-aF-djE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="4" id="OPq-QO-JKh"/>
-                            <constraint firstItem="7DL-ZD-2sr" firstAttribute="top" secondItem="73x-uc-T38" secondAttribute="bottom" constant="4" id="RuW-u3-ltp"/>
                             <constraint firstItem="PhB-jD-VYJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Unx-7D-xHI"/>
-                            <constraint firstItem="7DL-ZD-2sr" firstAttribute="centerX" secondItem="73x-uc-T38" secondAttribute="centerX" id="Vlg-Ht-RSK"/>
                             <constraint firstItem="4m9-kz-jaT" firstAttribute="centerX" secondItem="PhB-jD-VYJ" secondAttribute="centerX" id="WYD-hq-fub"/>
                             <constraint firstItem="Pue-aF-djE" firstAttribute="centerX" secondItem="PhB-jD-VYJ" secondAttribute="centerX" id="bVe-FO-TUw"/>
-                            <constraint firstItem="73x-uc-T38" firstAttribute="centerX" secondItem="Pue-aF-djE" secondAttribute="centerX" id="bkj-X9-BKZ"/>
                             <constraint firstAttribute="trailing" secondItem="o0t-Sv-JNF" secondAttribute="trailing" constant="8" id="eWl-1L-NGH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="o0t-Sv-JNF" secondAttribute="bottom" constant="16" id="fQJ-PA-XLy"/>
+                            <constraint firstItem="e1O-2K-zUT" firstAttribute="centerY" secondItem="o0t-Sv-JNF" secondAttribute="centerY" id="fpN-Iy-xj0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4m9-kz-jaT" secondAttribute="bottom" id="i81-7I-8Dt"/>
+                            <constraint firstItem="e1O-2K-zUT" firstAttribute="centerX" secondItem="PhB-jD-VYJ" secondAttribute="centerX" id="lCs-5h-5tB"/>
                             <constraint firstItem="PhB-jD-VYJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uPX-Pz-ykr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -1356,7 +1359,7 @@ Happy flying!</string>
                                 <rect key="frame" x="0.0" y="64" width="320" height="323"/>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="YMa-d1-Peh">
-                                <rect key="frame" x="141" y="207" width="37" height="37"/>
+                                <rect key="frame" x="141.5" y="207" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
