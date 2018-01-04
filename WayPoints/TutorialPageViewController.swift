@@ -11,6 +11,14 @@ import UIKit
 class TutorialPageViewController: UIPageViewController, UIPageViewControllerDelegate {
 
     var pageControl = UIPageControl()
+
+    @IBOutlet weak var skipButton: UIBarButtonItem!
+    @IBAction func skip(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "tab") as! UITabBarController
+        self.present(controller, animated: true, completion: { () -> Void in
+        })
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +54,7 @@ class TutorialPageViewController: UIPageViewController, UIPageViewControllerDele
     }
     
     func configurePageControl() {
-        let tabBarHeight = self.tabBarController!.tabBar.frame.height
+        let tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
         pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - tabBarHeight - 50,width: UIScreen.main.bounds.width,height: 50))
         self.pageControl.numberOfPages = orderedViewControllers.count
         self.pageControl.currentPage = 0
@@ -118,6 +126,5 @@ extension TutorialPageViewController: UIPageViewControllerDataSource {
         
         return firstViewControllerIndex
     }
-   
     
 }

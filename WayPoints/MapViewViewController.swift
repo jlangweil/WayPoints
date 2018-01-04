@@ -122,7 +122,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         let defaultLongitude = -74.0
         
         // set map bounds here if setting to do so is set
-        let restoreMapPosition = defaults.bool(forKey: "saveMapPosition")
+        let restoreMapPosition = defaults.bool(forKey: "saveMapPosition")  //default is false if key not found
         print ("RestoreMapPosition=\(restoreMapPosition)")
         
         self.mapView.delegate=self
@@ -167,7 +167,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(pendingUploadObserver)
+        if pendingUploadObserver != nil {
+            NotificationCenter.default.removeObserver(pendingUploadObserver)
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

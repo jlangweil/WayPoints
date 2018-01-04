@@ -17,6 +17,8 @@ import FirebaseTwitterAuthUI
 
 class LoginViewController: UIViewController, FUIAuthDelegate {
     
+    var firstTimeUser : Bool = false
+    
     func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
         if user != nil {
             print("User signed in=\(user!.displayName!)")
@@ -29,11 +31,23 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
     }
     
     func startApp() {
-        self.performSegue(withIdentifier: "startApp", sender: nil)
+        if firstTimeUser {
+            self.performSegue(withIdentifier: "showTutorialForFirstTime", sender: nil)
+        }
+        else {
+            self.performSegue(withIdentifier: "startApp", sender: nil)
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if defaults.contains(key: "firstTimeUser") {
+            firstTimeUser = defaults.bool(forKey: "firstTimeUser")
+        }
+        else {
+            firstTimeUser = true // we are using for the first time, or first time with this value, show the tutorial
+            defaults.set(false, forKey: "firstTimeUser") // set the value so next time we don't show the tutoral
+        }
         checkLoggedIn()
 
     }
@@ -67,14 +81,12 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showTutorialForFirstTime" {
+             if let navigationVC = segue.destination as? UINavigationController, let tutorialVC = navigationVC.topViewController as? TutorialPageViewController {
+                //tutorialVC.comingFromHelpScreen = false
+            }
+        }
     }
-    */
 
 }

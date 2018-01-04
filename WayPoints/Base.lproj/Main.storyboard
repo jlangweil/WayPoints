@@ -603,16 +603,17 @@
                     </view>
                     <connections>
                         <segue destination="EKN-6I-46A" kind="show" identifier="startApp" id="vju-fY-brf"/>
+                        <segue destination="YpY-9d-f9u" kind="show" identifier="showTutorialForFirstTime" id="3OS-YW-bif"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a65-if-tIQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-951" y="-263"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--tab-->
         <scene sceneID="YIN-aH-bi6">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="EKN-6I-46A" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tab" title="tab" automaticallyAdjustsScrollViewInsets="NO" id="EKN-6I-46A" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PZh-H7-tXJ">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1382,10 +1383,12 @@ Happy flying!</string>
             </objects>
             <point key="canvasLocation" x="2598" y="635"/>
         </scene>
-        <!--Tutorial Page View Controller-->
+        <!--Tutorial-->
         <scene sceneID="BPw-5h-tjL">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="iDf-Pq-t82" customClass="TutorialPageViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="iDf-Pq-t82" customClass="TutorialPageViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Tutorial" id="kCO-Ni-9Br"/>
+                </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AhY-sQ-yH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3326" y="1363"/>
@@ -1703,6 +1706,43 @@ Happy flying!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Liv-Du-bbb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8685" y="1369"/>
+        </scene>
+        <!--Tutorial-->
+        <scene sceneID="hiW-xF-X7J">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="scK-Vr-bSH" customClass="TutorialPageViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Tutorial" id="wUb-sZ-RRj">
+                        <barButtonItem key="rightBarButtonItem" title="Skip" id="EI3-iv-QCq">
+                            <connections>
+                                <action selector="skip:" destination="scK-Vr-bSH" id="r1A-MD-3Px"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="skipButton" destination="EI3-iv-QCq" id="AT5-cV-AUV"/>
+                    </connections>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZdP-JB-poL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5025" y="650"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Tzo-2F-ayg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YpY-9d-f9u" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QxK-mj-lYj">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="scK-Vr-bSH" kind="relationship" relationship="rootViewController" id="yFd-37-mZs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ONi-hO-vVt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3924" y="650"/>
         </scene>
     </scenes>
     <resources>
