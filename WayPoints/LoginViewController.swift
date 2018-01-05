@@ -30,7 +30,7 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
         }
     }
     
-    func startApp() {
+    private func startApp() {
         if firstTimeUser {
             self.performSegue(withIdentifier: "showTutorialForFirstTime", sender: nil)
         }
@@ -52,7 +52,7 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
 
     }
 
-    func checkLoggedIn() {
+    private func checkLoggedIn() {
        Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
              print("User is signed in already as: \(user!.uid)")
@@ -65,7 +65,7 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
         
     }
     
-    func login() {
+     private func login() {
         let authUI = FUIAuth.defaultAuthUI()
         let facebookProvider = FUIGoogleAuth()
         let googleProvider = FUIFacebookAuth()
@@ -81,12 +81,12 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
     }
     
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showTutorialForFirstTime" {
              if let navigationVC = segue.destination as? UINavigationController, let tutorialVC = navigationVC.topViewController as? TutorialPageViewController {
                 //tutorialVC.comingFromHelpScreen = false
             }
         }
-    }
+    }*/
 
 }

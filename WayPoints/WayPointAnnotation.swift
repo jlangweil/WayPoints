@@ -31,9 +31,7 @@ class WayPointAnnotation: NSObject, MKAnnotation {
     var imageAspect:String?
     var userID:String?
     var nearestAirport: String?
-    var timeTaken: String?  // will get the time string value from db
-    
-    //var uploaded:Bool = false
+    var timeTaken: String?  
     
     init(coordinate:CLLocationCoordinate2D, title:String?, subtitle:String?, photo:UIImage?, time:String, turbulence:Severity, icing: Severity, precipitation: Precip, clouds: String, urgent: Bool, city: String?, state: String?, altitude: String, aircraftRegistration: String, aircraftType:String, imageAspect:String?, id: String?, userID: String?, nearestAirport: String?){
         self.id=id

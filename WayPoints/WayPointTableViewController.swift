@@ -47,14 +47,6 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         AppDelegate.AppUtility.lockOrientation(.all)
     }
     
-    
-    private func getWayPointsFromMapView() -> [WayPointAnnotation]{
-        if mapVC!.waypoints.count == 0 {
-            mapVC!.getWayPointsFromDatabase()
-        }
-        return mapVC!.waypoints
-    }
-    
     @IBAction func refreshData(_ sender: UIRefreshControl) {
         self.tableView.reloadData()
         sender.endRefreshing()
@@ -161,7 +153,6 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
             wayPointCell.imageID = id
             //wayPointCell.spinner.startAnimating()
             let placeholder = UIImage(named: "placeholder")
-            //wayPointCell.wayPointTableData = WayPointCustomTableCellData(image: placeholder, time: time, location: location, description: description)
             wayPointCell.wayPointImageView.image = placeholder
             wayPointCell.wayPointTitleLabel.text = location
             wayPointCell.wayPointDescriptionLabel.text = description
@@ -227,7 +218,7 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    func filterSearch() {
+    private func filterSearch() {
         waypoints = waypoints.filter { ($0.city?.contains(find: searchTerm!) ?? false) || ($0.state?.contains(find: searchTerm!) ?? false) || $0.subtitle?.contains(find: searchTerm!) ?? false || ($0.aircraftRegistration.contains(find: searchTerm!) || ($0.aircraftType.contains(find: searchTerm!)))}
         self.tableView.reloadData()
     }
@@ -243,10 +234,6 @@ class WayPointTableViewController: UITableViewController, UISearchBarDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Pass the ImageID for the full sized image to the photo controller to load
-        //if let photoController = segue.destination as? WayPointPhotoViewController,let imageID = sender as? String {
-       //     photoController.idOfImageToLoad = imageID
-       // }
         if let photoController = segue.destination as? WayPointPhotoViewController,let imageView = sender as? UIImageView {
             photoController.image = imageView.image
         }

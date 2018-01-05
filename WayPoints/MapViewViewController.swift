@@ -73,7 +73,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     @IBOutlet weak var pendingUploadLabel: UILabel!
     private var pendingUploadObserver: NSObjectProtocol!
     
-    func updatePendingUploadsLabel() {
+    private func updatePendingUploadsLabel() {
         if pendingUploads == 0 {
             pendingUploadView.isHidden=true
         }
@@ -193,7 +193,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 
     }
     
-    func setUpCustomHistory() {
+    private func setUpCustomHistory() {
         if let history=defaults.string(forKey: "waypointhistory") {
             self.timeFilter.setTitle(history, forSegmentAt: 2)
         }
@@ -223,7 +223,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         defaults.synchronize()
     }
     
-    func setDateRanges() {
+    private func setDateRanges() {
         // 0 = Today, 1 = Yesterday, 2 = 1 week 3 = custom
         let selection = timeFilter.selectedSegmentIndex
         let calendar = Calendar.current
@@ -260,7 +260,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
     }
     
-    func getCustomStartingDate(_ dateOption: String, endingDate: Date) -> Date {
+    private func getCustomStartingDate(_ dateOption: String, endingDate: Date) -> Date {
         let calendar = Calendar.current
         var startingDate : Date
         switch dateOption {
@@ -286,33 +286,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         return startingDate
     }
     
-    /*func setUpDatePicker() {
-        let datePicker : UIDatePicker = UIDatePicker()
-        let viewWidth = self.view.frame.width
-        datePickerContainer.frame = CGRect(x:0, y:80, width:viewWidth, height:250)
-        datePickerContainer.backgroundColor = UIColor.white
-        
-        let pickerSize : CGSize = datePicker.sizeThatFits(CGSize.zero)
-        
-        
-        datePicker.frame = CGRect(x:0, y:50, width:pickerSize.width, height:200)
-        datePicker.setDate(Date(), animated: true)
-        datePicker.maximumDate = Date()
-        datePicker.datePickerMode = .date
-        datePicker.addTarget(self, action: #selector(dateChanged), for: UIControlEvents.valueChanged)
-        datePickerContainer.addSubview(datePicker)
-        let doneButton = UIButton()
-        doneButton.setTitle("Done", for: UIControlState.normal)
-        doneButton.setTitleColor(UIColor.blue, for: UIControlState.normal)
-        doneButton.addTarget(self, action: #selector(dismissPicker), for: UIControlEvents.touchUpInside)
-        doneButton.frame = CGRect(x:viewWidth-70-5, y:5, width:70, height:44)
-        
-        datePickerContainer.addSubview(doneButton)
-        self.view.addSubview(datePickerContainer)
-        datePickerContainer.isHidden=true
-    }*/
-    
-    func setUpDatePicker() {
+    private func setUpDatePicker() {
         let datePicker : UIDatePicker = UIDatePicker()
         let viewWidth = self.view.frame.width
         let navHeight = CGFloat(self.navigationController!.navigationBar.frame.size.height) + UIApplication.shared.statusBarFrame.height
@@ -340,7 +314,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         datePickerContainer.isHidden=true
     }
     
-    func showDatePicker() {
+    private func showDatePicker() {
         datePickerContainer.isHidden=false
         if let datePicker = datePickerContainer.subviews[0] as? UIDatePicker {
             let datePickerDate = datePicker.date
@@ -352,7 +326,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         getWayPointsFromDatabase()
         self.datePickerContainer.isHidden=true
         self.timeFilter.selectedSegmentIndex = -1
-    }// end dismissPicker
+    }
     
     @objc func dateChanged(_ sender: UIDatePicker){
         let calendar = Calendar.current
@@ -364,7 +338,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         print("Start Timestamp: \(self.startDate!), End Timestamp: \(self.endDate!)")
     }
     
-    func setDatePickerDate(dateToSet: Date) {
+    private func setDatePickerDate(dateToSet: Date) {
         let calendar = Calendar.current
         startingDate = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: dateToSet)!
         endingDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: dateToSet)!
@@ -516,7 +490,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         }
     }
     
-    func doesUserWantToCreateAWayPoint(at coordinate: CLLocationCoordinate2D) {
+    private func doesUserWantToCreateAWayPoint(at coordinate: CLLocationCoordinate2D) {
         self.mapCenter = coordinate
         let alert = UIAlertController(title: "Manual Waypoint", message: "Create a waypoint at this location?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
@@ -540,7 +514,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         }
     }
     
-    func getWayPointsFromDatabase() {
+    private func getWayPointsFromDatabase() {
         self.mapView.removeAnnotations(waypoints)
         waypoints.removeAll()
         let ref = Database.database().reference()

@@ -25,9 +25,6 @@ class TutorialPageViewController: UIPageViewController, UIPageViewControllerDele
         self.dataSource=self
         self.delegate=self
         configurePageControl()
-        
-        
-        
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],
                                direction: .forward,
@@ -53,7 +50,7 @@ class TutorialPageViewController: UIPageViewController, UIPageViewControllerDele
             instantiateViewController(withIdentifier: "tutorial\(number)")
     }
     
-    func configurePageControl() {
+    private func configurePageControl() {
         let tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
         pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - tabBarHeight - 50,width: UIScreen.main.bounds.width,height: 50))
         self.pageControl.numberOfPages = orderedViewControllers.count

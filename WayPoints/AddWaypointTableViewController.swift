@@ -199,7 +199,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         
     }
     
-    func saveAnnotationToDatabase(_ waypoint:WayPointAnnotation) -> String {
+    private func saveAnnotationToDatabase(_ waypoint:WayPointAnnotation) -> String {
         // Add data to Firebase
         let rootRef = Database.database().reference().child("waypoints");
         let key = rootRef.childByAutoId().key
@@ -209,7 +209,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         return key
     }
     
-    func saveImageToDatabase(image:UIImage, key:String, thumbnail:Bool) {
+    private func saveImageToDatabase(image:UIImage, key:String, thumbnail:Bool) {
         pendingUploads += 1
         let storage = Storage.storage()
         let storageRef = storage.reference()
@@ -249,7 +249,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         }
     }
     
-    func displayNoGpsAlert() {
+    private func displayNoGpsAlert() {
         let alert = UIAlertController(title: "Warning", message: "Unable to save - NO GPS Signal\nLong press on map to manually select location", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true)
@@ -299,7 +299,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         }
     }
     
-    func getAirportString(location: CLLocation) -> String {
+    private func getAirportString(location: CLLocation) -> String {
         let closestAirport = getClosestAirport(location: location)
         let closestAirportName = closestAirport?.icao
         let distance = location.distance(from: closestAirport!.coordinate) * 0.000539957
@@ -311,7 +311,7 @@ class AddWaypointTableViewController: UITableViewController, CLLocationManagerDe
         return airportString
     }
     
-    func setLocationUsingGeoCoder(location: CLLocation) {
+    private func setLocationUsingGeoCoder(location: CLLocation) {
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location, completionHandler: {[weak self](placemarks, error) in
             if (error != nil) {

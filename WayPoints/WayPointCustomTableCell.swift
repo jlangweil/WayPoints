@@ -23,21 +23,5 @@ class WayPointCustomTableCell: UITableViewCell {
     
     var imageID : String?
     
-    //var wayPointTableData: WayPointCustomTableCellData? { didSet {updateUI() } }
-    
-    //private func updateUI() {
-    //    wayPointDescriptionLabel.text = wayPointTableData?.description
-    //    wayPointImageView.image = wayPointTableData?.image
-    //    wayPointTitleLabel.text = wayPointTableData?.location
-    //}
-    
-    //override func awakeFromNib() {
-    //    super.awakeFromNib()
-     //   // Initialization code
-    //}
-    
-  
-    
-
 
 }
