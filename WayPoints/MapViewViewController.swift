@@ -397,7 +397,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         calloutView.wayPointDescription.layer.borderColor = UIColor.black.cgColor
         calloutView.wayPointDescription.contentOffset.y = -100
         calloutView.timeLabel.text = wayPointAnnotation.time
-        //calloutView.location.text = wayPointAnnotation.getLocation()
         calloutView.location.text = wayPointAnnotation.nearestAirport!
         if wayPointAnnotation.urgent {
             calloutView.location.text = "\(calloutView.location.text!) 🚨"
@@ -413,7 +412,9 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         calloutView.skyStatus.text = wayPointAnnotation.clouds
         var acType=""
         if wayPointAnnotation.aircraftType != "" {
-            acType = " (\(wayPointAnnotation.aircraftType))"
+            if wayPointAnnotation.aircraftType != "" {
+                acType = " 𐄁 \(wayPointAnnotation.aircraftType)"
+            }
         }
         calloutView.userLabel.text = "\(wayPointAnnotation.aircraftRegistration)\(acType)"
         
