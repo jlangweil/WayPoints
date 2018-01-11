@@ -260,7 +260,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-Ks-y3n">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Optional)" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-Ks-y3n">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1167,13 +1167,13 @@
         <!--About WayPoints-->
         <scene sceneID="tdT-xS-CYa">
             <objects>
-                <viewController title="About WayPoints" id="ZBB-VB-Nck" sceneMemberID="viewController">
+                <viewController title="About WayPoints" id="ZBB-VB-Nck" customClass="AboutViewController" customModule="WayPoints" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VYc-5z-Edh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h2i-l6-4Wy">
-                                <rect key="frame" x="16" y="64" width="288" height="347"/>
+                                <rect key="frame" x="16" y="64" width="288" height="351"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Welcome to WayPoints, the new and improved social pirep tool!  
 
@@ -1183,7 +1183,7 @@ Using a cloud database that works if you are online or not, upload your info and
 
 Uses your GPS location for a report, or, if you forget and want to add a report later, simply long tap anywhere on the map to add a waypoint report at that location.
 
-For support contact: waypoints@gmail.com
+For support contact: waypointsmapper@gmail.com
 
 Happy flying!</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -1198,7 +1198,7 @@ Happy flying!</string>
                             <constraint firstItem="EJY-FE-PfF" firstAttribute="trailing" secondItem="h2i-l6-4Wy" secondAttribute="trailing" constant="16" id="0Ny-vq-O7O"/>
                             <constraint firstItem="wh3-05-sD6" firstAttribute="top" secondItem="EJY-FE-PfF" secondAttribute="top" id="4Y2-HI-buF"/>
                             <constraint firstItem="h2i-l6-4Wy" firstAttribute="leading" secondItem="EJY-FE-PfF" secondAttribute="leading" constant="16" id="PGW-8R-9Tm"/>
-                            <constraint firstItem="EJY-FE-PfF" firstAttribute="bottom" secondItem="h2i-l6-4Wy" secondAttribute="bottom" constant="20" id="VcW-XN-ZWU"/>
+                            <constraint firstItem="EJY-FE-PfF" firstAttribute="bottom" secondItem="h2i-l6-4Wy" secondAttribute="bottom" constant="16" id="VcW-XN-ZWU"/>
                             <constraint firstItem="h2i-l6-4Wy" firstAttribute="top" secondItem="wh3-05-sD6" secondAttribute="top" id="WfB-2s-RMq"/>
                             <constraint firstItem="EJY-FE-PfF" firstAttribute="trailing" secondItem="wh3-05-sD6" secondAttribute="trailing" id="euF-Kd-LAJ"/>
                             <constraint firstItem="EJY-FE-PfF" firstAttribute="bottom" secondItem="wh3-05-sD6" secondAttribute="bottom" id="hMR-vU-vL9"/>
@@ -1206,6 +1206,13 @@ Happy flying!</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EJY-FE-PfF"/>
                     </view>
+                    <navigationItem key="navigationItem" title="About" id="jnI-r0-wgZ">
+                        <barButtonItem key="rightBarButtonItem" title="Mail" image="mail" id="4Kq-DR-k9I">
+                            <connections>
+                                <action selector="sendEmail:" destination="ZBB-VB-Nck" id="hpD-iq-sli"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mj-es-DHE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1752,6 +1759,7 @@ Happy flying!</string>
         <image name="gps" width="50" height="50"/>
         <image name="icons8-list-filled" width="25" height="25"/>
         <image name="icons8-settings-filled" width="25" height="25"/>
+        <image name="mail" width="25" height="25"/>
         <image name="mapIcon" width="25" height="25"/>
         <image name="satellite" width="50" height="50"/>
         <image name="tutorial1" width="1125" height="2436"/>

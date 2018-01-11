@@ -15,6 +15,7 @@
 		1805002F1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805002E1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift */; };
 		1806DD951FE4633300F552EB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1806DD941FE4633300F552EB /* LoginViewController.swift */; };
 		1808EF361FEC32A800C03D57 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808EF351FEC32A800C03D57 /* TutorialPageViewController.swift */; };
+		181850BF20070DB30029CC34 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181850BE20070DB30029CC34 /* AboutViewController.swift */; };
 		184D23461FB7CEF2005D0BA8 /* WaypointEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D23451FB7CEF2005D0BA8 /* WaypointEnums.swift */; };
 		184D23481FB8FDDE005D0BA8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D23471FB8FDDE005D0BA8 /* Helpers.swift */; };
 		184D234A1FBB3F60005D0BA8 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D23491FBB3F60005D0BA8 /* SettingsTableViewController.swift */; };
@@ -47,6 +48,7 @@
 		1806DD931FE4566200F552EB /* WayPoints.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WayPoints.entitlements; sourceTree = "<group>"; };
 		1806DD941FE4633300F552EB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1808EF351FEC32A800C03D57 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
+		181850BE20070DB30029CC34 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		184D23451FB7CEF2005D0BA8 /* WaypointEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointEnums.swift; sourceTree = "<group>"; };
 		184D23471FB8FDDE005D0BA8 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		184D23491FBB3F60005D0BA8 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				1873F2D01FB53DB600570C24 /* AddWaypointTableViewController.swift */,
 				18D7AF071F9945500087B9E6 /* MapViewViewController.swift */,
 				189EB9DF1F95471D00BBDF90 /* Main.storyboard */,
+				181850BE20070DB30029CC34 /* AboutViewController.swift */,
 				1808EF351FEC32A800C03D57 /* TutorialPageViewController.swift */,
 				1806DD941FE4633300F552EB /* LoginViewController.swift */,
 				189EB9E71F95471D00BBDF90 /* LaunchScreen.storyboard */,
@@ -196,7 +199,7 @@
 				TargetAttributes = {
 					189EB9D71F95471D00BBDF90 = {
 						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -344,6 +347,7 @@
 				18948E7C1FE76D11001A6221 /* WayPointCollectionViewCell.swift in Sources */,
 				185355A81FB26C6200D169BF /* WayPointPhotoViewController.swift in Sources */,
 				1805002F1FAFCBCE00644FF4 /* WayPointCustomTableCellData.swift in Sources */,
+				181850BF20070DB30029CC34 /* AboutViewController.swift in Sources */,
 				18D7AF081F9945500087B9E6 /* MapViewViewController.swift in Sources */,
 				184D23461FB7CEF2005D0BA8 /* WaypointEnums.swift in Sources */,
 				184D234C1FBB46F7005D0BA8 /* SettingsAircraftTableViewController.swift in Sources */,
@@ -500,16 +504,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WayPoints/WayPoints.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = L8E4W5GT7U;
 				INFOPLIST_FILE = WayPoints/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jel.WayPoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "e657a9e7-3c49-44fe-87fb-359df7e36fab";
+				PROVISIONING_PROFILE_SPECIFIER = Waypoints;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -522,16 +526,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WayPoints/WayPoints.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = L8E4W5GT7U;
 				INFOPLIST_FILE = WayPoints/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jel.WayPoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "e657a9e7-3c49-44fe-87fb-359df7e36fab";
+				PROVISIONING_PROFILE_SPECIFIER = Waypoints;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
