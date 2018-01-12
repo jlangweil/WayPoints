@@ -410,13 +410,13 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             calloutView.precipImage.image = UIImage(named: precipImageName!)
         }
         calloutView.skyStatus.text = wayPointAnnotation.clouds
-        var acType=""
-        if wayPointAnnotation.aircraftType != "" {
-            if wayPointAnnotation.aircraftType != "" {
-                acType = " 𐄁 \(wayPointAnnotation.aircraftType)"
-            }
+        
+        if wayPointAnnotation.aircraftType != "" && wayPointAnnotation.aircraftRegistration != "" {
+            calloutView.userLabel.text = "\(wayPointAnnotation.aircraftRegistration) 𐄁 \(wayPointAnnotation.aircraftType)"
         }
-        calloutView.userLabel.text = "\(wayPointAnnotation.aircraftRegistration)\(acType)"
+        else {
+            calloutView.userLabel.text = "\(wayPointAnnotation.aircraftRegistration)\(wayPointAnnotation.aircraftType)"
+        }
         
         var imageExists = false
         if let aspectRatio = wayPointAnnotation.imageAspect, aspectRatio != "0" {
