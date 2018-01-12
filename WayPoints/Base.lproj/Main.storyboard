@@ -1282,7 +1282,7 @@ Happy flying!</string>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYk-G0-T1T">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYk-G0-T1T">
                                             <rect key="frame" x="304" y="29" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -1294,23 +1294,22 @@ Happy flying!</string>
                                         <constraint firstItem="88S-vu-TdK" firstAttribute="leading" secondItem="rkx-P9-IDq" secondAttribute="leading" constant="16" id="7dh-QA-kXy"/>
                                         <constraint firstItem="88S-vu-TdK" firstAttribute="top" secondItem="rkx-P9-IDq" secondAttribute="top" constant="59" id="8xY-sY-qBC"/>
                                         <constraint firstItem="7c2-PY-ihY" firstAttribute="leading" secondItem="rkx-P9-IDq" secondAttribute="leading" id="HE6-2H-kMQ"/>
-                                        <constraint firstItem="jit-s3-QzD" firstAttribute="top" secondItem="65c-8D-OmU" secondAttribute="top" id="HQc-Pu-ATA"/>
                                         <constraint firstItem="65c-8D-OmU" firstAttribute="leading" secondItem="rkx-P9-IDq" secondAttribute="leading" constant="16" id="HXI-BX-3e5"/>
                                         <constraint firstAttribute="trailing" secondItem="88S-vu-TdK" secondAttribute="trailing" constant="16" id="Ord-Cf-GM4"/>
                                         <constraint firstItem="CwA-wh-Z6g" firstAttribute="leading" secondItem="rkx-P9-IDq" secondAttribute="leading" constant="16" id="OvE-MB-XsR"/>
                                         <constraint firstAttribute="trailing" secondItem="CwA-wh-Z6g" secondAttribute="trailing" constant="16" id="RA3-86-TTv"/>
                                         <constraint firstItem="65c-8D-OmU" firstAttribute="top" secondItem="rkx-P9-IDq" secondAttribute="top" constant="8" id="S4d-CJ-ryu"/>
+                                        <constraint firstItem="ric-Q0-JgW" firstAttribute="top" secondItem="rkx-P9-IDq" secondAttribute="top" constant="29" id="ZNq-8k-pve"/>
+                                        <constraint firstItem="ric-Q0-JgW" firstAttribute="leading" secondItem="rkx-P9-IDq" secondAttribute="leading" constant="16" id="aNx-zn-PxO"/>
                                         <constraint firstItem="w4s-Fc-tg8" firstAttribute="top" secondItem="CwA-wh-Z6g" secondAttribute="bottom" constant="16" id="bX8-34-8U6"/>
                                         <constraint firstAttribute="trailing" secondItem="jit-s3-QzD" secondAttribute="trailing" constant="16" id="ez0-gu-sXg"/>
                                         <constraint firstItem="CwA-wh-Z6g" firstAttribute="top" secondItem="7c2-PY-ihY" secondAttribute="bottom" constant="8" id="fVx-eq-Wal"/>
                                         <constraint firstItem="jit-s3-QzD" firstAttribute="top" secondItem="rkx-P9-IDq" secondAttribute="top" constant="8" id="i7C-uR-8by"/>
-                                        <constraint firstItem="ric-Q0-JgW" firstAttribute="top" secondItem="65c-8D-OmU" secondAttribute="bottom" id="jmd-gF-oe2"/>
-                                        <constraint firstItem="HYk-G0-T1T" firstAttribute="trailing" secondItem="jit-s3-QzD" secondAttribute="trailing" id="kSi-4U-DzD"/>
                                         <constraint firstAttribute="trailing" secondItem="w4s-Fc-tg8" secondAttribute="trailing" id="mEq-Uk-KAt"/>
                                         <constraint firstItem="w4s-Fc-tg8" firstAttribute="leading" secondItem="rkx-P9-IDq" secondAttribute="leading" id="mRA-hh-g39"/>
-                                        <constraint firstItem="HYk-G0-T1T" firstAttribute="top" secondItem="ric-Q0-JgW" secondAttribute="top" id="uNp-Z3-Ja7"/>
-                                        <constraint firstItem="ric-Q0-JgW" firstAttribute="leading" secondItem="65c-8D-OmU" secondAttribute="leading" id="uX1-SY-BRa"/>
+                                        <constraint firstItem="HYk-G0-T1T" firstAttribute="top" secondItem="rkx-P9-IDq" secondAttribute="top" constant="29" id="si1-MX-CGY"/>
                                         <constraint firstAttribute="bottom" secondItem="w4s-Fc-tg8" secondAttribute="bottom" id="zOH-d7-OHk"/>
+                                        <constraint firstAttribute="trailing" secondItem="HYk-G0-T1T" secondAttribute="trailing" constant="16" id="zYj-B6-Q1p"/>
                                         <constraint firstAttribute="trailing" secondItem="7c2-PY-ihY" secondAttribute="trailing" id="zlr-fm-0YP"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -1364,10 +1363,10 @@ Happy flying!</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLx-Dn-Btj">
-                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="YMa-d1-Peh">
-                                <rect key="frame" x="141.5" y="207" width="37" height="37"/>
+                                <rect key="frame" x="141.5" y="229" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1772,7 +1771,7 @@ Happy flying!</string>
         <image name="tutorial8" width="1125" height="2436"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TIi-Ww-qUW"/>
-        <segue reference="bFj-le-En0"/>
+        <segue reference="gvT-uu-C8Z"/>
+        <segue reference="1Ud-bt-60B"/>
     </inferredMetricsTieBreakers>
 </document>
