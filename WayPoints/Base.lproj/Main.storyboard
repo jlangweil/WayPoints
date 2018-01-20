@@ -99,6 +99,12 @@
                                     <constraint firstAttribute="width" secondItem="00Y-Ob-ecY" secondAttribute="width" multiplier="1.1" id="hz6-th-a7q"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 WayPoints" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oi2-GC-Iuz">
+                                <rect key="frame" x="120" y="87" width="80" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -108,6 +114,7 @@
                             <constraint firstAttribute="trailing" secondItem="PhB-jD-VYJ" secondAttribute="trailing" id="FE1-Rh-NFK"/>
                             <constraint firstItem="o0t-Sv-JNF" firstAttribute="top" secondItem="DxO-QT-VLm" secondAttribute="bottom" constant="8" id="FEM-5v-gCy"/>
                             <constraint firstItem="Pue-aF-djE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="H3Y-Zu-7iO"/>
+                            <constraint firstItem="Oi2-GC-Iuz" firstAttribute="top" secondItem="Pue-aF-djE" secondAttribute="bottom" constant="2" id="J68-TS-GU9"/>
                             <constraint firstItem="tBz-YV-8pb" firstAttribute="trailing" secondItem="DxO-QT-VLm" secondAttribute="trailing" id="N6q-gD-PDE"/>
                             <constraint firstItem="Pue-aF-djE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="4" id="OPq-QO-JKh"/>
                             <constraint firstItem="PhB-jD-VYJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Unx-7D-xHI"/>
@@ -118,6 +125,7 @@
                             <constraint firstItem="e1O-2K-zUT" firstAttribute="centerY" secondItem="o0t-Sv-JNF" secondAttribute="centerY" id="fpN-Iy-xj0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4m9-kz-jaT" secondAttribute="bottom" id="i81-7I-8Dt"/>
                             <constraint firstItem="e1O-2K-zUT" firstAttribute="centerX" secondItem="PhB-jD-VYJ" secondAttribute="centerX" id="lCs-5h-5tB"/>
+                            <constraint firstItem="Oi2-GC-Iuz" firstAttribute="centerX" secondItem="Pue-aF-djE" secondAttribute="centerX" id="oKz-th-SPf"/>
                             <constraint firstItem="PhB-jD-VYJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uPX-Pz-ykr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -145,6 +153,7 @@
                     <connections>
                         <outlet property="mapTypeButton" destination="DxO-QT-VLm" id="fe4-xK-Vhj"/>
                         <outlet property="mapView" destination="PhB-jD-VYJ" id="v73-Hk-lD9"/>
+                        <outlet property="numOfWayPointsLabel" destination="Oi2-GC-Iuz" id="IEc-9N-chd"/>
                         <outlet property="pendingUploadLabel" destination="00Y-Ob-ecY" id="8lI-5g-eXh"/>
                         <outlet property="pendingUploadView" destination="4m9-kz-jaT" id="fR4-sj-sJO"/>
                         <outlet property="showMyWayPointsLabel" destination="7DL-ZD-2sr" id="lIy-g1-MG0"/>
@@ -1363,10 +1372,10 @@ Happy flying!</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLx-Dn-Btj">
-                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="YMa-d1-Peh">
-                                <rect key="frame" x="141.5" y="229" width="37" height="37"/>
+                                <rect key="frame" x="141.5" y="207" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1771,7 +1780,7 @@ Happy flying!</string>
         <image name="tutorial8" width="1125" height="2436"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gvT-uu-C8Z"/>
-        <segue reference="1Ud-bt-60B"/>
+        <segue reference="TIi-Ww-qUW"/>
+        <segue reference="bFj-le-En0"/>
     </inferredMetricsTieBreakers>
 </document>

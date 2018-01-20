@@ -24,6 +24,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     var startingDate = Date()
     var endingDate = Date()
     var selectedAnnotation: MKAnnotationView?
+    var numOfWayPointsShownOnMap = 0
+    @IBOutlet weak var numOfWayPointsLabel: UILabel!
     
     @IBOutlet weak var mapTypeButton: UIButton!
     @IBAction func changeMapType(_ sender: Any) {
@@ -111,7 +113,6 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         showMyWayPointsSwitch.backgroundColor = UIColor.gray
         showMyWayPointsSwitch.layer.cornerRadius = 16.0
         
@@ -518,6 +519,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     private func getWayPointsFromDatabase() {
         self.mapView.removeAnnotations(waypoints)
         waypoints.removeAll()
+        numOfWayPointsShownOnMap = 0
         let ref = Database.database().reference()
         ref.removeAllObservers()
         print(self.startDate!)
@@ -551,6 +553,8 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
                 if addToMap == true {
                     self?.waypoints.append(wayPointToBeAdded)
                     self?.mapView.addAnnotation(wayPointToBeAdded)
+                    self?.numOfWayPointsShownOnMap += 1
+                    self?.numOfWayPointsLabel.text = "\(self?.numOfWayPointsShownOnMap ?? 0) WayPoints"
                 }
             }
         })
