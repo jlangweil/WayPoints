@@ -40,7 +40,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         }
     }
     
-    var datePickerContainer = UIView()
+   var datePickerContainer = UIView()
     
     var mapCenter : CLLocationCoordinate2D? {
         didSet {
@@ -520,6 +520,7 @@ class MapViewViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         self.mapView.removeAnnotations(waypoints)
         waypoints.removeAll()
         numOfWayPointsShownOnMap = 0
+        self.numOfWayPointsLabel.text = "0 WayPoints"
         let ref = Database.database().reference()
         ref.removeAllObservers()
         print(self.startDate!)

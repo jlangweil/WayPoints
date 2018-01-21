@@ -34,6 +34,7 @@
 		189EB9E91F95471D00BBDF90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 189EB9E71F95471D00BBDF90 /* LaunchScreen.storyboard */; };
 		18D7AF081F9945500087B9E6 /* MapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7AF071F9945500087B9E6 /* MapViewViewController.swift */; };
 		18D7AF0C1F9A6C1C0087B9E6 /* WayPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7AF0B1F9A6C1C0087B9E6 /* WayPointAnnotation.swift */; };
+		18F30EA32014EF4200011F8D /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F30EA22014EF4200011F8D /* FilterTableViewController.swift */; };
 		1DA68FCDA61D9C67C88A0B02 /* Pods_WayPoints.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEBC445BA4A3A4B197994E2 /* Pods_WayPoints.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		189EB9EA1F95471D00BBDF90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D7AF071F9945500087B9E6 /* MapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewController.swift; sourceTree = "<group>"; };
 		18D7AF0B1F9A6C1C0087B9E6 /* WayPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointAnnotation.swift; sourceTree = "<group>"; };
+		18F30EA22014EF4200011F8D /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
 		61741BB6FC7704E33566E738 /* Pods-WayPoints.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayPoints.release.xcconfig"; path = "Pods/Target Support Files/Pods-WayPoints/Pods-WayPoints.release.xcconfig"; sourceTree = "<group>"; };
 		7A045CAB13D3295B3FF213A5 /* Pods-WayPoints.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayPoints.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WayPoints/Pods-WayPoints.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +116,7 @@
 				180500251FA8196300644FF4 /* CustomCalloutView.swift */,
 				1873F2D01FB53DB600570C24 /* AddWaypointTableViewController.swift */,
 				18D7AF071F9945500087B9E6 /* MapViewViewController.swift */,
+				18F30EA22014EF4200011F8D /* FilterTableViewController.swift */,
 				189EB9DF1F95471D00BBDF90 /* Main.storyboard */,
 				181850BE20070DB30029CC34 /* AboutViewController.swift */,
 				1808EF351FEC32A800C03D57 /* TutorialPageViewController.swift */,
@@ -357,6 +360,7 @@
 				184D234A1FBB3F60005D0BA8 /* SettingsTableViewController.swift in Sources */,
 				180500271FA8196300644FF4 /* CustomCalloutView.swift in Sources */,
 				1805002B1FAF978100644FF4 /* WayPointTableViewController.swift in Sources */,
+				18F30EA32014EF4200011F8D /* FilterTableViewController.swift in Sources */,
 				184D234E1FBB4716005D0BA8 /* SettingsDisplayHistoryTableViewController.swift in Sources */,
 				1805002D1FAF9AFF00644FF4 /* WayPointCustomTableCell.swift in Sources */,
 				189EB9E41F95471D00BBDF90 /* WayPoints.xcdatamodeld in Sources */,
